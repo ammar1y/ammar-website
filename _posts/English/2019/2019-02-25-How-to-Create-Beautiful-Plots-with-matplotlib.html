@@ -1,0 +1,88 @@
+---
+layout: post
+title:  "How to Create Beautiful Plots with matplotlib"
+date:   2019-02-25
+categories: [data-science]
+tags: [data-analysis, data-science, data-visualization, python, matplotlib] 
+permalink: "/:year/how-to-create-beautiful-plots-with-matplotlib"
+technicalEn: "yes"
+---
+
+<p>Python is one of the main tools in the data science world today. Python has many packages and libraries for plotting. <a href='https://matplotlib.org/'>Matplotlib</a> is one of the most used packages for plotting. However, the default plots are not that beautiful, in my opinion at least. Take a look below to see a plot produced with the default settings:</p>
+<p><img src='/assets/images/2019/mg1.jpeg' alt='' referrerPolicy='no-referrer' /></p>
+<p>In this post, I will share my way in producing beautiful plots with Matplotlib. </p>
+<p>We will start with a plot produced with default settings. We will use the following code to generate some data and produce a histogram plot:</p>
+<pre><code class='language-python' lang='python'>import numpy as np
+from matplotlib import pyplot as plt
+
+%config InlineBackend.figure_format = &#39;retina&#39;
+
+np.random.seed(3)
+x = np.random.randn(250)
+plt.hist(x);
+</code></pre>
+<p>This gives us the following plot:</p>
+<p><img src='/assets/images/2019/mg1.jpeg' alt='' referrerPolicy='no-referrer' /></p>
+<p>Now we want to improve this plot by using some of the options provided by Matplotlib.</p>
+<h2>Figure size</h2>
+<p>The default size of a Matplotlib figure (which is the space on which plots are drawn) is 6 x 4 inches. This is sometimes not big enough for your plot. To change that, we create a figure with our desired dimensions then we plot what we need to plot. For example:</p>
+<pre><code class='language-python' lang='python'>fig, ax = plt.subplots(figsize=(8, 5.5))
+plt.hist(x);
+</code></pre>
+<h2>Axis labels</h2>
+<p>As seen in the default plot, there are no labels on the x-axis and y-axis. Sometimes we need labels so we can know what each axis represents. We can set the labels as follows:</p>
+<pre><code class='language-python' lang='python'>ax.set_xlabel(&quot;Weight&quot;, labelpad=15, fontsize=12, color=&quot;#333533&quot;);
+ax.set_ylabel(&quot;Count&quot;, labelpad=15, fontsize=12, color=&quot;#333533&quot;);
+</code></pre>
+<p>We labeled the x-axis with &quot;Weight&quot; assuming that our data represents weights of people. We set the space between the x-axis and the label to 15pt so it is not so close to the axis. Also, we made the label a little bit bigger (the default size is 10pt), and we chose a somewhat gray color for the label so it doesn&#39;t distract the reader from the plot. Similar things were applied to the y-axis. The result is:</p>
+<p><img src='/assets/images/2019/mg2.jpeg' alt='' referrerPolicy='no-referrer' /></p>
+<h2>Colors</h2>
+<p>With Matplotlib, we can change the color of a lot of objects. In our example, we can change the color of the histogram, the color of the background inside the axes and outside the axes, the color of the text, etc.</p>
+<p>We will use the same command we used before to plot the histogram but with a parameter that specify the color:</p>
+<pre><code class='language-python' lang='python'>plt.hist(x, color=&quot;#073642&quot;);
+</code></pre>
+<p>This results in the following graph:</p>
+<p><img src='/assets/images/2019/mg3.jpeg' alt='' referrerPolicy='no-referrer' /></p>
+<p>Or you might go for something like the following:</p>
+<pre><code class='language-python' lang='python'>plt.hist(x, color=&quot;#d1ae45&quot;);
+# to change background color inside the axes
+ax.set_facecolor(&quot;#2E2E2E&quot;)
+</code></pre>
+<p>which produces this graph:</p>
+<p><img src='/assets/images/2019/mg4.jpeg' alt='' referrerPolicy='no-referrer' /></p>
+<h2>Matplotlib plot system</h2>
+<p>To be able to customize the plot, it is important to know the plotting system of Matplotlib. In Matplotlib, everything is plotted and written on a <em>figure</em>. A figure might contain more than one plot (subplots). A plot is represented as axes that contain the desired shape (histogram, scatter plot, etc.). You can control a lot of things in Matplotlib by working with these three items: <a href='https://matplotlib.org/api/_as_gen/matplotlib.pyplot.figure.html'>the figure</a>, <a href='https://matplotlib.org/api/axes_api.html'>the axes</a>, and the shape which you can customize it using its corresponding function (for example, when we plot a histogram using <code>plt.hist(data)</code> function, we can specify the color of the histogram with <code>plt.hist(data, color=&quot;darkblue&quot;)</code>. There are many other parameters to play with ).</p>
+<p>Personally, I create my Matplotlib plots using something like this:</p>
+<pre><code class='language-python' lang='python'>fig, ax = plt.subplots(figsize=(10, 7))
+ax.hist(data, color=&quot;#333333&quot;)
+</code></pre>
+<p>This gives me the <code>fig</code> and <code>ax</code> objects with which I can control many aspects.</p>
+<h2>Grid</h2>
+<p>Sometimes we need a grid in our graph to make it easier to read. The following code draws a grid with a light gray color so it does not distract the reader.</p>
+<pre><code class='language-python' lang='python'># The following line is to prevent the grid
+# from appearing on the histogram
+ax.set_axisbelow(True)
+# alpha is used to control the transparency
+plt.grid(True, color=&quot;#93a1a1&quot;, alpha=0.3)
+</code></pre>
+<p>The result can be seen below:</p>
+<p><img src='/assets/images/2019/mg5.jpeg' alt='' referrerPolicy='no-referrer' /></p>
+<h2>Color combinations</h2>
+<p>Some types of visualizations can be made with more than one color. For example, pie charts, bar charts, a plot with more than one histogram on it, etc. In this case, choosing the colors for the plot becomes more effective in determining the beauty of the plot. There are a lot of websites that show many beautiful color combinations. For example, <a href='http://colorhunt.co/' target='_blank' class='url'>http://colorhunt.co/</a>, <a href='https://coolors.co/browser/best/1' target='_blank' class='url'>https://coolors.co/browser/best/1</a>, <a href='https://flatuicolors.com/' target='_blank' class='url'>https://flatuicolors.com/</a>, etc. There are also websites that suggests colors specifically for data visualization like <a href='https://learnui.design/tools/data-color-picker.html' target='_blank' class='url'>https://learnui.design/tools/data-color-picker.html</a> and <a href='http://tristen.ca/hcl-picker' target='_blank' class='url'>http://tristen.ca/hcl-picker</a>. Here are some examples from a previous data analysis I&#39;ve done:</p>
+<p><img src='/assets/images/2019/mg6.png' alt='' referrerPolicy='no-referrer' /></p>
+<p><img src='/assets/images/2019/mg7.png' alt='' referrerPolicy='no-referrer' /></p>
+<h2>Don&#39;t repeat yourself</h2>
+<p>If you have particular settings that you want to apply to all of your plots, you can use Matplotlib rcParams to do so. Changing the settings of rcParams will affect all subsequent plots. For example, if you want all plots to have the size 12 x 8 inches instead of the default 6 x 4 inches, you can write:</p>
+<pre><code class='language-python' lang='python'>plt.rc(&#39;figure&#39;, figsize=(8, 5))
+</code></pre>
+<p>To change rcParams settings, you pass first the group you want to change its settings (in the example above, the group is <code>&#39;figure&#39;</code>) then you pass the settings you want to change with their values. For a complete list of rcParams, click <a href='https://matplotlib.org/users/customizing.html#a-sample-matplotlibrc-file'>here</a>.</p>
+<h2>High quality plots in Jupyter notebooks</h2>
+<p>To get clearer and high-quality plots when using Matplotlib in Jupyter notebooks, use the following line in any cell before you plot:</p>
+<pre><code class='language-python' lang='python'>%config InlineBackend.figure_format = &#39;retina&#39;
+</code></pre>
+<p>&nbsp;</p>
+<h2>Notes</h2>
+<ul>
+<li>When you choose the color of some text, make sure the contrast between the text and its background is enough so the text is clearly readable. Search for &quot;contrast checker&quot; and you will find many websites that offer that service. For example, <a href='https://contrastchecker.com/' target='_blank' class='url'>https://contrastchecker.com/</a></li>
+
+</ul>

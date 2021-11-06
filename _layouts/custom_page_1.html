@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: "ar" }}">
+
+  {%- include head_ar.html -%}
+
+  <body>
+    {%comment%}
+    {%- include propellerads-popup-antiadblock.html -%}
+    {%endcomment%}
+
+
+    {{ content }}
+    
+    {%comment%}
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        {{ content }}
+      </div>
+    </main>
+    {%endcomment%}
+
+    {%- include footer_ar.html -%}
+
+  </body>
+
+</html>

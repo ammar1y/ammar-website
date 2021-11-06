@@ -1,0 +1,59 @@
+---
+layout: default_ar
+---
+
+<div class="home">
+  {%- if page.title -%}
+  <h1 class="page-heading">{{ page.title }}</h1>
+  {%- endif -%}
+
+  {{ content }}
+
+  <div class="ar-banner">
+    <a href="{% link pages_ar/learn-python-arabic-course.html %}">
+      <img src="/assets/images/2020/py-course-ar-banner.png"
+    </a>
+  </div>
+
+  <div class="ar-banner-mobile">
+    <a href="{% link pages_ar/learn-python-arabic-course.html %}">
+      <img src="/assets/images/2020/py-course-ar-banner-mobile.gif"
+    </a>
+  </div>
+
+  {%- if site.posts.size > 0 -%}
+  <!-- <h2 class="post-list-heading">{{ page.list_title | default: "المنشورات" }}</h2> -->
+  <ul class="post-list" id="listingTable">
+    {%- for post in site.posts -%}
+    {%- if post.postlang == 'arabic' -%}
+    {% unless post.categories contains "دورة-تعلم-البرمجة-بلغة-بايثون" %}
+      <li>
+        {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+        <span class="post-meta">{{ post.date | date: date_format }}</span>
+        <h3>
+          <a class="post-link" href="{{ post.url | relative_url }}">
+            {{ post.title | escape }}
+          </a>
+        </h3>
+        {%- if site.show_excerpts -%}
+        {{ post.excerpt }}
+        {%- endif -%}
+      </li>
+    {% endunless %}
+    {%- endif -%}
+    {%- endfor -%}
+  </ul>
+
+  <p id="page-nav">
+    <a href="javascript:prevPage()" id="btn_prev">→</a>
+    الصفحة: <span id="page"></span>
+    <a href="javascript:nextPage()" id="btn_next">←</a>
+  </p>  
+
+  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | relative_url }}">via
+      RSS</a></p>
+  {%- endif -%}
+
+</div>
+
+{%- include pagination.html -%}

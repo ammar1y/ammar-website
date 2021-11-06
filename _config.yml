@@ -1,0 +1,87 @@
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely edit after that. If you find
+# yourself editing this file very often, consider using Jekyll's data files
+# feature for the data you need to update frequently.
+#
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
+#
+# If you need help with YAML syntax, here are some quick references for you:
+# https://learn-the-web.algonquindesign.ca/topics/markdown-yaml-cheat-sheet/#yaml
+# https://learnxinyminutes.com/docs/yaml/
+#
+# Site settings
+# These are used to personalize your new site. If you look in the HTML files,
+# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
+# You can create any custom variable you would like, and they will be accessible
+# in the templates via {{ site.myvariable }}.
+
+title: "Ammar's Website"
+tagline: "A blog about data science."
+title_ar: "موقع عمار اليوسفي"
+author: "Ammar Alyousfi"
+author_ar: "عمار اليوسفي"
+email: ammar5656@gmail.com
+logo: "/assets/logo.png"
+description: "The personal website of Ammar Alyousfi which contains a blog about data science, data analysis, 
+data visualization, machine learning, Python, and more."
+description_ar: ""
+# baseurl: "Personal-Website" # the subpath of your site, e.g. /blog
+url: "https://ammar-alyousfi.com" # the base hostname & protocol for your site, e.g. http://example.com
+twitter_username: "ammar_cel"
+github_username:  "ammar1y"
+instagram_username: "ammar.you"
+stackoverflow_username: "ammar-alyousfi"
+kaggle_username: "ammar111"
+rss: "Subscribe (RSS)"
+social:
+  name: Ammar Alyousfi
+  links:
+    - https://github.com/ammar1y
+    - https://www.linkedin.com/in/ammar-alyousfi/
+    - https://www.kaggle.com/ammar111
+    - https://stackoverflow.com/users/2282785/ammar-alyousfi
+    - https://www.quora.com/profile/Ammar-Alyousfi
+    - https://www.instagram.com/ammar.you/
+
+paginate: 190
+
+# Build settings
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+  - jekyll-paginate
+
+google_analytics: "UA-117443607-1"
+
+markdown: kramdown
+
+# Disqus Comments
+disqus:
+  # Leave shortname blank to disable comments site-wide.
+  # Disable comments for any post by adding `comments: false` to that post's YAML Front Matter.
+  shortname: "ammar-alyousfi"
+
+# Exclude from processing.
+# The following items will not be processed, by default.
+# Any item listed under the `exclude:` key here will be automatically added to
+# the internal "default list".
+#
+# Excluded items can be processed by explicitly listing the directories or
+# their entries' file path in the `include:` list.
+#
+# exclude:
+#   - .sass-cache/
+#   - .jekyll-cache/
+#   - gemfiles/
+#   - Gemfile
+#   - Gemfile.lock
+#   - node_modules/
+#   - vendor/bundle/
+#   - vendor/cache/
+#   - vendor/gems/
+#   - vendor/ruby/

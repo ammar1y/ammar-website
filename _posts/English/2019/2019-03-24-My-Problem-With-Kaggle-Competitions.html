@@ -1,0 +1,62 @@
+---
+layout: post
+title: "My Problem With Kaggle Competitions"
+date: 2019-03-24
+categories: [data-science]
+tags: [data-science, kaggle, machine-learning]
+permalink: "/:year/my-problem-with-kaggle-competitions"
+---
+
+<p class="featured-image"><img
+    src="/assets/images/2019/race.jpg">
+</p>
+<p>For those who don&#39;t know <a href='https://www.kaggle.com/docs/competitions'>Kaggle
+    Competitions</a>: they are machine-learning competitions where multiple teams (or
+  individuals) compete for the best score.</p>
+<p>My problem is shown in the following three screenshots of the final ranking (the
+  leaderboard) for three Kaggle competitions:</p>
+<p><a
+    href='https://www.kaggle.com/c/predicting-red-hat-business-value/leaderboard'>Predicting
+    Red Hat Business Value:</a></p>
+<p><img
+    src='/assets/images/2019/kg1.png'
+    alt='' referrerPolicy='no-referrer' /></p>
+<p><a href='https://www.kaggle.com/c/pubg-finish-placement-prediction/leaderboard'>PUBG
+    Finish Placement Prediction</a></p>
+<p><img
+    src='/assets/images/2019/kg2.png'
+    alt='' referrerPolicy='no-referrer' /></p>
+<p><a href='https://www.kaggle.com/c/ga-customer-revenue-prediction/leaderboard'>Google
+    Analytics Customer Revenue Prediction competition:</a></p>
+<p><img
+    src='/assets/images/2019/kg3.png'
+    alt='' referrerPolicy='no-referrer' /></p>
+<p>What do you notice in these screenshots?</p>
+<p>The difference in score that allows somebody to win a competition is <em>tiny</em> and
+  not practical in my opinion. Let&#39;s take the Predicting Red Hat Business Value
+  competition as an example. In this competition, participants are asked to identify which
+  customers have the most potential business value for Red Hat based on their
+  characteristics and activities; they are required to assign a probability (between 0 and
+  1) to each customer. The metric used for evaluation is <a
+    href='http://en.wikipedia.org/wiki/Receiver_operating_characteristic'>area under the
+    ROC curve</a>. </p>
+<p>We can see in the leaderboard that the score of the third team is 0.99459 while the
+  score of the fourth team is 0.99400. The small difference between these two scores ( =
+  <strong>0.00059</strong>) qualified one to win the competition and deprived the other of
+  that.</p>
+<p>Moreover, the difference between the first-ranked participant and the 300th-participant
+  is only 0.00343. Does a difference of 0.00059 really reflect a practical difference
+  between the two solutions? I doubt that.</p>
+<h2>So is there an alternative?</h2>
+<p>I think that a better alternative would be to define score ranges for evaluation. For
+  example, for the Predicting Red Hat Business Value competition, consider those whose
+  scores are higher than 0.992 as the winners of the competition, those whose scores are
+  higher than 0.9917 as gold-medal winners, and so on. This will leave us with 94
+  competition winners and 150 gold-medal winners for example (the number of participants
+  in this competition was 2271). </p>
+<p>And for money prize, the current approach can be followed where the first three get the
+  money since it is not reasonable to distribute it to 94 teams.</p>
+<p>I think that this alternative encourages the development of more generalized models,
+  and it will allow people with similar skill levels to have similar rank in the
+  competition as well. This is what I think at the moment based on my understanding of
+  Kaggle competitions.</p>

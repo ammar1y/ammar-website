@@ -1,0 +1,282 @@
+---
+layout: post
+title:  "Machine Learning: Linear Regression, Simply Explained"
+date:   2018-11-20
+categories: [data-science]
+tags: [data-science, linear-regression, machine-learning]
+permalink: "/:year/machine-learning-linear-regression-simply-explained"
+technicalEn: "yes"
+---
+
+<p><img class="featured-image" src="/assets/images/2018/linear-reg.png" /></p>
+
+<p>Linear regression is fitting a line to our data.</p>
+
+<p>First, let&#39;s explore linear regression when we have only one variable (one feature; one independent variable).</p>
+
+<p>Suppose that we have a table that describes house prices based on one feature which is the size of the house:</p>
+
+<table>
+<thead>
+<tr>
+<th>Size in m<sup>2</sup> (x)</th>
+<th>Price in $ (y)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2104</td>
+<td>460,000</td>
+</tr>
+<tr>
+<td>1416</td>
+<td>232,000</td>
+</tr>
+<tr>
+<td>1002</td>
+<td>112,000</td>
+</tr>
+<tr>
+<td>1721</td>
+<td>382,000</td>
+</tr>
+<tr>
+<td>1590</td>
+<td>266,000</td>
+</tr>
+<tr>
+<td>1302</td>
+<td>201000</td>
+</tr>
+</tbody>
+</table>
+
+<p>Let \(m\) be the number of examples, \(x^i\) be the i-th element for variable \(x\) , and \(y^i\) be the i-th element for variable \(y\). For our example, \(m=4\), \(x^2=1416\), and \(y^3=112,000\). In real cases, \(m\) is much large than 4. We use four entries here just for clarification.</p>
+
+<p>The variable \(x\) is called feature, and variable \(y\) is called target.</p>
+
+<p>We call these examples the training examples, meaning that they are used to train a machine-learning model (in our case, linear regression) so we can use that model to predict the target variable for new data.</p>
+
+<p>To do so, we need to calculate a function called the hypothesis (\(h_\theta(x)\)) that can be used to predict house price knowing its size. This function has the following form:</p>
+
+<p>$$ h_\theta(x)=\theta_0+\theta_1x $$</p>
+
+<p>Note that this equation looks like the <a href="https://www.mathsisfun.com/algebra/linear-equations.html">line equation</a> (\(y=b+mx\)) where \(m\) is the slope of the line and \(b\) is the where the line intersects with the y axis.</p>
+
+<p>In our equation, \(x\) is our one feature, the size of the house. \(\theta_0\) and \(\theta_1\) are unknowns; we need to find the optimal values for these two parameters. \(h_\theta(x)\) represents the predicted price. We want \(h_\theta(x)\) to be a good predictor, we want its value to be as close as possible to the actual \(y\) value.</p>
+
+<p>Let&#39;s suppose that we have these data points:</p>
+
+<p><img alt="" src="/assets/images/2018/regp1.png" /></p>
+
+<p>where each point represents a house, where the size of this house is on the x-axis and its price is on the y-axis.</p>
+
+<p>We want to find a line that fit this data better than any other line. In other words, we want to find the optimal values for \(\theta_0\) and \(\theta_1\) in the following equation:</p>
+
+<p>$$ h_\theta(x)=\theta_0+\theta_1x $$</p>
+
+<p>which represents a line as we said earlier. We can try many values for \(\theta_0\) and \(\theta_1\) until we reach a satisfactory results, but this is not a practically efficient way. Instead, we will use a function called the cost function with an algorithm called gradient descent to reach the optimal values for our two parameters.</p>
+
+<p>The cost function is used to calculate the error in our model, to know, for given values of \(\theta_0\) and \(\theta_1\), how good is our hypothesis, how close are the predicted values to the actual values. The cost function for linear regression can have the following formula:</p>
+
+<p>$$ \text{Cost}=J(\theta)=\frac{1}{2m}\sum_{i=1}^m(h_\theta(x^i)-y^i)^2 $$</p>
+
+<p>So this cost function calculates the difference between the predicted value and the actual value for all the training examples that we have. Our goal is to choose values for theta0 and theta1 that minimize the cost function.</p>
+
+<p>For example, let&#39;s calculate the cost function value for the training examples in the table above, assuming that theta0=1 and theta1=2 (This is just random. We will see later how to get the optimal values for theta0 and theta1):</p>
+
+<p>$$ J(\theta)=\frac{1}{2\times6}\sum_{i=1}^m(\theta_0+\theta_1x^i-y^i)^2=\\~\\\frac{1}{12}[(1+2\times2104-460000)^2+\\~\\(1+2\times1416-232000)^2+\\~\\(1+2\times1002-112000)^2+\\~\\(1+2\times1721-382000)^2+\\~\\(1+2\times1590-266000)^2+\\~\\(1+2\times1302-201000)^2] $$</p>
+
+<p>Now how to choose theta values? We do so using Gradient Descent algorithm, which is the <em>repeat</em> of:</p>
+
+<p>$$ \theta_j:=\theta_j-\alpha\frac{\partial}{\partial\theta_j}J(\theta) \qquad\text{ for }j=0,1 $$</p>
+
+<p>until convergence.</p>
+
+<p><code>:=</code> means that we compute the right side and assign it to the left side. \(\alpha\) is the learning rate, it controls the step size of gradient descent. \(\frac{\partial}{\partial\theta_j}J(\theta)\) is the partial derivative of the cost function with respect to \(\theta_j\).</p>
+
+<p>Gradient descent algorithm starts with random values of thetas. It calculates the right side of the assignment for all thetas then updates all thetas simultaneously. This happens because to calculate the right side of the assignment for some \(\theta\), you need the values of other thetas:</p>
+
+<p>$$ \theta_j:=\theta_j-\alpha\frac{\partial}{\partial\theta_j}\left(\frac{1}{2m}\sum_{i=1}^m(h_\theta(x^i)-y^i)^2\right)=\\~\\\theta_j-\alpha\frac{\partial}{\partial\theta_j}\left(\frac{1}{2m}\sum_{i=1}^m(\theta_0+\theta_1x^i-y^i)^2\right) $$</p>
+
+<p>The partial derivative of the cost function gives us the direction in which the gradient descent should move toward the optimal point at which the cost function has its smallest value. The partial derivative also has a magnitude that decreases as we get close to the optimal point.</p>
+
+<p>So gradient descent algorithm iterates and continues updating the parameters (thetas) until convergence, until the cost function value is not decreasing anymore. At that point, we can say that the values of thetas are optimal, meaning they produce the smallest cost (error) function value. This means that we can now use the equation:</p>
+
+<p>$$ h_\theta(x)=\theta_0+\theta_1x $$</p>
+
+<p>to get the predicted value (\(h_\theta(x)\)) for an input value (\(x\)). Let&#39;s say that we trained the model and got the optimal values for thetas, and that we got thete0 = 1 and theta1 = 212. Now, we want to predict the price of a new house whose size is 1333 m<sup>2</sup>, we apply our model (the hypothesis):</p>
+
+<p>$$ h_\theta(x)=\theta_0+\theta_1x = 1+212\times1333=282597 $$</p>
+
+<p>So we got a predicted value of $ 282597 for the house price.</p>
+
+<h2>Multivariate linear regression</h2>
+
+<p>Until now, we have been talking about linear regression with one input variable (one feature). In real-world problems, there are much more features. Data for multivariate linear regression might look like:</p>
+
+<table>
+<thead>
+<tr>
+<th>Size in m<sup>2</sup> (x<sub>1</sub>)</th>
+<th>Number of Bedrooms (x<sub>2</sub>)</th>
+<th>Number of Floors (x<sub>3</sub>)</th>
+<th>Age in years (x<sub>4</sub>)</th>
+<th>Price in $ (y)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2104</td>
+<td>3</td>
+<td>2</td>
+<td>40</td>
+<td>460,000</td>
+</tr>
+<tr>
+<td>1416</td>
+<td>1</td>
+<td>1</td>
+<td>42</td>
+<td>232,000</td>
+</tr>
+<tr>
+<td>1002</td>
+<td>1</td>
+<td>1</td>
+<td>31</td>
+<td>112,000</td>
+</tr>
+<tr>
+<td>1721</td>
+<td>2</td>
+<td>2</td>
+<td>22</td>
+<td>382,000</td>
+</tr>
+<tr>
+<td>1590</td>
+<td>2</td>
+<td>1</td>
+<td>45</td>
+<td>266,000</td>
+</tr>
+<tr>
+<td>1302</td>
+<td>1</td>
+<td>1</td>
+<td>44</td>
+<td>201000</td>
+</tr>
+</tbody>
+</table>
+
+<p>Here \(x_1\) is the first feature, \(x_2\) is the second one, and so on. \(x_2^1\) in this case represents the first value of the second feature (number of bedrooms), which is 3.</p>
+
+<p>The number of features is denoted by \(n\). In our example, \(n\) is 4.</p>
+
+<p>The same techniques used with univariate linear regression (linear regression with one variable) are used with multivariate linear regression. The difference is that we just add the new input variables with their corresponding parameters.</p>
+
+<p>So, the hypothesis function becomes:</p>
+
+<p>$$ h_\theta(x)=\theta_0+\theta_1x_1+\theta_2x_2+\theta_3x_3 + \cdots +\theta_nx_n $$</p>
+
+<p>The cost function retain its general form:</p>
+
+<p>$$ \text{Cost}=J(\theta)=\frac{1}{2m}\sum_{i=1}^m(h_\theta(x^i)-y^i)^2$$</p>
+
+<p>but \(h_\theta(x)\) will make it different. Also, gradient descent becomes:</p>
+
+<p>$$ \theta_j:=\theta_j-\alpha\frac{\partial}{\partial\theta_j}J(\theta) \qquad\text{ for }j=0,1,2,\cdots,n $$</p>
+
+<h2>Illustrated Example with Simple Python Code</h2>
+
+<p>Let&#39;s say that we have these data points as our training data:</p>
+
+<p><img alt="" src="/assets/images/2018/regp1.png" /></p>
+
+<p>Now, we want to fit a line to this data so we can use it to predict the output value for new data. First let&#39;s see a bad example of such a line:</p>
+
+<p><img alt="" src="/assets/images/2018/regp2.png" /></p>
+
+<p>This line clearly is not the best fit. All points are on one of its sides. Let&#39;s see a better solution:</p>
+
+<p><img alt="" src="/assets/images/2018/regp3.png" /></p>
+
+<p>This one is better but still not good enough. Let&#39;s write a simple Python code using <a href="https://scikit-learn.org/">scikit-learn</a> library, which is a great Python library that allows us to build many machine-learning models easily with a few lines of code:</p>
+
+<pre>
+<span style="color:#006a00"># import the part that we need from scikit-learn</span>
+<span style="color:#aa0d91">from</span> sklearn.linear_model <span style="color:#aa0d91">import</span> LinearRegression
+
+<span style="color:#006a00"># Create the features array. </span>
+<span style="color:#006a00"># We have one feature in our example =&gt; </span>
+<span style="color:#006a00"># one column in feature array</span>
+x = [[<span style="color:#1c00cf">1375</span>],
+[<span style="color:#1c00cf">1737</span>],
+[<span style="color:#1c00cf">1702</span>],
+[<span style="color:#1c00cf">1411</span>],
+[<span style="color:#1c00cf">2119</span>],
+[<span style="color:#1c00cf">1735</span>],
+[<span style="color:#1c00cf">1545</span>],
+[<span style="color:#1c00cf">1566</span>],
+[<span style="color:#1c00cf">1754</span>],
+[<span style="color:#1c00cf">1930</span>]]
+
+<span style="color:#006a00"># Create the target array</span>
+y = [<span style="color:#1c00cf">263928</span>,
+<span style="color:#1c00cf">344085</span>,
+<span style="color:#1c00cf">345505</span>,
+<span style="color:#1c00cf">289701</span>,
+<span style="color:#1c00cf">445548</span>,
+<span style="color:#1c00cf">348764</span>,
+<span style="color:#1c00cf">328066</span>,
+<span style="color:#1c00cf">319531</span>,
+<span style="color:#1c00cf">372130</span>,
+<span style="color:#1c00cf">383157</span>]
+
+<span style="color:#006a00"># Create an instance of LinearRegression model</span>
+model = LinearRegression()
+
+<span style="color:#006a00"># Fit the model to our data with one command</span>
+model.fit(x, y)
+
+<span style="color:#006a00"># Now we can see the value of the parameters</span>
+<span style="color:#006a00"># theta_0 and theta_1</span>
+<span style="color:#006a00"># theta_0 is stored in model.intercept_</span>
+print(<span style="color:#c41a16">&quot;theta_0 =&quot;</span>, model.intercept_)
+<span style="color:#006a00"># -22610.91211103683</span>
+<span style="color:#006a00"># theta_1 is stored in model.coef_</span>
+print(<span style="color:#c41a16">&quot;theta_1 =&quot;</span>, model.coef_)
+<span style="color:#006a00"># [217.28837982]</span></pre>
+
+<p>When we run these lines of code, we get the values of \(\theta_0\) and \(\theta_1\):</p>
+
+<pre>
+theta_0 = <span style="color:#1c00cf">-22610.91211103683</span>
+theta_1 = [<span style="color:#1c00cf">217.28837982</span>]</pre>
+
+<p>Now that we have the optimal values for our parameters, let&#39;s plot the line using these values:</p>
+
+<p><img alt="" src="/assets/images/2018/regp4.png" /></p>
+
+<p>We can see that this line represents a better fit to the data than the previous two lines. And now, we can use the equation of this line that we talked about earlier:</p>
+
+<p>$$ h_\theta(x)=\theta_0+\theta_1x $$</p>
+
+<p>to predict the output for new data. Let&#39;s have an example: suppose that we get a new data, which is the size of a house, and we want to predict its price using our model. If the size is 2030 m<sup>2</sup>. We can calculate the predicted values as follows:</p>
+
+<p>$$ h_\theta(2030)=-22610.91211103683+217.28837982\times2030\\~\\=418484.49892356317 $$</p>
+
+<p>So the predicted price is $418484.5. We can get the same value using the model that we built in Python:</p>
+
+<pre>
+print(model.predict([[<span style="color:#1c00cf">2030</span>]]))</pre>
+
+<p>This would be the new data point that we just predicted its target value; it is shown in yellow:</p>
+
+<p><img alt="" src="/assets/images/2018/regp5.png" /></p>
+
+<p>This post is highly influenced by <a href="https://www.coursera.org/learn/machine-learning">Machine Learning course</a> by Prof. Andrew Ng.</p>
+<script src='http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'
+async></script>

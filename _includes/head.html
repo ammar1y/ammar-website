@@ -1,0 +1,18 @@
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {%- seo -%}
+  <link rel="stylesheet" href="{{ "/assets/main.css" | relative_url }}">
+  {%- feed_meta -%}
+  {%- if jekyll.environment == 'production' and site.google_analytics -%}
+    {%- include google-analytics.html -%}
+  {%- endif -%}
+  {% if page.sharing-img %}
+    <meta property="og:image" content="{{ site.url }}{{ page.sharing-img }}" />
+  {% endif %}
+  <meta name="propeller" content="b696b73b7a9aef3af58fb8c09ff2ac92">
+  <script data-ad-client="ca-pub-7266686207066838" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <meta name="p:domain_verify" content="21dc05e499b703d5454dcacfdc85a03e"/>
+  <link rel="icon" type="image/png" href="/assets/favicon.png"/>
+</head>
