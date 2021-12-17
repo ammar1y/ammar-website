@@ -188,7 +188,7 @@
 
 .page-heading {
   @include relative-font-size(2);
-  
+  font-weight: 700;
   color: $dsd-dark-grey;
 }
 
@@ -196,13 +196,17 @@
   @include relative-font-size(1.75);
 }
 
-.post-list {
+.post-list, .featured-post-list {
   margin-left: 0;
   list-style: none;
 
   > li {
     margin-bottom: $spacing-unit;
   }
+}
+
+.featured-post-list {
+  margin-bottom: $spacing-unit * 1.5;
 }
 
 .post-meta {
@@ -224,8 +228,44 @@
   }
 }
 
+.list-post-categories {
+  font-size: $small-font-size;
+  color: $grey-color;
+  background: #EFF6FF;
+  border-radius: 5px;
+  padding: 1px 5px;
+  a, a:visited {
+    color: $grey-color;
+    text-decoration: none s;
+  }
+  a:hover {
+    color: #E74727;
+    text-decoration: underline solid $grey-color;
+  }
+}
+
+.list-post-tags {
+  font-size: $tiny-font-size;
+  color: $grey-color;
+  // background: #EFF6FF;
+  // border-radius: 5px;
+  // padding: 1px 5px;
+  a, a:visited {
+    color: $grey-color;
+    text-decoration: underline dotted lighten($grey-color, 20%);
+  }
+  a:hover {
+    color: #E74727;
+    text-decoration: underline solid $grey-color;
+  }
+}
+
+h3.list-post-title {
+  margin-bottom: 0;
+}
+
 .post-link {
-  display: block;
+  // display: block;
   @include relative-font-size(1.5);
   color: $dsd-dark-grey;
   position: relative;
@@ -248,9 +288,9 @@
     transition: all 0.5s;
   }
   &:hover::after {
-    width: 80%; 
-    height: 30px;
-    transition: width 5s, height 5s;
+    width: 100%; 
+    height: 10px;
+    transition: width 1s, height 1s;
     opacity: 0.1;
   }
 }
@@ -369,3 +409,127 @@ p.text-box-3 {
   display: inline-block;
 }
 
+$sub-color: #D90000;
+$sub-color: #214658;
+$sub-color: #BE2805;
+$bc: #FEFCF5;
+$bc: #eee;
+$fc: #333;
+$brc: rgba(38, 57, 77, 0.3);
+$brc: #777;
+
+.sub-form-cont {
+  margin: $spacing-unit auto;
+  // background: linear-gradient(180deg, rgba(45, 68, 126, 0.2) 0%, rgba(181, 176, 160, 0.2) 28%, rgba(204, 115, 115, 0.2) 57%, rgba(81, 49, 157, 0.3) 89%);
+  // background: linear-gradient(to right, rgba(236, 72, 153, 0.3), rgba(239, 68, 68, 0.3), rgba(245, 158, 11, 0.3));
+  // box-shadow: inset 0px 0px 3em 4em #fff;
+  padding: $spacing-unit*1.1;
+  border-radius: 5px;
+  border: 1px solid #222;
+  border: 1px solid #222;
+  // max-width: 80%;
+  border-color: $brc;
+  // border-top: 2px solid #ffffff05;
+  // box-shadow: rgba(38, 57, 77, 0.7) 0px 10px 30px -10px;
+  // $bc1: #fff;
+  // $bc2: #588C8C;
+  // border-top-color: $bc1;
+  // border-left-color: $bc2;
+  // border-right-color: $bc2;
+  // border-bottom-color: $bc1;
+
+  // border-left: 1px solid #214658;
+  // border-right: 1px solid #214658;
+  // box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+  // background: #e5e0cb;
+  background: $bc;
+  position: relative;
+  box-shadow: 2.5px 2.5px 2px #DC8505, -2.5px -2.5px 2px #717400;
+  box-shadow: none;
+  transition: box-shadow 5s;
+}
+.sub-form-cont:hover {
+  box-shadow: 2.5px 2.5px 3px #DC8505, -2.5px -2.5px 3px #717400;
+}
+
+
+.sub-form-cont > p {
+  // text-align: center;
+  font-weight: normal;
+  font-weight: 500;
+  color: #011C26;
+  color: $fc;
+  margin-bottom: $spacing-unit*0.707;
+  // font-family: Courgette;
+  font-size: 19px;
+}
+
+.sub-form-cont > p strong {
+  color: #EC5519;
+}
+
+.sub-form-cont > p .sub-sp1 {
+  // color: #dc4e24;
+}
+
+.sub-form-cont .sub-img {
+  max-width: 45px;
+  margin: 0 auto;
+  margin-bottom: $spacing-unit/2;
+  // position: absolute;
+  // left: 0;
+  // top: 20px;
+}
+
+// Mailchimp subscription
+.mc_embed_signup_scroll {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+.mc_embed_signup_scroll * {
+  box-sizing: border-box;
+}
+
+.email-cont {
+  width: 50%;
+}
+.mce-EMAIL {
+  width: 100%;
+  padding: 12px 14px;
+  border: 2px solid $sub-color;
+  // box-shadow: 0 0 0 3px rgba(0,0,0,.05);
+  font-size: 15px;
+  // border-radius: 10px 0 0 10px;
+  // background: #e5e0cb;
+}
+.mce-EMAIL:focus {
+  outline: none;
+}
+.mce-EMAIL::placeholder {
+  // color: #222;
+}
+
+.mc-embedded-subscribe {
+  // border-radius: 0 10px 10px 0;
+  border: 2px solid $sub-color;
+  padding: 12px 10px;
+  color: #fff;
+  background: $sub-color;
+  font-size: 15px;
+  font-weight: 700;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .2s, border-color .2s;
+}
+
+.mc-embedded-subscribe:hover {
+  background: #EC5519;
+  border-color: #EC5519;
+  // box-shadow: 0 0 0 3px #e7aa27;
+}
+
+.mc-embedded-subscribe-cont .brandingLogo{
+  margin: 0;
+}

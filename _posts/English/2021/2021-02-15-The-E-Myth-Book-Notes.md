@@ -131,10 +131,6 @@ An example Organization Chart might require the following positions:
 
 Names should fill all the boxes in the Organization Chart even if the business consists of two people only; these two persons will be the shareholders and the employees. The next job is writing a Position Contract for each position on the Organization Chart. A Position Contract is a summary of the results to be achieved by each position in the company, the work the occupant of that position is accountable for, a list of standards by which the results are to be evaluated, and a line for the signature of the person who agrees to fulfill those accountabilities.
 
-Example Organizational Chart:
-
-![Screen Shot 2021-02-13 at 2.44.56 PM](/Users/ammar/Temp/Screen Shot 2021-02-13 at 2.44.56 PM.png)
-
 ### Your Management Strategy
 
 You may think that the successful implementation of a management strategy is dependent on finding amazingly competent managers—people with finely honed "people skills," with degrees from management schools, with highly sophisticated techniques for dealing with and developing their people. It isn’t. You don’t need such people. Nor can you afford them. What you need, instead, is a Management System. Create your Management System, and teach your up-and-coming managers to use it.
