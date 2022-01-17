@@ -2,15 +2,16 @@
  * Site header
  */
 .site-header {
-  border-top: 5px solid $grey-color-dark;
+  // border-top: 5px solid $grey-color-dark;
   // border-bottom: 1px solid $grey-color-light;
-  border-bottom: 1px solid $grey-color-dark;
+  // border-bottom: 1px solid $grey-color-dark;
   min-height: $spacing-unit * 1.865;
 
   // Positioning context for the mobile navigation icon
   position: relative;
 
-  background-color: $dsd-dark-grey;
+  // background-color: $dsd-dark-grey;
+  background: transparent;
 }
 
 .site-title {
@@ -23,8 +24,9 @@
 
   &,
   &:visited {
-    color: $grey-color-dark;
-    color: $dsd-light-grey;
+    // color: $grey-color-dark;
+    // color: $dsd-light-grey;
+    color: $text-color;
   }
 }
 
@@ -43,7 +45,7 @@
 
   .page-link {
     color: $text-color;
-    color: $dsd-light-grey;
+    // color: $dsd-light-grey;
     line-height: $base-line-height;
 
     // Gaps between nav items, but not on the last one
@@ -532,4 +534,46 @@ $brc: #777;
 
 .mc-embedded-subscribe-cont .brandingLogo{
   margin: 0;
+}
+
+.site-header {
+  width: 100%;
+}
+.site-header > .wrapper {
+  max-width: none;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  &::after {
+    content: none;
+  }
+
+  div.nav-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  > * {
+    width: 16%;
+  }
+  > *:first-child {
+    width: 42%;
+  }
+  > *:last-child {
+    width: 42%;
+  }
+}
+
+.site-header .site-title, .site-header .site-nav {
+  float: none;
+}
+
+.site-header .site-nav {
+  text-align: right;
+}
+
+* {
+  box-sizing: border-box !important;
 }

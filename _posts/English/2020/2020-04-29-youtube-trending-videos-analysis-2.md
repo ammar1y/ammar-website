@@ -16,7 +16,7 @@ featured-post: 1
 
 <div class='sub-form-cont'>
   <!-- <div class="sub-img"><img src="/assets/images/2021/lb4.png" ></div> -->
-  <p><span class="sub-sp1">Hey! 👋</span><br>A new <em>amazing</em> tool (<strong>YouTube Trending Tool</strong>) is being built. Subscribe and we will send you an email when it is ready.</p>
+  <p><span class="sub-sp1">Hey! 👋</span><br>A new <em>amazing</em> tool (<strong>YouTube Trending Tool</strong>) is being built. Subscribe (<strong>for free</strong>) and we will send you an email when it is ready.</p>
   {%- include mailchimp_form.html -%}
 </div>
 
@@ -294,7 +294,7 @@ So 🔥 is the most common with frequency of 154 followed by ™️ then ®.
 
 <div class='sub-form-cont'>
   <!-- <div class="sub-img"><img src="/assets/images/2021/lb4.png" ></div> -->
-  <p><span class="sub-sp1">Hey! 👋</span><br>A new <em>amazing</em> tool (<strong>YouTube Trending Tool</strong>) is being built. Subscribe and we will send you an email when it is ready.</p>
+  <p><span class="sub-sp1">Hey! 👋</span><br>A new <em>amazing</em> tool (<strong>YouTube Trending Tool</strong>) is being built. Subscribe (<strong>for free</strong>) and we will send you an email when it is ready.</p>
   {%- include mailchimp_form.html -%}
 </div>
 
@@ -920,7 +920,7 @@ In this post, we saw the results of analyzing YouTube trending videos of 2019. F
 
 <div class='sub-form-cont'>
   <!-- <div class="sub-img"><img src="/assets/images/2021/lb4.png" ></div> -->
-  <p><span class="sub-sp1">Hey! 👋</span><br>A new <em>amazing</em> tool (<strong>YouTube Trending Tool</strong>) is being built. Subscribe and we will send you an email when it is ready.</p>
+  <p><span class="sub-sp1">Hey! 👋</span><br>A new <em>amazing</em> tool (<strong>YouTube Trending Tool</strong>) is being built. Subscribe (<strong>for free</strong>) and we will send you an email when it is ready.</p>
   {%- include mailchimp_form.html -%}
 </div>
 

@@ -9,7 +9,7 @@ layout: default_ar
 
   {{ content }}
 
-  <div class="ar-banner">
+  {% comment %} <div class="ar-banner">
     <a href="{% link pages_ar/learn-python-arabic-course.html %}">
       <img src="/assets/images/2020/py-course-ar-banner.png"
     </a>
@@ -19,7 +19,7 @@ layout: default_ar
     <a href="{% link pages_ar/learn-python-arabic-course.html %}">
       <img src="/assets/images/2020/py-course-ar-banner-mobile.gif"
     </a>
-  </div>
+  </div> {% endcomment %}
 
   {%- if site.posts.size > 0 -%}
   <!-- <h2 class="post-list-heading">{{ page.list_title | default: "المنشورات" }}</h2> -->
