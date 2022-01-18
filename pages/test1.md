@@ -7,4 +7,4 @@ lang: "english"
 
 
 <script src="https://gumroad.com/js/gumroad.js"></script>
-<a class="gumroad-button" href="https://ammary.gumroad.com/l/degss?wanted=true">Buy my product</a>
+<a class="gumroad-button" href="https://ammary.gumroad.com/l/degss">Buy my product</a>
