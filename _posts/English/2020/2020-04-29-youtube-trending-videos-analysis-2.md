@@ -14,11 +14,13 @@ featured-post: 1
 
 <p class="text-box-3">This analysis was featured on: <a style="color:inherit;" href="https://thehustle.co/what-you-can-learn-from-youtubes-trending-videos/" target="_blank"><b>The Hustle newsletter</b></a> (lead story), <a style="color:inherit;" href="https://techcrunch.com/2020/08/18/piggyback-on-popular-tweets-to-get-brand-awareness/" target="_blank"><b>TechCrunch</b></a>, <a style="color:inherit;" href="https://news.ycombinator.com/item?id=23762180" target="_blank"><b>Hacker News</b></a>, <a style="color:inherit;" href="https://www.demandcurve.com/newsletter#t77r4ayu03tun5215smc" target="_blank"><b>The Growth Newsletter</b></a> (issue #021), <a style="color:inherit;" href="https://twitter.com/SocialBlade/status/1281299735572332546" target="_blank"><b>Social Blade</b></a>, <a style="color:inherit;" href="https://www.datascienceweekly.org/" target="_blank"><b>Data Science Weekly newsletter</b></a> (Jul 09 2020's issue), <a style="color:inherit;" href="https://www.tubefilter.com/2020/07/10/what-makes-a-youtube-video-trending-2019-ammar-alyousfi/" target="_blank"><b>Tubefilter</b></a>, <a style="color:inherit;" href="https://anchor.fm/benamara-younes/episodes/ep-egms16" target="_blank"><b>Younes Talk</b></a>, and more.</p>
 
+{% comment %}
 <div class='sub-form-cont'>
   <!-- <div class="sub-img"><img src="/assets/images/2021/lb4.png" ></div> -->
   <p><span class="sub-sp1">Hey! 👋</span><br>A new <em>amazing</em> tool (<strong>YouTube Trending Tool</strong>) is being built. Subscribe (<strong>for free</strong>) and we will send you an email when it is ready.</p>
   {%- include mailchimp_form.html -%}
 </div>
+{% endcomment %}
 
 Around 1.5 years ago, I did an [analysis of YouTube trending videos](https://www.kaggle.com/ammar111/youtube-trending-videos-analysis) in US. That analysis was performed on trending videos of some months in 2017 and 2018. The analysis received a lot of interest on [Kaggle](https://www.kaggle.com/ammar111/youtube-trending-videos-analysis) and [Reddit](https://www.reddit.com/r/datascience/comments/9kpmcn/i_analyzed_more_than_40000_youtube_trending/); I also received some emails praising the work done. That was 1.5 years ago.
 
@@ -292,11 +294,13 @@ Now considering only emoji symbols, let's see the **most common emojis** in the 
 
 So 🔥 is the most common with frequency of 154 followed by ™️ then ®.
 
+{% comment %}
 <div class='sub-form-cont'>
   <!-- <div class="sub-img"><img src="/assets/images/2021/lb4.png" ></div> -->
   <p><span class="sub-sp1">Hey! 👋</span><br>A new <em>amazing</em> tool (<strong>YouTube Trending Tool</strong>) is being built. Subscribe (<strong>for free</strong>) and we will send you an email when it is ready.</p>
   {%- include mailchimp_form.html -%}
 </div>
+{% endcomment %}
 
 #### What are the Most Common 2-Grams in Video Titles?
 
@@ -918,11 +922,13 @@ As mentioned above, we used TinyYOLOv3 algorithm which is fast but may not be th
 
 In this post, we saw the results of analyzing YouTube trending videos of 2019. For me, the results were interesting and insightful. Hope they were the same for you.
 
+{% comment %}
 <div class='sub-form-cont'>
   <!-- <div class="sub-img"><img src="/assets/images/2021/lb4.png" ></div> -->
   <p><span class="sub-sp1">Hey! 👋</span><br>A new <em>amazing</em> tool (<strong>YouTube Trending Tool</strong>) is being built. Subscribe (<strong>for free</strong>) and we will send you an email when it is ready.</p>
   {%- include mailchimp_form.html -%}
 </div>
+{% endcomment %}
 
 <p class="text-box-1">If you want to <strong>download the data</strong> used in this analysis which describes 2019's trending videos in the United States, you can buy it securely on Gumroad <u><strong><a href="https://gum.co/qEzKK" target="_blank">on this link</a></strong></u> or by using the button below. Along with United States, you'll also get trending-videos data for United Kingdom, Canada, Denmark, Malaysia, Saudi Arabia, and other countries as well.</p>
 <br>
