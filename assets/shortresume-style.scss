@@ -13,11 +13,13 @@ $bodyfont: "CMU Sans Serif", "Merriweather Sans", -apple-system, BlinkMacSystemF
 $headfont: "CMU Serif", "Merriweather", "TeX Gyre Termes", TeXGyreTermes,
   "Nimbus Roman No9 L", STIXGeneral, FreeSerif, Times, "Times New Roman",
   "Liberation Serif", serif;
+$bodyfont: CMS, "Merriweather", "TeX Gyre Termes", TeXGyreTermes,
+  "Nimbus Roman No9 L", STIXGeneral, FreeSerif, Times, "Times New Roman",
+  "Liberation Serif", serif;
 
 // $headfont: $bodyfont;
 $lineheight: 1.8;
 // changes
-$print-lineheight: 1.4;
 $textalign: left;
 $fz: 12pt;
 $headsize: $fz * 1.4;
@@ -25,13 +27,22 @@ $subhsize: $fz;
 $namesize: $fz * 2;
 $cont-fz: $fz;
 
-$print-fz: 14pt;
-$print-headsize: $print-fz * 1.4;
-$print-subhsize: $print-fz;
-$print-namesize: $print-fz * 1.5;
-$print-cont-fz: 0.9 * $print-fz;
-
 $pole-width: 10px;
+
+@font-face {
+  font-family: CMS;
+  src: url("{{ '/assets/fonts/cmunrm.ttf' | relative_url }}");
+}
+@font-face {
+  font-family: CMS;
+  src: url("{{ '/assets/fonts/cmunbx.ttf' | relative_url }}");
+  font-weight: bold;
+}
+@font-face {
+  font-family: CMS;
+  src: url("{{ '/assets/fonts/cmunti.ttf' | relative_url }}");
+  font-style: italic;
+}
 
 @page {
   margin: 10mm 15mm;
@@ -90,7 +101,7 @@ body {
   font-family: $bodyfont;
   // -webkit-font-smoothing: antialiased;
   // -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
+  // text-rendering: optimizeLegibility;
   text-align: $textalign;
   font-size: $fz;
   line-height: $lineheight;
@@ -120,26 +131,6 @@ body {
   font-size: $subhsize;
 }
 
-@media print {
-  #container {
-    font-size: $print-fz;
-    line-height: $print-lineheight;
-  }
-  .uni-name,
-  .exp-name,
-  .univ-name {
-    font-size: $print-subhsize;
-  }
-}
-
-@media print {
-  #container {
-    margin: 5mm 15mm;
-    margin: 0; // XX
-    width: auto;
-    max-width: none;
-  }
-}
 
 .uni-name,
 .exp-name,
@@ -186,13 +177,6 @@ body {
 #contact-details,
 #curr-pos {
   font-size: $cont-fz;
-}
-
-@media print {
-  #contact-details,
-  #curr-pos {
-    font-size: $print-cont-fz;
-  }
 }
 
 .prj-lnk {
@@ -252,12 +236,6 @@ li {
 h2.section-title {
   margin-bottom: 4px;
   font-size: $headsize;
-}
-
-@media print {
-  h2.section-title {
-    font-size: $print-headsize;
-  }
 }
 
 .section-title span:hover {
@@ -322,18 +300,6 @@ h2.section-title {
 .role {
   text-align: center;
   margin-bottom: 12px;
-}
-
-@media print {
-  #name p {
-    font-size: $print-namesize;
-    /*border: 1px solid #9a3035;*/
-    /*border-right: 1px solid goldenrod;*/
-  }
-
-  #name {
-    /*margin-bottom: 2px;*/
-  }
 }
 
 #name p:hover {
@@ -421,12 +387,6 @@ ul.prj-ul {
   color: #76b7b2;
 }
 
-@media print {
-  #orn {
-    display: none;
-  }
-}
-
 @media screen and (max-width: 500px) {
   #orn {
     display: none;
@@ -492,12 +452,6 @@ ul.prj-ul {
 
 #print-link:hover {
   background: #edc948;
-}
-
-@media print {
-  #print-div {
-    display: none;
-  }
 }
 
 *,
@@ -569,54 +523,9 @@ li {
   //   font-variant: small-caps;
   font-family: $headfont;
   // change
-  font-family: "Merriweather";
+  // font-family: "Merriweather";
   // font-style: italic;
   letter-spacing: 1px;
-}
-
-@media print {
-  body,
-  html {
-    background: #ffffff;
-  }
-
-  p,
-  li {
-    color: #000000;
-  }
-
-  .exp-name,
-  .uni-name,
-  .skill-group-title,
-  .prj-group-title {
-    color: #000000;
-  }
-
-  .exp-years,
-  .uni-years {
-    color: #000000;
-    // font-style: italic;
-  }
-
-  .prj-group-title::after {
-    background-color: #000000;
-  }
-
-  #print-link {
-    display: none;
-  }
-
-  .prj-title {
-    color: #000000;
-  }
-
-  #name {
-    text-align: left;
-  }
-
-  #contact-details {
-    text-align: left;
-  }
 }
 
 .emph {
@@ -638,19 +547,6 @@ li {
 //     width:210mm;
 // }
 
-@media print {
-  html,
-  body {
-    height: 297mm;
-    width: 210mm;
-  }
-}
-
-@media print {
-  #links * {
-    //   font-size: $print-fz * 0.9;
-  }
-}
 // body {
 //     margin-left: 40px;
 //     margin-top: 40px;
@@ -764,14 +660,6 @@ $cpw: 20px;
   }
   #res-body a:hover::after {
     height: 10px;
-  }
-}
-
-@media print {
-  .color-pole,
-  .framepole,
-  #crc {
-    display: none;
   }
 }
 
@@ -1001,26 +889,6 @@ $cpw: 20px;
   text-shadow: 0px 1px 0px #870C1C;
 }
 
-@page {
-  margin: 8mm 7mm;
-}
-
-@media print {
-h2.section-title {
-  background-color: #dddddd;
-  // background-color: #363636;
-  margin-bottom: 0;
-  // padding-bottom: 4px;
-}
-.section hr.hr-section {
-  margin: 0 0 4px 0;
-  background: #333;
-  color: #333;
-  border-top: 2px solid #000000;
-  opacity: 1;
-}
-}
-
 h2.section-title span {
   color: #1D2644;
 }
@@ -1148,12 +1016,6 @@ h2.section-title span::after {
     background-clip: text;
   }
 }
-@media print {
-  #links * {
-    font-size: $print-fz * 0.8;
-    text-align: right;
-  }
-}
 
 #endor {
   text-align: center;
@@ -1174,11 +1036,6 @@ h2.section-title span::after {
 .pr-br {
   display: none;
 }
-@media print {
-  .pr-br {
-    display: block;
-  }
-}
 
 @media screen and (min-width: 1200px) {
   .flex .flex-right {
@@ -1186,3 +1043,285 @@ h2.section-title span::after {
   }
 }
 
+.personal-web-link {
+  text-decoration: none;
+}
+
+.uni-name > a, .exp-name a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.ext-link {
+  color: inherit;
+  // font-size: 0.9em;
+  // vertical-align: baseline;
+  text-decoration: none;
+  // font-style: italic;
+
+  i {
+    font-size: .8em;
+    vertical-align: baselines;
+  }
+}
+
+.prj a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.section-title-con {
+  display:flex;
+  flex-direction:row;
+  align-items: baseline;
+}
+.section-title {
+  flex-grow:0;
+  margin-top: 0 !important;
+  margin-bottom: .2em !important;
+  margin-right: .1em !important;
+}
+.divider{
+  flex-grow:1;
+  height: 1px;
+  background-color: #666;
+}
+
+.inline-loc {
+  font-weight: normal;
+}
+
+
+
+$print-fz: 10pt;
+$print-headsize: $print-fz * 1.4;
+$print-subhsize: $print-fz;
+$print-namesize: $print-fz * 2;
+$print-cont-fz: 0.9 * $print-fz;
+$print-text-color: #222;
+$print-lineheight: 1.2;
+
+@page {
+  margin: 8mm 7mm;
+}
+
+@media print {
+  #container {
+    margin: 5mm 15mm;
+    margin: 0; // XX
+    width: auto;
+    max-width: none;
+  }
+}
+
+@media print {
+  html,
+  body {
+    height: 297mm;
+    width: 210mm;
+  }
+}
+
+@media print {
+  body,
+  html {
+    background: #ffffff;
+  }
+
+  p,
+  li {
+    color: $print-text-color;
+  }
+
+  .exp-name,
+  .uni-name,
+  .skill-group-title,
+  .prj-group-title {
+    color: $print-text-color;
+  }
+
+  .exp-years,
+  .uni-years {
+    color: $print-text-color;
+    // font-style: italic;
+  }
+
+  .prj-group-title::after {
+    background-color: $print-text-color;
+  }
+
+  #print-link {
+    display: none;
+  }
+
+  .prj-title {
+    color: $print-text-color;
+  }
+
+  #name {
+    text-align: left;
+  }
+
+  #contact-details {
+    text-align: left;
+  }
+}
+
+
+
+@media print {
+  #contact-details,
+  #curr-pos {
+    font-size: $print-cont-fz;
+  }
+}
+
+@media print {
+  #container {
+    font-size: $print-fz;
+    line-height: $print-lineheight;
+  }
+  #header {
+    margin-bottom: 1em;
+  }
+  .uni-name,
+  .exp-name,
+  .univ-name {
+    font-size: $print-subhsize;
+  }
+
+  .univ-name {
+    font-weight: normal;
+  }
+
+  .uni-years, .exp-years {
+    font-style: italic;
+  }
+
+  ul {
+    padding-left: 20px;
+  }
+  
+  ul.prj-ul {
+    padding-left: 20px;
+  }
+
+  li {
+    margin-bottom: .2em;
+  }
+}
+
+@media print {
+  .section {
+    margin-bottom: .6em;
+  }
+  h2.section-title {
+    font-size: $print-headsize;
+    // background-color: #dddddd;
+    margin-bottom: 0;
+    margin-top: .6em;
+  }
+  h2.section-title.xxz {
+    // background-color: #eee;
+    // text-align: center;
+  }
+  .section hr.hr-section {
+    margin: 0 0 4px 0;
+    background: #666;
+    color: #666;
+    border-top: 1px solid #999;
+    opacity: 1;
+  }
+  h2.section-title span {
+    color: $print-text-color;
+    // background-color: #eee;
+  }  
+  .subsection {
+    margin-bottom: .4em;
+  }
+  .section h3 {
+    margin-top: .2em;
+  }
+
+  .uni-name,
+  .exp-name,
+  .uni-loc,
+  .exp-loc,
+  .uni-major,
+  .uni-years,
+  .exp-years,
+  p,
+  ul {
+    margin: .3em 0;
+  }
+
+  ul {
+    margin-top: 0;
+  }
+}
+
+@media print {
+  #name p {
+    font-size: $print-namesize;
+    /*border: 1px solid #9a3035;*/
+    /*border-right: 1px solid goldenrod;*/
+    padding: 0;
+    color: $print-text-color;
+    color: #9A3035;
+    font-variant: small-caps;
+    // font-weight: normal;
+    letter-spacing: normal;
+  }
+
+  #name {
+    background-color: transparent;
+    margin-top: 8px;
+  }
+}
+
+@media print {
+  .pr-br {
+    display: block;
+  }
+}
+
+@media print {
+  #links * {
+    font-size: $print-fz * 0.8;
+    text-align: right;
+  }
+
+  .emph2 {
+    color: inherit;
+    text-shadow: none;
+  }
+
+  h2.section-title {
+    font-variant: small-caps;
+  }
+
+  h2.section-title span::after {
+    content: "";
+  }
+  
+}
+
+@media print {
+  #print-div {
+    display: none;
+  }
+
+  #ppic {
+    display: none;
+  }
+
+  .color-pole,
+  .framepole,
+  #crc {
+    display: none;
+  }
+
+  #orn {
+    display: none;
+  }
+}

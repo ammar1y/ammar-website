@@ -46,7 +46,6 @@ social:
     - https://www.quora.com/profile/Ammar-Alyousfi
     - https://www.instagram.com/ammar.you/
 
-paginate: 190
 
 # Build settings
 theme: minima
@@ -54,7 +53,8 @@ plugins:
   - jekyll-feed
   - jekyll-sitemap
   - jekyll-seo-tag
-  - jekyll-paginate
+  # - jekyll-paginate
+  - jekyll-paginate-v2
 
 google_analytics: "UA-117443607-1"
 
@@ -85,3 +85,13 @@ disqus:
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+
+
+pagination:
+  enabled: true
+  per_page: 100
+  permalink: '/page/:num/'
+  title: ' - page :num'
+  limit: 0
+  sort_field: 'date'
+  sort_reverse: true
