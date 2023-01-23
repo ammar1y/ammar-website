@@ -1033,6 +1033,12 @@ h2.section-title span::after {
   }
 }
 
+@media print {
+  #endor {
+    display: none;
+  }
+}
+
 .pr-br {
   display: none;
 }
@@ -1062,6 +1068,14 @@ h2.section-title span::after {
   i {
     font-size: .8em;
     vertical-align: baselines;
+  }
+}
+
+@media print {
+  .ext-link {
+    i {
+      display: none;
+    }
   }
 }
 
