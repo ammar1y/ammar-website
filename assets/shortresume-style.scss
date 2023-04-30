@@ -1,6 +1,7 @@
 ---
 ---
 
+@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=Merriweather:wght@700;900&family=Roboto+Slab:wght@400;500;600;700;900&family=Vollkorn:wght@900&display=swap');
 $namecolor: #9a3035;
 $namecolor: #dc4e24;
 $namecolor: #cf021a;
@@ -8,14 +9,17 @@ $accent: #29396a;
 $accent: #214658;
 $accent: #1d2644;
 
-$bodyfont: "CMU Sans Serif", "Merriweather Sans", -apple-system, BlinkMacSystemFont,
-  "Helvetica Neue", Arial, "Segoe UI", Roboto, Helvetica, sans-serif;
 $headfont: "CMU Serif", "Merriweather", "TeX Gyre Termes", TeXGyreTermes,
   "Nimbus Roman No9 L", STIXGeneral, FreeSerif, Times, "Times New Roman",
   "Liberation Serif", serif;
 $bodyfont: CMS, "Merriweather", "TeX Gyre Termes", TeXGyreTermes,
   "Nimbus Roman No9 L", STIXGeneral, FreeSerif, Times, "Times New Roman",
   "Liberation Serif", serif;
+$bodyfont: "Atkinson Hyperlegible", Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif;
+$headfont: "Roboto Slab", "Merriweather", "TeX Gyre Termes", TeXGyreTermes,
+  "Nimbus Roman No9 L", STIXGeneral, FreeSerif, Times, "Times New Roman",
+  "Liberation Serif", serif;
+
 
 // $headfont: $bodyfont;
 $lineheight: 1.8;
@@ -45,7 +49,7 @@ $pole-width: 10px;
 }
 
 @page {
-  margin: 10mm 15mm;
+  // margin: 10mm 15mm;
 }
 
 #header {
@@ -137,6 +141,7 @@ body {
 .skill-group-title,
 .prj-group-title {
   font-weight: bold;
+  font-family: $headfont;
 }
 
 .prj-group-title {
@@ -457,7 +462,7 @@ ul.prj-ul {
 *,
 *::after,
 *:hover::after {
-  transition: all 0.5s;
+  // transition: all 0.5s;
 }
 
 *::-moz-selection {
@@ -1108,7 +1113,7 @@ h2.section-title span::after {
 
 
 $print-fz: 10pt;
-$print-headsize: $print-fz * 1.4;
+$print-headsize: $print-fz * 1.6;
 $print-subhsize: $print-fz;
 $print-namesize: $print-fz * 2;
 $print-cont-fz: 0.9 * $print-fz;
@@ -1116,7 +1121,7 @@ $print-text-color: #222;
 $print-lineheight: 1.2;
 
 @page {
-  margin: 8mm 7mm;
+  // margin: 8mm 7mm;
 }
 
 @media print {
@@ -1234,6 +1239,8 @@ $print-lineheight: 1.2;
     // background-color: #dddddd;
     margin-bottom: 0;
     margin-top: .6em;
+    font-weight: 900;
+    letter-spacing: 0.5px;
   }
   h2.section-title.xxz {
     // background-color: #eee;
@@ -1338,4 +1345,9 @@ $print-lineheight: 1.2;
   #orn {
     display: none;
   }
+}
+
+
+.res-summary {
+  margin-bottom: 1em;
 }
