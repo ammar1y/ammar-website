@@ -1,0 +1,159 @@
+---
+layout: default
+title: "Book Analysis"
+date: 2025-01-01
+categories: [data-science]
+tags: [data-analysis, data-science, data-visualization] 
+permalink: "/:year/book-analysis"
+technicalEn: "no"
+custom-css-list:
+    - "https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    - "/assets/book-analysis-1/style.css"
+    - "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0"
+custom-javascript-list:
+    - "https://unpkg.com/d3@7.8.5/dist/d3.min.js"
+    - "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+    - "https://polyfill.io/v3/polyfill.min.js?features=es6"
+    - "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    - "/assets/book-analysis-1/script.js"
+---
+
+<h1 class="animate__animated animate__bounce">Book Analysis</h1>
+
+https://www.kaggle.com/datasets/opalskies/large-books-metadata-dataset-50-mill-entries
+
+<div id='book-type-filter-wrapper'>
+    <input type='radio' id='radio1-1' name='radio' value="fiction">
+    <label for='radio1-1'>Fiction</label>
+    <input type='radio' id='radio1-2' name='radio', value="non-fiction">
+    <label for='radio1-2'>Non-Fiction</label>
+    <input type='radio' id='radio1-3', checked='checked', name='radio', value="all">
+    <label for='radio1-3'>All</label>
+</div>
+
+<h2 class="section-heading">Most Rated Books</h2>
+<div id="most-rated-books-chart"></div>
+
+<h2 class="section-heading">Most Reviewed Books</h2>
+<div id="most-reviewed-books-chart"></div>
+
+<h2 class="section-heading">Highest Rated Books</h2>
+<div id="num-books-5-rating">There are <span id="num_55_rating"></span> books with a 5/5 rating. Let's see the ones with most ratings.</div>
+<div id="highest-rated-books-chart"></div>
+
+
+
+
+<h2 class="section-heading">Top Rated Books</h2>
+
+<div id="ratings-hist-chart"></div>
+
+<div>
+    \[
+    \begin{align*}
+    \text{Weighted Rating} = &\frac{v}{v+m} \times R \; + \\
+    &\frac{m}{v+m} \times C 
+    \end{align*}
+    \]
+    <p>where \(R\) is the average book rating, \(v\) is the number of ratings for the book, \(m\) is the minimum number of ratings required to be considered (a parameter to set based on your dataset), \(C\) is the mean rating across the entire dataset.</p>
+</div>
+<div id="top-rated-books-chart"></div>
+
+<br>
+
+<h2 class="section-heading">Most Prolific Authors</h2>
+<div id="top-authors-chart"></div>
+
+<br>
+
+<h2 class="section-heading">Most Rated Authors</h2>
+<div id="most-rated-authors-chart"></div>
+
+<br>
+
+<h2 class="section-heading">Top Rated Authors</h2>
+<div id="top-rated-authors-chart"></div>
+
+<br>
+
+<h2 class="section-heading">Most Prolific Publishers</h2>
+<div id="top-publishers-chart"></div>
+
+<br>
+
+<h2 class="section-heading">Most Rated Publishers</h2>
+<div id="most-rated-publishers-chart"></div>
+
+<br>
+
+<h2 class="section-heading">Top Rated Publishers</h2>
+<div id="top-rated-publishers-chart"></div>
+
+<br>
+
+<span id="perc_books_in_series"></span> of the <span id="books_count_2"></span> books are part of a series.
+
+<h2 class="section-heading">Longest Series</h2>
+<div id="longest-series-chart"></div>
+
+<br>
+
+<h2 class="section-heading">Most Rated Series</h2>
+<div id="most-rated-series-chart"></div>
+
+<br>
+
+<h2 class="section-heading">Number of Pages Distribution</h2>
+<div id="num-pages-hist-chart"></div>
+
+Some of the longest books:...
+
+<br>
+
+<h2 class="section-heading">Very Long But Highly Rated Books</h2>
+<div id="long-high-rating-chart"></div>
+
+
+
+<!-- Number of records in the database: 47,015,693
+Number of distinct book IDs: 47,015,693
+Number of distinct book titles: 30,202,212
+Number of distinct work IDs: 27,442,602
+
+Empty titles: 480
+Empty ISBNs: 16,797,129
+Empty ISBN13s: 14,197,907
+Empty language: 38,299,361
+Empty publication date: 18,192,502
+Empty original publication date: 21,064,808
+Empty format: 18,559,874
+Empty publisher: 18,364,021
+Empty number of pages: 22,413,596
+Empty series ID: 42,272,022
+Empty description: 14,790,316
+
+
+Processing Steps:
+- When only year or year and month provided for publication date or original publication date, we set month and day to 1. When an invalid date is provided, we try to make it valid as much as possible. For example, if the provided date is 2019-28, we set the date to 2019-01-01.
+- Exclude records where the author is "NOT A BOOK" (usually journals, notebooks, planners, calendars, etc. See Goodreads description of this author). Examples: 50145364, 42190702, 45797073, 52120457, 31745544.
+- Around 300,000 records have the author as "Anonymous" and ~200,000 "Unknown". We keep these records. (See Goodreads descriptions).
+- Remove extra white spaces from author names.
+- There are 2786577 records where ISBN or ISBN13 are not null but aren't valid ISBNs (not 10/13 digits). We keep these records.
+- Replace "en-US", "en-GB", etc. with "eng" for language. There are other languages with similar issues, but much less frequent.
+- `rating_dist` column gets splitted into 5 columns, one for each rating.
+- HTML tags are removed from description. [Not implemented]
+
+Notes About Works:
+- Work ID is the same for all editions of a book. But it's different for related books. For example, work ID for "Chicken Soup for the Sister's Soul: Inspirational Stories About Sisters and Their Changing Relationships" is different than the work ID for "Chicken Soup for the Sister's Soul 2: Celebrating Love and Laughter Throughout Our Lives".
+- Books with the same work ID have (almost) the same rating and review data, original publication date, series ID and name, and shelves. But they have different title, publication date, description, number of pages, etc.
+
+Stats for Excluding Records:
+- All books: 47,015,693
+- Books with rating count > 0: 23,356,640
+- Books with rating count >= 10: 12,506,971
+- Works: 27,442,602
+- Works with rating count > 0: 9,320,928
+
+
+- Created the `goodreads_books_p` table which implements the processing steps above and which includes books with rating count > 0.
+- Created the `goodreads_works_p` table which implements the processing steps above and which includes works with rating count > 0. The book selection for a given work ID is done by selecting the book with minimum ID that has a publication date (not null) and has a cover image. If there is no book with these criteria for a given work ID, then the book with minimum ID is selected. -->

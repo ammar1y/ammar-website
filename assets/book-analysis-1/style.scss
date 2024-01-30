@@ -1,0 +1,279 @@
+---
+---
+
+.wrapper {
+    max-width: 100%;
+    // transform: scale(0.7);
+}
+
+.section-heading {
+    margin-top: 2rem;
+    font-weight: bold;
+}
+
+
+#most-rated-books-chart, #most-reviewed-books-chart {
+
+    overflow: hidden;
+
+    .bar-con {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: .5rem;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .img-bar-con {
+        display: flex;
+        align-items: center;
+    }
+
+    .img-con {
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+
+    .rect-con {
+        background-image: linear-gradient(to left, #003f5c, #58508d, #bc5090, #ff6361, #ffa600);
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding-right: 5px;
+    }
+
+    .bar-label-con {
+        font-size: 1rem;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    .bar-text {
+        color: white;
+        font-size: .85rem;
+        font-weight: bold;
+        font-weight: 500;
+    }
+}
+
+div.bar-tooltip, div.hist-tooltip, div.beeswarm-tooltip, div.author-top-works-tooltip, div.author-top-works-tooltip-2, div.publisher-top-works-tooltip-2, div.series-top-works-tooltip, div.num-pages-hist-tooltip {
+    position: absolute;
+    // text-align: center;
+    width: 250px;
+    height: fit-content;
+    padding: .5rem .5rem;
+    background: #DDDDDD;
+    font-size: .8rem;
+    border: 1px solid #555;
+    border-radius: 3px;
+    pointer-events: none;
+}
+
+
+
+
+
+
+
+
+
+
+#top-authors-chart {
+    .bar {
+        fill: #003f5c;
+        transition: fill 0.3s ease;
+
+        &:hover {
+            fill: #ffa600;
+        }
+    }
+}
+
+.author-top-works-tooltip, .author-top-works-tooltip-2, .publisher-top-works-tooltip-2, .series-top-works-tooltip {
+    hr {
+        margin: .5rem 0;
+    }
+    .a-top-work {
+        display: flex;
+        align-items: center;
+        margin-bottom: .2rem;
+        & > div:first-child {
+            width: 22%;
+        }
+        & > div:last-child {
+            width: 75%;
+        }
+        img {
+            width: 40px;
+            height: auto;
+            margin-right: .5rem;
+        }
+        p {
+            margin-bottom: 0;
+            margin-top: 0;
+        }
+    }
+}
+
+
+
+.pretty-table {
+    .rstar {
+        color: #F7D056;
+        vertical-align: text-bottom;
+        font-size: 1.1rem;
+        margin-right: 0.15rem;
+    }
+}
+
+
+
+
+
+.series {
+    display: flex;
+    margin-bottom: 1rem;
+    align-items: center;
+    column-gap: 1rem;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 1rem;
+
+    .series-name {
+        width: 20%;
+    }
+
+    .series-books {
+        width: 78%;
+        display: flex;
+        flex-wrap: wrap;
+        row-gap: 3px;
+
+        .series-book {
+            width: 5px;
+            height: 8px;
+            background: #666;
+            margin-right: 3px;
+            flex-shrink: 0;
+            // background: linear-gradient(to right, #003f5c, #58508d, #bc5090, #ff6361, #ffa600);
+            // background-size: cover;
+            // background-position: center;
+            // background-attachment: fixed;
+        }
+    }
+
+}
+
+
+
+
+
+
+
+
+#book-type-filter-wrapper {
+    $btn_width: 210px;
+    $btn_height: 30px;
+
+    input[type='radio']+label {
+        text-align: center;
+        display: inline-block;
+        cursor: pointer;
+        background-image: linear-gradient(#111, #000);
+        border-radius: 3px;
+        box-shadow:
+            //-----Button Beveling-----
+            //top dark bevel
+            0 -1px 0 rgba(0, 0, 0, .2),
+            //full bevel
+            0 0 0 1px rgba(0, 0, 0, .3),
+            //bottom highlight bevel
+            0 1px 0 rgba(255, 255, 255, .05),
+            //slight outer glow
+            0 0 3px rgba(255, 255, 255, .2);
+
+        z-index: 10;
+        margin: 0 10px 10px 0;
+        width: $btn_width;
+        height: $btn_height;
+        position: relative;
+        font-size: 1em;
+        letter-spacing: .1em;
+        color: #0e0e0e;
+        text-shadow: 0 1px 0 rgba(255, 255, 255, .1);
+        font-weight: bold;
+    }
+
+    input[type='radio'] {
+        display: none;
+    }
+
+    //This is the style for the actual Button
+    input[type='radio']+label:after {
+        z-index: -1;
+        content: '';
+        cursor: pointer;
+        // center content
+        width: $btn_width;
+        height: $btn_height;
+        display: block;
+        position: absolute;
+
+        background-image: linear-gradient(#444, #373738);
+        box-shadow:
+            inset 0 2px 1px -1px rgba(255, 255, 255, .2),
+            inset 0 -2px 1px -1px rgba(0, 0, 0, .2),
+            //-----Drop Shadow-----
+            0 12px 12px rgba(0, 0, 0, .5),
+            0 4px 6px rgba(0, 0, 0, .3);
+        border-radius: 2px;
+
+        top: 0;
+        left: 0;
+    }
+
+    /* -------------------
+Hover States
+-------------------- */
+    input[type='radio']+label:hover {
+        color: #AEAEAE;
+        text-shadow: 0 -1px 0 rgba(0, 0, 0, .4);
+    }
+
+    input[type='radio']+label:hover:after {
+        background-image: linear-gradient(#545454, #373738);
+    }
+
+    /* -------------------
+Active States
+-------------------- */
+    input[type='radio']:checked+label {
+        color: #00ccff;
+        text-shadow: 0 -1px 0 rgba(0, 0, 0, .3), 0 0px 30px rgba(0, 255, 255, .7);
+        box-shadow:
+            //-----Button Beveling-----
+            //top dark bevel
+            0 -1px 0 rgba(0, 193, 255, .2),
+            //full bevel
+            0 0 0 1px rgba(0, 0, 0, .4),
+            //bottom highlight bevel
+            0 1px 0 rgba(255, 255, 255, .05),
+            //slight outer glow
+            0 0 20px rgba(0, 193, 255, .1),
+            0 0 30px rgba(0, 193, 255, .1);
+    }
+
+
+    input[type='radio']:checked+label:after {
+        // border-radius: 30px;	
+        background-image: linear-gradient(#2e3537, #424748);
+        box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, .6),
+            inset 0 -1px 0 rgba(0, 0, 0, .3),
+            inset 0 0 0px 1px rgba(0, 0, 0, .1),
+            0 0 1px rgba(0, 0, 0, .5),
+            0 2px 2px rgba(0, 0, 0, .4);
+    }
+
+
+
+}
