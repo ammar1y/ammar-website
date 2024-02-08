@@ -56,7 +56,8 @@
     }
 }
 
-div.bar-tooltip, div.hist-tooltip, div.beeswarm-tooltip, div.author-top-works-tooltip, div.author-top-works-tooltip-2, div.publisher-top-works-tooltip-2, div.series-top-works-tooltip, div.num-pages-hist-tooltip {
+div.bar-tooltip, div.hist-tooltip, div.beeswarm-tooltip, div.author-top-works-tooltip, div.author-top-works-tooltip-2, 
+div.publisher-top-works-tooltip-2, div.series-top-works-tooltip, div.num-pages-hist-tooltip, div.wc-tooltip {
     position: absolute;
     // text-align: center;
     width: 250px;
@@ -161,6 +162,27 @@ div.bar-tooltip, div.hist-tooltip, div.beeswarm-tooltip, div.author-top-works-to
         }
     }
 
+}
+
+
+
+
+
+
+#word-cloud-chart {
+
+    .word-hovered {
+        font-weight: bold;
+    }
+
+    mark {
+        padding: 1px 3px;
+        margin: 2px;
+        line-height: 1;
+        display: inline-block;
+        border-radius: 2px;
+        background: #fc3;
+    }
 }
 
 

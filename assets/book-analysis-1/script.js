@@ -1,3 +1,190 @@
+let d3wc_cloud;
+
+let table = (data, options) => {
+    options = Object.assign({}, tableDefaultOptions, options);
+    const { sortable, rank, paged } = options;
+    let sortKey = undefined;
+    let sortDirection = true;
+    let page = 0;
+    if (sortable && rank) {
+        throw new Error("A table can either be ranked or sortable, but not both");
+    }
+    let columns = Object.keys(data[0]).map(key => {
+        const opts = options.columns[key] || {};
+        return {
+            key: key,
+            type: opts.type || typeof data[0][key],
+            options: opts
+        };
+    });
+
+    function bake() {
+        if (sortKey) {
+            data = data.slice().sort((a, b) => {
+                let as = a[sortKey];
+                let bs = b[sortKey];
+                // make this sort stable
+                if (as == bs) return JSON.stringify(a).localeCompare(JSON.stringify(b));
+                let res = as > bs ? 1 : as < bs ? -1 : 0;
+                if (sortDirection) res = -res;
+                return res;
+            });
+        }
+        let offset = page * paged;
+        let rows = data.slice(offset, offset + (paged || data.length));
+        let pages = paged ? Math.ceil(data.length / paged) : 1;
+        
+        function createStyles() {
+            return `
+                <style>
+                .pretty-pager {
+                    padding-top: 1rem;
+                }
+                .pretty-pager button {
+                    cursor: pointer;
+                    border-radius: 3px;
+                    border: 1px solid #fff;
+                    font-size: inherit;
+                }
+                .pretty-pager button:hover {
+                    border: 1px solid #888;
+                }
+                .pretty-table.normal {
+                    font-size: 15px;
+                }
+                .pretty-table.normal th,
+                .pretty-table.normal td {
+                    padding: 3px 2px;
+                }
+                .pretty-table th,
+                .pretty-table td {
+                    vertical-align: top;
+                }
+                .pretty-table thead th {
+                    text-transform: uppercase;
+                    font-weight:500;
+                }
+                .pretty-table thead th.column-type-number string {
+                    order: 1;
+                }
+                .pretty-table th.sortable {
+                    cursor: pointer;
+                }
+                .pretty-table thead th.column-type-number,
+                .pretty-table tbody td.cell-type-number,
+                .pretty-table tbody td.cell-rank {
+                    text-align:right;
+                }
+                .pretty-table tbody td.cell-type-number,
+                .pretty-table tbody td.cell-rank {
+                    font-family: menlo,consolas,monaco,monospace;
+                    font-size: 90%;
+                }
+                .pretty-table tbody td.cell-rank {
+                    padding-right: 1em;
+                    color: #666;
+                }
+
+                .pretty-table tr {
+                    background-color: white !important;
+                }
+                .pretty-table td {
+                    border: none;
+                    color: #444;
+                }
+
+                .pretty-table tr:not(:last-child) {
+                    border-bottom: solid 1px #eee;
+                }
+
+                .pretty-table {
+                    border: none;
+                }
+
+                .pretty-table th {
+                    background-color: white;
+                    border: none;
+                    color: #111;
+                }
+
+                .pretty-table-con {
+                    width: 640px
+                }                                  
+                </style>
+            `;
+        }
+        
+        function createTableHeader(rank, columns, sortKey, sortDirection, sortable) {
+            const headerColumns = columns.map(c => th(c, sortKey, sortDirection, sortable)).join('');
+            return rank ? `<th></th>${headerColumns}` : headerColumns;
+        }
+        
+        function createTableBody(rows, rank, columns, offset) {
+            return rows.map((row, i) => {
+                const rankCell = rank ? `<td class='cell-rank'>${offset + i + 1}</td>` : "";
+                const dataCells = columns.map(c => {
+                    const displayValue = (c.options.formatter || identity)(row[c.key], i, row);
+                    const cellContent = displayValue instanceof window.HTMLElement && displayValue.tagName === "TD"
+                        ? displayValue.outerHTML
+                        : `<td class='cell-type-${c.type}'>${displayValue}</td>`;
+                    return cellContent;
+                }).join('');
+                return `<tr>${rankCell}${dataCells}</tr>`;
+            }).join('');
+        }
+        
+        function createPager(pages) {
+            const buttons = Array.from({ length: pages }, (_, i) => `<button data-page="${i}">${i + 1}</button>`).join('');
+            return `<div class='pretty-pager'><button data-action="previous">Previous</button>${buttons}<button data-action="next">Next</button></div>`;
+        }
+        
+        function createTable(options, rank, columns, sortKey, sortDirection, sortable, rows, offset, pages) {
+            const header = options.header === false ? '' : `<thead>${createTableHeader(rank, columns, sortKey, sortDirection, sortable)}</thead>`;
+            const body = `<tbody>${createTableBody(rows, rank, columns, offset)}</tbody>`;
+            const pager = pages > 1 ? createPager(pages) : '';
+            const styles = createStyles();
+        
+            return $(`<div class='pretty-table-con'>${styles}<table class='pretty-table ${options.style}'>${header}${body}</table>${pager}</div>`)[0];
+        }
+        
+        return createTable(options, rank, columns, sortKey, sortDirection, sortable, rows, offset, pages);
+        
+    }
+
+    let dom = bake();
+
+    function rerender() {
+        dom.firstChild.remove();
+        dom.appendChild(bake().firstChild);
+    }
+
+    dom.addEventListener("click", e => {
+        if (e.target.tagName === "TH" && sortable) {
+            if (sortKey == e.target.dataset.key) {
+                sortDirection = !sortDirection;
+            }
+            sortKey = e.target.dataset.key;
+            rerender();
+        }
+        if (e.target.tagName === "BUTTON") {
+            if (e.target.dataset.action) {
+                switch (e.target.dataset.action) {
+                    case "next":
+                        page++, rerender();
+                        break;
+                    case "previous":
+                        page--, rerender();
+                        break;
+                }
+            } else if (e.target.dataset.page) {
+                (page = parseInt(e.target.dataset.page)), rerender();
+            }
+        }
+    });
+
+    return dom;
+}
+
 function humanFormatNumber(num, decimalPlaces = 1) {
     // Function to format the number based on whether it's an integer or not
     function format(value, divisor, suffix) {
@@ -51,193 +238,6 @@ let th = (c, sortKey, sortDirection, sortable) => {
                 class='column-type-${c.type} ${sortable ? "sortable" : ""}'>
                   ${displayedTitle}${arrow}
               </th>`;
-}
-let table = (data, options) => {
-    options = Object.assign({}, tableDefaultOptions, options);
-    const { sortable, rank, paged } = options;
-    let sortKey = undefined;
-    let sortDirection = true;
-    let page = 0;
-    if (sortable && rank) {
-        throw new Error("A table can either be ranked or sortable, but not both");
-    }
-    let columns = Object.keys(data[0]).map(key => {
-        const opts = options.columns[key] || {};
-        return {
-            key: key,
-            type: opts.type || typeof data[0][key],
-            options: opts
-        };
-    });
-
-    function bake() {
-        if (sortKey) {
-            data = data.slice().sort((a, b) => {
-                let as = a[sortKey];
-                let bs = b[sortKey];
-                // make this sort stable
-                if (as == bs) return JSON.stringify(a).localeCompare(JSON.stringify(b));
-                let res = as > bs ? 1 : as < bs ? -1 : 0;
-                if (sortDirection) res = -res;
-                return res;
-            });
-        }
-        let offset = page * paged;
-        let rows = data.slice(offset, offset + (paged || data.length));
-        let pages = paged ? Math.ceil(data.length / paged) : 1;
-        return $(`<div class='pretty-table-con'>
-                    <style>
-                        .pretty-pager {
-                            padding-top: 1rem;
-                        }
-                        .pretty-pager button {
-                            cursor: pointer;
-                            border-radius: 3px;
-                            border: 1px solid #fff;
-                            font-size: inherit;
-                        }
-                        .pretty-pager button:hover {
-                            border: 1px solid #888;
-                        }
-                        .pretty-table.normal {
-                            font-size: 15px;
-                        }
-                        .pretty-table.normal th,
-                        .pretty-table.normal td {
-                            padding: 3px 2px;
-                        }
-                        .pretty-table th,
-                        .pretty-table td {
-                            vertical-align: top;
-                        }
-                        .pretty-table thead th {
-                            text-transform: uppercase;
-                            font-weight:500;
-                        }
-                        .pretty-table thead th.column-type-number string {
-                            order: 1;
-                        }
-                        .pretty-table th.sortable {
-                            cursor: pointer;
-                        }
-                        .pretty-table thead th.column-type-number,
-                        .pretty-table tbody td.cell-type-number,
-                        .pretty-table tbody td.cell-rank {
-                            text-align:right;
-                        }
-                        .pretty-table tbody td.cell-type-number,
-                        .pretty-table tbody td.cell-rank {
-                            font-family: menlo,consolas,monaco,monospace;
-                            font-size: 90%;
-                        }
-                        .pretty-table tbody td.cell-rank {
-                            padding-right: 1em;
-                            color: #666;
-                        }
-
-                        .pretty-table tr {
-                            background-color: white !important;
-                        }
-                        .pretty-table td {
-                            border: none;
-                            color: #444;
-                        }
-
-                        .pretty-table tr:not(:last-child) {
-                            border-bottom: solid 1px #eee;
-                        }
-
-                        .pretty-table {
-                            border: none;
-                        }
-
-                        .pretty-table th {
-                            background-color: white;
-                            border: none;
-                            color: #111;
-                        }
-
-                        .pretty-table-con {
-                            width: 640px
-                        }                        
-                    </style>
-                  <table class='pretty-table ${options.style}'>
-                    ${options.header === false
-                ? ``
-                : `<thead>
-                      ${rank ? `<th></th>` : ""}
-                      ${columns.map(c => {
-                    return th(c, sortKey, sortDirection, sortable);
-                }).join('')}
-                    </thead>`
-            }
-                    <tbody>
-                      ${rows.map(
-                (row, i) => `<tr>
-                        ${rank ? `<td class='cell-rank'>${offset + i + 1}</td>` : ""}
-                        ${columns.map(c => {
-                    let displayValue = (c.options.formatter || identity)(
-                        row[c.key],
-                        i,
-                        row
-                    );
-                    if (
-                        displayValue instanceof window.HTMLElement &&
-                        displayValue.tagName == "TD"
-                    ) {
-                        return displayValue;
-                    }
-                    return `<td class='cell-type-${c.type}'>${displayValue}</td>`;
-                }).join('')}
-                      </tr>`
-            ).join('')}
-                    </tbody>
-                  </table>
-                  ${pages > 1
-                ? `<div class='pretty-pager'>
-                    <button data-action="previous">Previous</button>
-                    ${Array.from({ length: pages }).map(
-                    (_, i) => `<button data-page="${i}">${i + 1}</button>`
-                ).join('')}
-                    <button data-action="next">Next</button>
-                  </div>`
-                : ""
-            }
-                </div>`)[0];
-    }
-
-    let dom = bake();
-
-    function rerender() {
-        dom.firstChild.remove();
-        dom.appendChild(bake().firstChild);
-    }
-
-    dom.addEventListener("click", e => {
-        if (e.target.tagName === "TH" && sortable) {
-            if (sortKey == e.target.dataset.key) {
-                sortDirection = !sortDirection;
-            }
-            sortKey = e.target.dataset.key;
-            rerender();
-        }
-        if (e.target.tagName === "BUTTON") {
-            if (e.target.dataset.action) {
-                switch (e.target.dataset.action) {
-                    case "next":
-                        page++, rerender();
-                        break;
-                    case "previous":
-                        page--, rerender();
-                        break;
-                }
-            } else if (e.target.dataset.page) {
-                (page = parseInt(e.target.dataset.page)), rerender();
-            }
-        }
-    });
-
-    return dom;
 }
 
 
@@ -712,12 +712,9 @@ let processData = function (event) {
 
     function callback(entries, observer) {
         entries.forEach((entry) => {
-            console.log("entry", entry);
         if(entry.isIntersecting) {
             chartFuncs[entry.target.id]();
-            console.log("done", entry.target.id, entry.boundingClientRect.top, viewportHeight);
         } else {
-            console.log("not visible");
         }
         });
     }
@@ -1882,6 +1879,295 @@ let processData = function (event) {
         });
 
 
+
+        d3.json("/assets/book-analysis-1/data/shelf_ts.json")
+        .then(function (data) {
+            const parseDate = d3.timeParse("%Y-%m-%d");
+            data = data.map((d) => {
+                d.pub_date = parseDate(d.pub_date);
+                return d;
+            });
+
+            data = data.map(obj => {
+                obj['Genre'] = obj.shelf;
+                delete obj.shelf;
+                obj['Number of Books'] = obj.count;
+                delete obj.count;
+                obj['Publication Year'] = obj.pub_date;
+                delete obj.pub_date;
+                return obj;
+            });
+
+            const plotShelfTS = (data) => {
+                document.getElementById("pl").innerHTML = "";
+
+                const p = Plot.plot({
+                    style: "overflow: visible;",
+                    y: {grid: true},
+                    color: {
+                        type: "categorical",
+                        // scheme: "category10",
+                    },
+                    marks: [
+                        Plot.ruleY([0]),
+                        Plot.lineY(data, {
+                            x: "Publication Year", y: "Number of Books", stroke: "Genre", ariaLabel: "Genre",
+                            strokeWidth: 2,
+                            tip: { format: { stroke: true, x: (d) => d.getFullYear(), y: (d) => d3.format(",")(d) } , lineHeight: 1.5}
+                        }),
+                        Plot.text(data, Plot.selectLast({ x: "Publication Year", y: "Number of Books", z: "Genre", text: "Genre", textAnchor: "start", dx: 3 })),
+                        // Plot.tip(data, Plot.pointerX({x: "Publication Year", y: "Number of Books"}))
+                    ]
+                });
+
+                document.getElementById("pl").appendChild(p);
+            };
+
+            plotShelfTS(data);
+
+            // create a group of radio button filters to choose shelves
+            const shelfFilters = d3
+                .select("#shelf-filters")
+                .selectAll("div.shelf-radio")
+                .data([...new Set(data.map(obj => obj['Genre']))])
+                .join("div")
+                .attr("class", "shelf-filter");
+
+            shelfFilters
+                .selectAll("input")
+                .data(d => [d])
+                .join("input")
+                .attr("type", "checkbox")
+                .attr("name", "shelf")
+                .attr("value", (d) => d)
+                .attr("id", (d) => "shelf-" + d)
+                .property("checked", true)
+                .on("change", (event) => {
+                    let checkedShelves = Array.from(document.querySelectorAll('input[name=shelf]:checked')).map(cb => cb.value);
+                    let filteredData = data.filter((d) => checkedShelves.includes(d['Genre']));
+                    plotShelfTS(filteredData);
+                }
+            );
+
+            shelfFilters
+                .selectAll("label")
+                .data(d => [d])
+                .join("label")
+                .attr("for", (d) => "shelf-" + d)
+                .text((d) => d);
+
+            // d3.select("#pl").selectAll("path").each(function(d, i) {
+            //     // coordinates
+            //     // console.log(this);
+            //     d3.select(this).on("mouseover", function(event, d) {
+            //         console.log("d", d);
+            //         console.log("event", event);
+            //     });
+            //     d3.select(this).attr("aria-label", "shelf " + d.shelf);
+            // });
+
+        })
+        .catch(function (error) {
+            console.error("Error loading the CSV file:", error);
+        });
+
+        // xx make sure no extra tooltips are added every time the data is updated 
+        var tooltip_div = d3.select("body").append("div")
+            .attr("class", "wc-tooltip")
+            .style("opacity", 0);
+
+        function WordCloud(word_freq, {
+            size = group => group.length, // Given a grouping of words, returns the size factor for that word
+            word = d => d, // Given an item of the data array, returns the word
+            marginTop = 0, // top margin, in pixels
+            marginRight = 0, // right margin, in pixels
+            marginBottom = 0, // bottom margin, in pixels
+            marginLeft = 0, // left margin, in pixels
+            width = 640, // outer width, in pixels
+            height = 400, // outer height, in pixels
+            maxWords = 250, // maximum number of words to extract from the text
+            fontFamily = "sans-serif", // font family
+            fontScale = 15, // base font size
+            fill = null, // text color, can be a constant or a function of the word
+            padding = 0, // amount of padding between the words (in pixels)
+            rotate = 0, // a constant or function to rotate the words
+            // invalidation // when this promise resolves, stop the simulation
+            } = {}) {
+
+            // document.getElementById(chartId).innerHTML = "";
+            
+            const data = word_freq.slice(0, maxWords);
+            
+            const svg = d3.create("svg")
+                .attr("viewBox", [0, 0, width, height])
+                .attr("width", width)
+                .attr("font-family", fontFamily)
+                .attr("text-anchor", "middle")
+                .attr("style", "max-width: 100%; height: auto; height: intrinsic;");
+            
+            const g = svg.append("g").attr("transform", `translate(${marginLeft},${marginTop})`);
+
+            if (d3wc_cloud !== undefined) {
+                d3wc_cloud.stop();
+                d3wc_cloud = undefined;
+            }
+
+            const maxSize = Math.sqrt(d3.max(data, d => d.size)) * fontScale;
+            const minSize = Math.sqrt(d3.min(data, d => d.size)) * fontScale;
+
+            function handleMouseOver(event, d) {
+                sentences = data.filter((dt) => dt.text == d3.select(this).text())[0].sentences;
+                // for each sentence, highlight the word that matches d with <mark>
+                sentences = sentences.map((s) => s.replace(new RegExp(d, "gi"), match => `<mark>${match}</mark>`));
+                d3.select(this).classed("word-hovered", true);
+                
+                tooltip_div.transition()
+                    .duration(200)
+                    .style("opacity", 1)
+                    .style("left", (deviceType == "desktop" ? event.pageX : 80) + "px")
+                    .style("top", event.pageY - 28 + "px");
+                
+                // show sentences separated by <br>
+                tooltip_div.html(sentences.join("<br><br>"));
+            }
+
+            function handleMouseOut(event, d) {
+                d3.select(this)
+                  .classed("word-hovered", false);
+                
+                  tooltip_div.transition()
+                   .duration(500)
+                   .style("opacity", 0);
+            }
+
+            const colorMap = () => {
+                const colors = ['#67001f', '#67001f', '#878787', '#1a1a1a', '#d6604d'];
+                return colors[Math.floor(Math.random() * colors.length)];
+            };
+            
+            d3wc_cloud = d3.layout.cloud()
+                .size([width - marginLeft - marginRight, height - marginTop - marginBottom])
+                .words(data)
+                .padding(padding)
+                .rotate(rotate)
+                .font(fontFamily)
+                .fontSize(d => Math.sqrt(d.size) * fontScale)
+                .on("word", (word) => {
+                    g.append("text")
+                        .datum(word.text)
+                        .attr("font-size", word.size)
+                        .attr("fill", d3.scaleLinear([minSize, maxSize], ['orange', 'black'])(word.size))
+                        .attr("fill", `${colorMap()}`)
+                        .attr("transform", `translate(${word.x},${word.y}) rotate(${word.rotate})`)
+                        .style('cursor', 'pointer')
+                        .text(word.text)
+                        .on("mouseover", handleMouseOver)
+                        .on("mouseout", handleMouseOut);
+                });
+            
+            d3wc_cloud.start();
+            // invalidation && invalidation.then(() => cloud.stop());
+            
+            return svg.node();
+        };
+
+
+
+
+        d3.json("/assets/book-analysis-1/data/word_freqs.json")
+        .then(function (data) {
+            // console.log("data before filter", structuredClone(data));
+            data = data.filter((d) => d.type == bookTypeFilter);
+            // console.log("data after filter", structuredClone(data));
+            // const wordCloud = d3.select("#word-cloud-chart").selectAll("div.word-cloud-chart").data([true]).join("div").attr("class", "word-cloud-chart");
+            // wordCloud.node().replaceChildren();
+            // wordCloud.node().appendChild(wordCloudChart(data, "word-cloud-chart"));
+
+
+            // create button group to filter word cloud by decade
+            const wordCloudDecadeFilters = d3
+                .select("#common-words-options")
+                .selectAll("div.word-cloud-option")
+                .data([...new Set(data.map(obj => obj['period']))])
+                .join("div")
+                .attr("class", "word-cloud-option")
+                .call(dd => {
+                    dd.selectAll("input")
+                        .data(d => [d])
+                        .join("input")
+                        .attr("type", "radio")
+                        .attr("name", "word-cloud-decade")
+                        .attr("value", (d) => d)
+                        .attr("id", (d) => "word-cloud-decade-" + d)
+                        .attr("class", "word-cloud-radio")
+                        // .property("checked", (d) => d == 2020)
+                        ;
+                })
+                .call(dd => {
+                    dd.selectAll("label")
+                        .data(d => [d])
+                        .join("label")
+                        .attr("for", (d) => "word-cloud-decade-" + d)
+                        .text((d) => d);
+                });
+
+            
+            // when a radio button is clicked, filter the word cloud by the selected decade
+            d3.selectAll("input.word-cloud-radio").on("change", (event) => {
+                let val = event.target.value;
+                console.log("FILTER", val);
+                let filteredData = structuredClone(data.filter((d) => d['period'] == val));
+
+                // reduce "size"
+                let max_size = d3.max(filteredData.map((d) => d.size));
+                console.log("max_size", max_size);
+                filteredData = filteredData.map((d) => {
+                    d.size = d.size / max_size * 100;
+                    // d.fill = d.size > 50 ? "black" : "red";
+                    return d;
+                });
+                
+                // console.log("FILTER", val);
+                // console.log("filteredData", structuredClone(filteredData));
+                // console.log("data xx", structuredClone(data));
+                // console.log("word-cloud-chart", document.getElementById("word-cloud-chart").cloneNode(true));
+                // document.getElementById("word-cloud-chart").innerHTML = "";
+                // console.log("word-cloud-chart", document.getElementById("word-cloud-chart").cloneNode(true));
+                // console.log("==============-------------------===============");
+                let wc = WordCloud(filteredData, {
+                    chartId: "word-cloud-chart",
+                    fontFamily: "Source Serif Pro",
+                    padding: 3,
+                    rotate: 0, //() => ~~(Math.random() * 4) * 45 - 45,
+                    width: 1000,
+                    height: 600,
+                    maxWords: 200,
+                    fontScale: 6
+                });
+
+                // console.log("wc", wc);
+                document.getElementById("word-cloud-chart").innerHTML = "";
+                document.getElementById("word-cloud-chart").appendChild(wc);
+                console.log(d3.selectAll("#word-cloud-chart svg text").size());
+            });
+            
+
+            // initial word cloud.. select the first decade.. trigger the change event
+            d3.selectAll("input.word-cloud-radio").filter((d, i) => i == 0).node().click();
+
+            // WordCloud(data.filter((d) => d['period'] == 2020), {
+            //     chartId: "word-cloud-chart",
+            //     // fill: "black",
+            //     fontFamily: "sans-serif",
+            //     // fontScale: 15,
+            //     padding: 1,
+            //     rotate: 0,
+            //     width: 640,
+            //     height: 400,
+            //     maxWords: 250
+            // });
+            
+        })
 }
 
 let bookTypeFilter = "all";
