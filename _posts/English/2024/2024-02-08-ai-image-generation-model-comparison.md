@@ -25,7 +25,7 @@ div.note {
 }
 </style>
 
-<img src="/assets/images/2024/img-gen-comp-cover.jpeg" style="max-width:800px">
+<img src="/assets/images/2024/img-gen-comp-cover.jpeg" style="max-width:800px; width:100%">
 
 Did you know that AI can now create images that are indistinguishable from those taken by top photographers or created by great designers? Not all AI models are created equal in this regard, this post aims to shed light on those that truly stand out in the world of image generation.
 

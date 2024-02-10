@@ -2017,8 +2017,7 @@ let processData = function (event) {
 
             function handleMouseOver(event, d) {
                 sentences = data.filter((dt) => dt.text == d3.select(this).text())[0].sentences;
-                // for each sentence, highlight the word that matches d with <mark>
-                sentences = sentences.map((s) => s.replace(new RegExp(d, "gi"), match => `<mark>${match}</mark>`));
+                sentences = sentences.map((s) => s.replace(new RegExp(d, "gi"), match => `<mark class="wct-mark">${match}</mark>`));
                 d3.select(this).classed("word-hovered", true);
                 
                 tooltip_div.transition()
@@ -2028,7 +2027,7 @@ let processData = function (event) {
                     .style("top", event.pageY - 28 + "px");
                 
                 // show sentences separated by <br>
-                tooltip_div.html(sentences.join("<br><br>"));
+                tooltip_div.html(sentences.join("<br>"));
             }
 
             function handleMouseOut(event, d) {

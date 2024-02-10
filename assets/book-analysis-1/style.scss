@@ -174,17 +174,16 @@ div.publisher-top-works-tooltip-2, div.series-top-works-tooltip, div.num-pages-h
     .word-hovered {
         font-weight: bold;
     }
-
-    mark {
-        padding: 1px 3px;
-        margin: 2px;
-        line-height: 1;
-        display: inline-block;
-        border-radius: 2px;
-        background: #fc3;
-    }
 }
 
+mark.wct-mark {
+    padding: 1px 3px;
+    margin: 2px;
+    line-height: 1;
+    display: inline-block;
+    border-radius: 2px;
+    background: #fc3;
+}
 
 
 
