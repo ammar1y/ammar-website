@@ -1,30 +1,28 @@
 ---
 layout: post
 title: "Guided Generation with LLMs: How to Fully Control LLM Outputs"
-date: 2025-02-07
+date: 2024-02-16    
 categories: [data-science, machine-learning] 
-tags: [llm, guided-generation, llama, mistral]
+tags: [LLM, guided-generation, llama, mistral, NLP]
 permalink: "/:year/Guided-Generation-with-LLMs-How-to-Fully-Control-LLM-Outputs"
 sharing-img: "/assets/images/2024/llm-guided-gen-img.jpeg"
 ---
 
-<img src="/assets/images/2024/llm-guided-gen-img.jpeg" style="max-width:800px">
+<img src="/assets/images/2024/llm-guided-gen-img.jpeg" style="max-width:800px; width:100%;">
 
-Large Language Models (LLMs) have revolutionized the AI world in the past few months. There are commercial LLMs like OpenAI's GPT-4 and Anthropic's Claude 2.1, and there are open-source LLMs like Llama 2 and Mistral families. 
+Large Language Models (LLMs) have revolutionized the AI world in the past few months. There are commercial ones like OpenAI's GPT-4 and Anthropic's Claude 2.1, and open-source ones like Llama 2 and Mistral and their many fine-tunes. 
 
-With OpenAI's models, you can control the output to some extent using [function calling](https://platform.openai.com/docs/guides/function-calling) and get structured data back from the models.
+With OpenAI's models, you can control the output to a good extent using [function calling](https://platform.openai.com/docs/guides/function-calling) and get structured data back from the models.
 
-However, with many open-source LLMs, you can have greater control over the outputs. In this post, I will talk about great libraries that can be used to fully control the outputs of LLMs using what we can call "guided generation."
+With many open-source LLMs, you can have even greater control over the outputs. In this post, I will talk about great libraries that can be used to fully control the outputs of LLMs using what's being called "guided generation." They all have similar capabilities, so I'll mention some of the interesting or unique features of each one with some examples to give you an idea of how they work. For more details, you can check their documentation via the links provided below.
 
 If you want to see my conclusion and the tool I ended up using, you can skip to the end of the post.
 
 ## What is Guided Generation?
 
-Guided generation in large language models (LLMs) is an advanced approach that allows you to steer the model to generate text in the format and patterns you need. This method involves guiding the language model's text generation using specific techniques like regular expressions, JSON schemas, context-free grammars, etc. 
+Guided generation in large language models (LLMs) is an advanced approach that allows you to steer the model to generate text in the format and patterns you need. This method involves guiding the language model's text generation using specific techniques like regular expressions, JSON schemas, context-free grammars (CFGs), etc. 
 
 With guided generation, you can be sure that the LLM will adhere to your predefined patterns or structures, enhancing both its relevance and accuracy.
-
-Bear with me, everything will be clear when you see the examples below.
 
 ## Tools for Guided Generation
 
@@ -45,12 +43,14 @@ Luckily we have many open-source tools that support guided generation, and most 
 
 #### Examples
 
+The following example shows how you can make the model choose from a list of predefined options and then generate text based on the choice.
+
 ```python
 from guidance import models, gen
 
 lm = models.LlamaCpp("path/to/llama2.gguf", n_gpu_layers=-1, n_ctx=4096)
 
-# capture our selection under the name 'answer'
+# capture the selection under the name 'answer'
 lm = lm + f"Do you want a joke or a poem? A {select(['joke', 'poem'], name='answer')}.\n"
 
 # make a choice based on the model's previous selection
@@ -60,13 +60,14 @@ else:
     lm += f"Here is a one-line poem about dogs: " + gen('output', stop='\n')
 ```
 
-which will output something like:
+The output will be something like:
 
 ```
-Who won the last Kentucky derby and by how much?
-
-The last Kentucky Derby was held on
+Do you want a joke or a poem? A poem.
+Here is a one-line poem about dogs: "Dogs are the best."
 ```
+
+Another example showing how to use functions with Guidance:
 
 ```python
 from guidance import models, gen
@@ -132,6 +133,8 @@ which will output something like:
 Blue
 ```
 
+Another example showing how to use Pydantic models with Outlines:
+
 ```python
 from enum import Enum
 from pydantic import BaseModel, constr, conint
@@ -173,11 +176,11 @@ Llama.cpp is one of the most popular LLM libraries out there. Its development is
 
 | # of stars | # of commits | # of contributors |
 |:----------:|:------------:|:-----------------:|
-| 50.4K      | 2,092        | 555                |
+| **50.4K**      | 2,092        | 555                |
 
 [llama.cpp on Github](https://github.com/ggerganov/llama.cpp)
 
-- Compatible with many models and their finetunes like: LLaMA 2, Mistral 7B, Yi models, Qwen models, etc. Basically, it works with models in GGUF format which is a format available for almost all models.
+- Compatible with many models and their finetunes like: LLaMA 2, Mistral 7B, Yi models, Qwen models, etc. Basically, it works with models in GGUF format which is a format available for almost all models [on HuggingFace](https://huggingface.co/models?sort=downloads&search=gguf).
 - It has bindings for Python, Go, Node.js, and many other languages.
 - Robust with many other libraries and tools built on top of it.
 
@@ -186,7 +189,6 @@ llama.cpp supports guided generation to constrain the model's output using [GBNF
 #### Example
 
 The following quick example shows how to guide the model to generate output in the format of a list.
-
 
 ```python
 from llama_cpp import Llama, LlamaGrammar
@@ -233,7 +235,7 @@ Other than using these tools to force the model to generate text in a specific f
 
 ## Conclusion
 
-Based on my experience with the three tools above (Guidance, Outlines, and llama.cpp), I ended up using **llama.cpp** for two main reasons:
+Based on my experience with the three tools above (Guidance, Outlines, and llama.cpp), **I ended up using llama.cpp** for two main reasons:
 
 1. I found llama.cpp to be more robust and reliable. I encountered some bugs with Guidance and Outlines. For example, I encountered an issue with Outlines that made generation fail randomly. I'm sure the maintainers will fix the issues, but with llama.cpp, I didn't encounter any bugs.
 

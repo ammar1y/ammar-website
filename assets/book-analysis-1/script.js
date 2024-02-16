@@ -2167,6 +2167,228 @@ let processData = function (event) {
             // });
             
         })
+        .catch(function (error) {
+            console.error("Error loading the CSV file:", error);
+        });
+
+
+
+
+
+
+
+
+
+
+
+        d3.json("/assets/book-analysis-1/data/top_books_by_year.json")
+        .then(function (data) {
+            data = data.filter((d) => d.type == bookTypeFilter);
+            // convert years (like 1980) to date objects
+            data = data.map((d) => {
+                d.original_publication_date = d3.utcParse("%Y")(d.original_publication_date);
+                return d;
+            });
+            
+            // Declare the chart dimensions and margins.
+            const width = 1300;
+            const height = 800;
+            const marginTop = 20;
+            const marginRight = 30;
+            const marginBottom = 30;
+            const marginLeft = 90;
+
+            // Declare the x (horizontal position) scale.
+            // const x = d3.scaleUtc(d3.extent(data, d => d.original_publication_date), [marginLeft, width - marginRight]);
+            const x = d3.scalePoint(data.map(d => d.original_publication_date), [marginLeft, width - marginRight])
+                .padding(0.5);
+            
+            // Create the SVG container.
+            const svg = d3.create("svg")
+                .attr("width", width)
+                .attr("height", height)
+                .attr("viewBox", [0, 0, width, height])
+                .attr("style", "max-width: 100%; height: auto; height: intrinsic; overflow: visible;");
+
+            // Add the x-axis.
+            svg.append("g")
+                .attr("transform", `translate(0,${height - marginBottom})`)
+                .call(d3.axisBottom(x).tickSizeOuter(0).tickFormat(d3.timeFormat("%Y")));
+
+            svg.append("g")
+                .attr("transform", `translate(0,${marginTop})`)
+                .call(d3.axisTop(x).tickSizeOuter(0).tickFormat(d3.timeFormat("%Y")));
+
+
+            const chart_height = height - marginTop - marginBottom;
+
+            // // Add the y-axis, remove the domain line, add grid lines and a label.
+            // svg.append("g")
+            //     .attr("transform", `translate(${marginLeft},0)`)
+            //     .call(d3.axisLeft(y).ticks(height / 40))
+            //     .call(g => g.select(".domain").remove())
+            //     .call(g => g.selectAll(".tick line").clone()
+            //         .attr("x2", width - marginLeft - marginRight)
+            //         .attr("stroke-opacity", 0.1))
+            //     .call(g => g.append("text")
+            //         .attr("x", -marginLeft)
+            //         .attr("y", 10)
+            //         .attr("fill", "currentColor")
+            //         .attr("text-anchor", "start")
+            //         .text("↑ Daily close ($)"));
+
+
+            const cursor = svg.append("g")
+                .attr("transform", `translate(${marginLeft},0)`)
+                .call(g => g
+                    .append("rect")
+                    .attr("x", 0)
+                    .attr("y", marginTop)
+                    .attr("width", 1)
+                    .attr("height", chart_height)
+                    .attr("fill", "black")
+                );
+            // move with mouse pointer
+            svg.on("mousemove", function(event) {
+                const [xpos, ypos] = d3.pointer(event);
+                cursor.attr("transform", `translate(${xpos},0)`);
+                // find the closest date
+                // const date = x.invert(xpos - marginLeft);
+                console.log("date", xpos, x.step());
+            });
+
+
+            const tooltip = d3
+                .select("body")
+                .append("div")
+                .attr("class", "top-over-time-tooltip")
+                .style("opacity", 0);
+
+            let showTooltipFunc = function (event, d, rank_type) {
+                console.log("showTooltipFunc", d, rank_type, d[rank_type][0]);
+                tooltip.html(
+                    `
+                    <div class="top-over-time-tt-book">
+                        <div class="top-over-time-tt-book-cover">
+                            <img src="${d[rank_type][0].image_url}" />
+                        </div>
+                        <div class="top-over-time-tt-book-details">
+                            <p>${d[rank_type][0].title}</p>
+                            <p>${d[rank_type][0].author_name}</p>
+                            <p>${d[rank_type][0].ratings_count} ratings</p>
+                            <p>${d[rank_type][0].average_rating} average rating</p>
+                        </div>
+                    </div>
+                    `
+                );
+                tooltip
+                    .transition()
+                    .duration(200)
+                    .ease(d3.easePoly.exponent(1))
+                    .style("opacity", 1)
+                    .style(
+                        "left",
+                        (deviceType == "desktop" ? event.pageX : 80) + "px"
+                    )
+                    .style("top", event.pageY - 28 + "px");
+            };
+
+            let hideTooltipFunc = function (event, d) {
+                tooltip.transition().duration(100).style("opacity", 0);
+            };
+            
+            
+
+            const backgroundColors = ["#272641", "#E4A13A", "#E56348", "#664E43"];
+            const createLine = (data, rank_type, metric_name, position) => {
+                const sectionMargin = 40;
+
+                svg.append("g")
+                    .append("rect")
+                    .attr("x", marginLeft)
+                    .attr("y", (position-1)*chart_height/4 + sectionMargin)
+                    .attr("width", width - marginLeft - marginRight)
+                    .attr("height", chart_height/4 - sectionMargin)
+                    .attr("fill", backgroundColors[position-1])
+                    .attr("opacity", 0.2);
+
+                svg.append("foreignObject")
+                    .attr("x", width)
+                    .attr("y", (position-1)*chart_height/4 + sectionMargin)
+                    .attr("width", 300)
+                    .attr("height", chart_height/4 - sectionMargin)
+                    .append("xhtml:div")
+                    .style("width", "100%").style("height", "100%")
+                    .style("background", backgroundColors[position-1] + "ff") // 33
+                    // .style("opacity", 0.2)
+                    // .append("foreignObject")
+                    // .append("xhtml:div")
+                    .attr("class", "top-over-time-section-label")
+                    .html(`<p>${rank_type}</p><p>${metric_name}</p>`);
+
+                const y = d3.scaleLinear(
+                    [d3.min(data, d => d[rank_type][0][metric_name]), d3.max(data, d => d[rank_type][0][metric_name])], 
+                    [position*chart_height/4 - sectionMargin, (position-1)*chart_height/4 + sectionMargin]
+                );
+                console.log(rank_type, metric_name, "y.domain", y.domain(), "y.range", y.range(), 
+                y.range()[0] - y.range()[1], y.range()[0]+40);
+            
+                const line = d3.line()
+                    .x(d => x(d.original_publication_date))
+                    .y(d => y(d[rank_type][0][metric_name]));
+
+                svg.append("path")
+                    .attr("fill", "none")
+                    .attr("stroke", "red")
+                    .attr("stroke-width", 1.5)
+                    .attr("d", line(data));
+
+                svg.selectAll(`image.${rank_type}-book-cover`)
+                    .data(data)
+                    .join("image")
+                    .attr("xlink:href", d => d[rank_type][0].image_url)
+                    .attr("x", d => x(d.original_publication_date) - 20)
+                    .attr("y", d => y(d[rank_type][0][metric_name]) - 20)
+                    .attr("width", 40)
+                    .attr("height", 40)
+                    .attr("class", `image.${rank_type}-book-cover`)
+                    .on("mouseover", (event, d) => showTooltipFunc(event, d, rank_type))
+                    .on("mouseout", hideTooltipFunc);
+                
+                // Add labels 
+                svg.selectAll(`text.${rank_type}-book-title`)
+                    .data(data)
+                    .join("text")
+                    .attr("x", d => x(d.original_publication_date))
+                    .attr("y", d => y(d[rank_type][0][metric_name]) - 20)
+                    .text(d => d[rank_type][0][metric_name])
+                    .attr("class", `text.${rank_type}-book-title`)
+                    .attr("fill", "#bbb")
+                    .attr("font-size", "10px")
+                    .attr("text-anchor", "middle");
+
+                // add circles as markers
+                // svg.selectAll(`circle.${rank_type}-book-marker`)
+                //     .data(data)
+                //     .join("circle")
+                //     .attr("cx", d => x(d.original_publication_date))
+                //     .attr("cy", d => y(d[rank_type][0][metric_name]))
+                //     .attr("r", 3)
+                //     .attr("fill", "red")
+                //     .attr("class", `circle.${rank_type}-book-marker`);
+            }
+
+            createLine(data, "most_rated", "ratings_count", 1);
+            createLine(data, "top_rated", "average_rating", 2);
+            createLine(data, "pop_reg", "ratings_count", 3);
+            createLine(data, "hidden_gem", "average_rating", 4);
+            
+            document.getElementById("top-books-over-time-chart").innerHTML = "";
+            document.getElementById("top-books-over-time-chart").appendChild(svg.node());
+        })
+        .catch(function (error) {
+            console.error("Error loading the CSV file:", error);
+        });
 }
 
 let bookTypeFilter = "all";
