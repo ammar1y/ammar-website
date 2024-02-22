@@ -1971,6 +1971,11 @@ let processData = function (event) {
             console.error("Error loading the CSV file:", error);
         });
 
+
+
+
+
+
         // xx make sure no extra tooltips are added every time the data is updated 
         var tooltip_div = d3.select("body").append("div")
             .attr("class", "wc-tooltip")
@@ -2114,12 +2119,10 @@ let processData = function (event) {
             // when a radio button is clicked, filter the word cloud by the selected decade
             d3.selectAll("input.word-cloud-radio").on("change", (event) => {
                 let val = event.target.value;
-                console.log("FILTER", val);
                 let filteredData = structuredClone(data.filter((d) => d['period'] == val));
 
                 // reduce "size"
                 let max_size = d3.max(filteredData.map((d) => d.size));
-                console.log("max_size", max_size);
                 filteredData = filteredData.map((d) => {
                     d.size = d.size / max_size * 100;
                     // d.fill = d.size > 50 ? "black" : "red";
@@ -2147,7 +2150,6 @@ let processData = function (event) {
                 // console.log("wc", wc);
                 document.getElementById("word-cloud-chart").innerHTML = "";
                 document.getElementById("word-cloud-chart").appendChild(wc);
-                console.log(d3.selectAll("#word-cloud-chart svg text").size());
             });
             
 
@@ -2170,6 +2172,80 @@ let processData = function (event) {
         .catch(function (error) {
             console.error("Error loading the CSV file:", error);
         });
+
+
+
+
+
+
+        d3.json("/assets/book-analysis-1/data/avg_pages_over_time.json")
+        .then(function (data) {
+            data = data.filter((d) => d.type == bookTypeFilter);
+            const p = Plot.plot({
+                // style: "overflow: visible;",
+                y: {grid: true, label: "Median number of pages"},
+                x: {label: "Publication decade"},
+                marks: [
+                    Plot.ruleY([0]),
+                    Plot.lineY(data, {x: "original_publication_date", y: "median_num_pages", stroke: "red", 
+                        curve: "catmull-rom", tip: true}),
+                    Plot.dotY(data, {x: "original_publication_date", y: "median_num_pages", fill: "red", r: 3}),
+                    // Plot.lineY(data, {
+                    //     x: "Publication Year", y: "Number of Books", stroke: "Genre", ariaLabel: "Genre",
+                    //     strokeWidth: 2,
+                    //     tip: { format: { stroke: true, x: (d) => d.getFullYear(), y: (d) => d3.format(",")(d) } , lineHeight: 1.5}
+                    // }),
+                    // Plot.text(data, Plot.selectLast({ x: "Publication Year", y: "Number of Books", z: "Genre", text: "Genre", textAnchor: "start", dx: 3 })),
+                ]
+            });    
+        
+            // console.log("p", p);
+            document.getElementById("num-pages-over-time-chart").innerHTML = "";
+            document.getElementById("num-pages-over-time-chart").appendChild(p);
+        })
+        .catch(function (error) {
+            console.error("Error loading the CSV file:", error);
+        });
+
+
+
+
+
+
+
+
+
+        d3.json("/assets/book-analysis-1/data/avg_ratings_over_time.json")
+        .then(function (data) {
+            data = data.filter((d) => d.type == bookTypeFilter);
+            const p = Plot.plot({
+                // style: "overflow: visible;",
+                y: {grid: true, label: "Average book rating"},
+                x: {label: "Publication decade"},
+                marks: [
+                    Plot.ruleY([0]),
+                    Plot.lineY(data, {x: "original_publication_date", y: "average_rating", stroke: "red", 
+                        curve: "catmull-rom", tip: true}),
+                    // Plot.dotY(data, {x: "original_publication_date", y: "average_rating", fill: "cyan", r: 3}),
+                    // Plot.lineY(data, {
+                    //     x: "Publication Year", y: "Number of Books", stroke: "Genre", ariaLabel: "Genre",
+                    //     strokeWidth: 2,
+                    //     tip: { format: { stroke: true, x: (d) => d.getFullYear(), y: (d) => d3.format(",")(d) } , lineHeight: 1.5}
+                    // }),
+                    // Plot.text(data, Plot.selectLast({ x: "Publication Year", y: "Number of Books", z: "Genre", text: "Genre", textAnchor: "start", dx: 3 })),
+                ]
+            });    
+        
+            // console.log("p", p);
+            document.getElementById("avg-rating-over-time-chart").innerHTML = "";
+            document.getElementById("avg-rating-over-time-chart").appendChild(p);
+        })
+        .catch(function (error) {
+            console.error("Error loading the CSV file:", error);
+        });
+
+
+
 
 
 
@@ -2254,7 +2330,6 @@ let processData = function (event) {
                 cursor.attr("transform", `translate(${xpos},0)`);
                 // find the closest date
                 // const date = x.invert(xpos - marginLeft);
-                console.log("date", xpos, x.step());
             });
 
 
@@ -2265,7 +2340,6 @@ let processData = function (event) {
                 .style("opacity", 0);
 
             let showTooltipFunc = function (event, d, rank_type) {
-                console.log("showTooltipFunc", d, rank_type, d[rank_type][0]);
                 tooltip.html(
                     `
                     <div class="top-over-time-tt-book">
@@ -2330,8 +2404,6 @@ let processData = function (event) {
                     [d3.min(data, d => d[rank_type][0][metric_name]), d3.max(data, d => d[rank_type][0][metric_name])], 
                     [position*chart_height/4 - sectionMargin, (position-1)*chart_height/4 + sectionMargin]
                 );
-                console.log(rank_type, metric_name, "y.domain", y.domain(), "y.range", y.range(), 
-                y.range()[0] - y.range()[1], y.range()[0]+40);
             
                 const line = d3.line()
                     .x(d => x(d.original_publication_date))
