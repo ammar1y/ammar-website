@@ -1,10 +1,10 @@
 ---
 layout: default
-title: "Book Analysis"
-date: 2024-01-01
+title: "Exploring Goodreads Data: An Analysis of 10 Million Books"
+date: 2024-06-09
 categories: [data-science]
 tags: [data-analysis, data-science, data-visualization] 
-permalink: "/:year/book-analysis"
+permalink: "/:year/exploring-goodreads-data-an-analysis-of-10-million-books"
 technicalEn: "no"
 custom-css-list:
     - "https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
@@ -17,12 +17,127 @@ custom-javascript-list:
     - "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
     - "https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6.13/dist/plot.umd.min.js"
     - "https://cdn.jsdelivr.net/npm/d3-cloud@1.2.7/build/d3.layout.cloud.min.js"
+    - "https://cdnjs.cloudflare.com/ajax/libs/leader-line/1.0.3/leader-line.min.js"
     - "/assets/book-analysis-1/script.js"
 ---
 
-<h1 class="animate__animated animate__bounce">Book Analysis</h1>
 
-https://www.kaggle.com/datasets/opalskies/large-books-metadata-dataset-50-mill-entries
+<h1 class="title">Exploring Goodreads Data: An Analysis of 10 Million Books</h1>
+
+<div class="feat-img">
+    <img src="/assets/book-analysis-1/feat-img.png" alt="feat-img"> 
+</div>
+
+<!--  animate__animated animate__bounce -->
+<!-- <div id="feat-img"></div> -->
+
+<!-- <p class="par">In this post, I’ll present the results of analyzing the data of 10+ million books on Goodreads.</p> -->
+
+<p class="par">Goodreads is one of the largest book websites on the internet. It has data about millions and millions of books from different genres and in many languages. It’s hard not to find a book on Goodreads whether it's published hundreds of years ago or just a few days ago.</p>
+
+<p class="par">Today, I present the analysis results of more than 10 million books on Goodreads. In fact, the original dataset that I used had 50+ million books but I excluded 40 million of them for data quality reasons mentioned later in this article.</p>
+
+<p class="par">Goodreads allows you to search for any book and view its info, but there is no way to see all the available books and interact with them. Using the data in this analysis, however, I was able to do just that with millions of titles. Below, I’ll share some interesting findings and provide a method for further exploration at the end.</p>
+
+<p class="par">Continue reading to know more about the analysis and the data or you can <a href="#ref2">jump directly to the results section</a>. But don't also forget to read about <a href="#ref1">how to get the most out of this analysis</a>.</p>
+
+
+
+
+<div id="toc-con">
+    <h2 class="toc-title">Table of Contents</h2>
+    <div id="toc"></div>
+    <p class="toc-note"><span class="toc-note-star material-symbols-outlined">star</span> marks the sections that I find most interesting.</p>
+</div>
+
+
+
+
+
+
+<h1 class="top-heading">Data Used</h1>
+<p class="par">I used an <a target="_blank" href="https://www.kaggle.com/datasets/opalskies/large-books-metadata-dataset-50-mill-entries">obscure dataset</a> published on Kaggle a few years ago. Its size uncompressed is 90 GB which made it hard to deal with on my personal computer, so I used cloud services (on AWS) for that. More on that below.</p>
+
+<p class="par">The dataset contains information about 50+ million books published throughout the years up to 2021. It contains information about books including title, author, publisher, publication date, average rating, number of ratings, number of reviews, number of pages, categories assigned by users, format, and more.</p>
+
+
+
+<!-- <div id="mc_embed_shell">
+  
+    <div id="mc_embed_signup">
+        <form action="https://ammar-alyousfi.us19.list-manage.com/subscribe/post?u=85eb6400d7b26faab2b8449e6&amp;id=5b800dc254&amp;f_id=00515de4f0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_self" novalidate="">
+            <div id="mc_embed_signup_scroll">
+                <div class="indicates-required"><span class="asterisk">*</span> indicates required</div>
+                <div class="mc-field-group"><label for="mce-EMAIL">Email Address <span class="asterisk">*</span></label><input type="email" name="EMAIL" class="required email" id="mce-EMAIL" required="" value=""></div><div class="mc-field-group"><label for="mce-FNAME">First Name </label><input type="text" name="FNAME" class=" text" id="mce-FNAME" value=""></div>
+            <div id="mce-responses" class="clear foot">
+                <div class="response" id="mce-error-response" style="display: none;"></div>
+                <div class="response" id="mce-success-response" style="display: none;"></div>
+            </div>
+        <div aria-hidden="true" style="position: absolute; left: -5000px;">
+            /* real people should not fill this in and expect good things - do not remove this or risk form bot signups */
+            <input type="text" name="b_85eb6400d7b26faab2b8449e6_5b800dc254" tabindex="-1" value="">
+        </div>
+            <div class="optionalParent">
+                <div class="clear foot">
+                    <input type="submit" name="subscribe" id="mc-embedded-subscribe" class="button" value="Subscribe">
+                    <p style="margin: 0px auto;"><a href="http://eepurl.com/iRwPJw" title="Mailchimp - email marketing made easy and fun"><span style="display: inline-block; background-color: transparent; border-radius: 4px;"><img class="refferal_badge" src="https://digitalasset.intuit.com/render/content/dam/intuit/mc-fe/en_us/images/intuit-mc-rewards-text-dark.svg" alt="Intuit Mailchimp" style="width: 220px; height: 40px; display: flex; padding: 2px 0px; justify-content: center; align-items: center;"></span></a></p>
+                </div>
+            </div>
+        </div>
+    </form>
+    </div>
+    </div> -->
+
+
+    <div class='dash-sub-em-con'>
+        <!-- <div class="sub-img"><img src="/assets/images/2021/lb4.png" ></div> -->
+        <p><span class="dsem-sp1">Hey! 👋</span><br> 
+            Do you want to look at the data<sup>*</sup> and interact with it? Add your email to get access to
+            a dashboard with <strong>hundreds of thousands</strong> of books.
+        </p>
+        <p><a href="https://mailchi.mp/fc0b1ad90e2f/goodreads-analysis-1" target="_blank">
+            <button class="dsem-btn">Get Access</button>
+        </a></p>
+        <p><span class="dsem-note">*The dashboard show books used in this analysis that have more than 500 ratings.</span></p>
+    </div>
+    
+
+
+
+<h1 class="top-heading">Method and Tools</h1>
+
+<p class="par">As mentioned above, the dataset is large (90 GB) and it’s hard to deal with on a personal computer. So I used cloud services to process the data and extract the information I needed for the analysis. I used AWS services for that. I uploaded the data to S3 then used Glue to discover the data on S3 and define a structured table on top of it. From there, I used Athena to query the data, explore it, and extract the subset I needed for the analysis.</p>
+
+<p class="par">The original dataset contains 50+ million books but most of them are not useful for the analysis. For example, some "books" are actually journals, notebooks, planners, calendars, etc. so I excluded them. I also excluded books with no ratings at all, meaning no one had rated them on Goodreads. After that, I ended up with around 23 million books.</p>
+
+<p class="par">Some of these 23 million books were actually the same book but in different editions. For example, a book can have an English edition, a French edition, a Spanish edition, etc. It also can have multiple editions in the same language. I wanted to analyze books, not editions, so I selected one edition for each book. I ended up with around 9 million unique books.</p>
+
+<p class="par">I Used SQL in Athena to clean the data and make it more structured and ready for analysis. Then I downloaded the data to my computer and started the analysis. To perform the analysis, I used Python, Pandas, NumPy, scikit-learn, OpenCV, and other libraries for data processing and analysis inside a Jupyter Notebook.</p> 
+
+<p class="par">For the interactive data visualization that you will see below, I used D3.js and in a few cases Observable Plot. This is my first time I extensively use D3.js for data visualization and I found it very powerful and flexible. It's now one of my favorite libraries although it has a steep learning curve. I've used Matplotlib, Seaborn, Plotly, and other libraries for data vis before but D3.js is different and more powerful in many ways.</p>
+
+
+<!-- <div id="filter-guide">
+    <div>Hover over the filters to show them.</div>
+</div> -->
+
+
+<div id="ref1"></div>
+<h1 class="top-heading">How to Use this Analysis</h1>
+<p class="par">Here are some quick important notes to help you get the most of this analysis.</p>
+
+<h2 class="sub-heading">Filtering: Fiction, Non-Fiction, or All</h2>
+<p class="par" id="show-fg-trg">The analysis covers millions of books. You can filter the analysis results to see only fiction books, only non-fiction books, or all books (the default option.) You can do that by clicking on the filter buttons (<span class="material-symbols-outlined inline-icon">tune</span>) on the right side of the screen. When you select an option, all charts and numbers on the page change to reflect the selected option.</p>
+
+<p class="par note">You can also use keyboard shortcuts: <span class="keybk">Shift</span> + <span class="keybk">F</span> for fiction, <span class="keybk">Shift</span> + <span class="keybk">N</span> for non-fiction, and <span class="keybk">Shift</span> + <span class="keybk">A</span> for all.</p>
+
+<h2 class="sub-heading">Interactive Charts</h2>
+<p class="par">This analysis is interactive, meaning you can hover over the charts to see more info about the data points. For example, you can hover over a book to see its title, author, and other info.</p>
+
+
+<div id="filter-opener">
+    <span class="material-symbols-outlined">tune</span>
+</div>
 
 <div id='book-type-filter-wrapper'>
     <input type='radio' id='radio1-1' name='radio' value="fiction">
@@ -33,114 +148,350 @@ https://www.kaggle.com/datasets/opalskies/large-books-metadata-dataset-50-mill-e
     <label for='radio1-3'>All</label>
 </div>
 
-<h2 class="section-heading">Most Rated Books</h2>
-<div id="most-rated-books-chart"></div>
+<!-- <h1 class="top-heading analysis-results">Analysis Results</h1> -->
+<p class="par analysis-results-p">Now let’s begin with the analysis results...</p>
 
-<h2 class="section-heading">Most Reviewed Books</h2>
-<div id="most-reviewed-books-chart"></div>
+<div id="ref2"></div>
 
-<h2 class="section-heading">Highest Rated Books</h2>
-<div id="num-books-5-rating">There are <span id="num_55_rating"></span> books with a 5/5 rating. Let's see the ones with most ratings.</div>
-<div id="highest-rated-books-chart"></div>
+<h1 class="top-heading">Top Books</h1>
 
+<p class="par">Let’s start with the top books on Goodreads. We will look at the most rated books, most reviewed books, and top rated books.</p>
 
+<p class="par">Each book on Goodreads can be rated by users between 1 and 5 stars. The average rating of a book is a good indicator of its quality. The number of ratings a book receives is also a good indicator of its popularity.</p>
 
+<div class="module">
+<h2 class="section-heading">Most Popular Books</h2>
 
-<h2 class="section-heading">Top Rated Books</h2>
+<p class="par">The following chart shows books that received the largest number of ratings, indicating that they are the most popular on the platform. <span class="int-ins">Hover over any bar to see more info about the book. Click on a book cover to go to its page on Goodreads.</span></p>
 
-<div id="ratings-hist-chart"></div>
+<div id="most-rated-books-chart" class="chart-con"></div>
 
-<div>
-    \[
-    \begin{align*}
-    \text{Weighted Rating} = &\frac{v}{v+m} \times R \; + \\
-    &\frac{m}{v+m} \times C 
-    \end{align*}
-    \]
-    <p>where \(R\) is the average book rating, \(v\) is the number of ratings for the book, \(m\) is the minimum number of ratings required to be considered (a parameter to set based on your dataset), \(C\) is the mean rating across the entire dataset.</p>
+<p class="par">The histogram below shows the distribution of book rating counts. Note that the y-axis is log scaled (i.e. it goes like 1, 10, 100, 1000, etc. instead of 1, 2, 3, 4, etc.) <span class="int-ins">Hover over any bar to see the number of books with that rating count.</span></p>
+
+<div id="ratings-hist-chart" class="chart-con"></div>
+
 </div>
-<div id="top-rated-books-chart"></div>
 
-<br>
 
-<h2 class="section-heading">Most Prolific Authors</h2>
-<div id="top-authors-chart"></div>
 
-<br>
 
-<h2 class="section-heading">Most Rated Authors</h2>
-<div id="most-rated-authors-chart"></div>
 
-<br>
 
-<h2 class="section-heading">Top Rated Authors</h2>
-<div id="top-rated-authors-chart"></div>
+<div class="module">
+<h2 class="section-heading">Most Reviewed Books</h2>
 
-<br>
+<p class="par">In addition to rating a book between 1 and 5 stars, users can leave a written review where they talk about their opinion about the books, their notes, recommendations, etc.</p>
 
-<h2 class="section-heading">Most Prolific Publishers</h2>
-<div id="top-publishers-chart"></div>
+<p class="par">In addition to indicating popularity like the number of ratings above, the number of reviews points out the impact of the book. In other words, it’s easy to rate a book but to write a review, it usually means you have more to say about the book, whether positive or negative.</p>
 
-<br>
+<p class="par">The following chart shows books that received the highest number of reviews. <span class="int-ins">Hover over any bar to see more info about the book. Click on a book cover to go to its page on Goodreads.</span></p>
 
-<h2 class="section-heading">Most Rated Publishers</h2>
-<div id="most-rated-publishers-chart"></div>
+<div id="most-reviewed-books-chart" class="chart-con"></div>
+</div>
 
-<br>
 
-<h2 class="section-heading">Top Rated Publishers</h2>
-<div id="top-rated-publishers-chart"></div>
 
-<br>
 
-<span id="perc_books_in_series"></span> of the <span id="books_count_2"></span> books are part of a series.
+<!-- <h2 class="section-heading">Highest Rated Books</h2>
+<div id="num-books-5-rating">There are <span id="num_55_rating"></span> books with a 5/5 rating. Let's see the ones with most ratings.</div>
+<div id="highest-rated-books-chart" class="chart-con"></div> -->
 
-<h2 class="section-heading">Longest Series</h2>
-<div id="longest-series-chart"></div>
 
-<br>
 
-<h2 class="section-heading">Most Rated Series</h2>
-<div id="most-rated-series-chart"></div>
+<div class="module">
+<h2 class="section-heading featured">Top Rated Books</h2>
 
-<br>
+<p class="par">When searching for the top-rated books on Goodreads, it's important to consider not only the average rating but also the number of ratings each book has received. While there are some books with a perfect 5/5 rating, they often have a low number of ratings, which can make the rating less reliable.</p>
 
-<h2 class="section-heading">Number of Pages Distribution</h2>
-<div id="num-pages-hist-chart"></div>
+<p class="par">To find the most highly-rated books on Goodreads, I used two methods that you can choose between:</p>
 
-Some of the longest books:...
+<h4>Weighted Rating</h4>
 
-<br>
+<p class="par">The weighted rating takes into account both the average rating (out of 5) and the number of ratings a book has received. Average rating is a crucial metric, but relying solely on it can be misleading for books with very few ratings. So we add number of ratings to the formula to enhance the reliability. A high number of ratings can indicate a more trustworthy average rating.</p>
 
-<h2 class="section-heading">Very Long But Highly Rated Books</h2>
-<div id="long-high-rating-chart"></div>
+<p class="par">The weighted rating formula combines these two metrics as follows:</p>
 
-<br>
+<div class="math-eq">
+\[ \begin{flalign}
+& \text{Weighted Rating} = \frac{\text{Number of ratings} \: \times \: \text{Average rating}}{\text{Number of ratings}} &
+\end{flalign} \]
+</div>
 
-<h2 class="section-heading">Genres Popularity Over Time</h2>
-<div id="shelf-filters"></div>
-<div id="pl"></div>
+<p class="par">This formula ensures that books with a higher number of ratings and a high average rating will rank higher than those with fewer ratings, even if they have a perfect 5/5 average rating.</p>
 
-<br>
+<h4>Percentage of 5-Star Ratings</h4>
 
-<h2 class="section-heading">Most Common Words in Book Titles</h2>
-<div id="common-words-options"></div>
-<div id="word-cloud-chart"></div>
+<p class="par">Another approach to finding top-rated books is to look at the percentage of 5-star (or 5/5) ratings the book has received. For instance, if a book has a 5-star percentage of 40%, it means that 40% of the ratings given to the book are the highest possible rating of 5/5. The remaining 60% of the ratings are split among lower ratings.</p>
 
-<br>
+<p class="par">By focusing on books with a high percentage of 5-star ratings, we can identify those that have not only received high ratings but have also maintained that high level of satisfaction among a significant number of reviewers.</p>
 
-<h2 class="section-heading">Number of Pages Over Time</h2>
-<div id="num-pages-over-time-chart"></div>
+<p class="par note">Note: For the two methods mentioned above, we excluded books with less than 500 ratings.</p>
 
-<br>
+<p class="par">Use the filter below to switch between methods. <span class="int-ins">Hover over any book cover in the chart to see more info. Click on a book cover (if you're not on a mobile device) to go to its page on Goodreads.</span></p>
 
+<div class="top-rated-filter-con">
+    <div class="top-rated-filter-title">See top rated books by:</div>
+    <div class="top-rated-filter-buttons">
+        <button class="top-rated-filter active" data-filter="weighted">Weighted Rating</button>
+        <button class="top-rated-filter" data-filter="5-percentage">Percentage of 5-Star Ratings</button>
+    </div>
+</div>
+
+<div id="top-rated-books-chart" class="chart-con"></div>
+</div>
+
+
+
+<div class="module">
 <h2 class="section-heading">Average Rating Over Time</h2>
-<div id="avg-rating-over-time-chart"></div>
 
-<br>
+<p class="par">The following chart shows the average rating of books published each decade from 1700s to 2010s. It allows us to see how book rating tend to change over time. <span class="int-ins">Hover over the line to see the average rating for each decade.</span></p>
+<div id="avg-rating-over-time-chart" class="chart-con"></div>
+</div>
 
-<h2 class="section-heading">Top Books Over Time</h2>
-<div id="top-books-over-time-chart"></div>
+<p class="par note">Note: Books with less than 50 ratings were excluded from this analysis.</p>
+
+<div class="module">
+<h2 class="section-heading featured">Top Books Over Time</h2>
+
+<p class="par">The following chart shows the "top" book over the years since 2000 in four different categories:</p>
+
+<ul class="par-ul">
+<li><strong>Most Popular Books:</strong> the book with the highest number of ratings each year.</li>
+
+<li><strong>Highest Rated:</strong> the book with the highest average rating (out of 5) each year.</li>
+
+<li><strong>Popular, Yet Not So Loved:</strong> the book with the highest number of ratings in a year, but whose average rating (out of 5) is below average that year.</li>
+
+<li><strong>Hidden Gem:</strong> the book with the highest average rating (out of 5) in a year, but whose popularity (number of ratings) is below average that year.</li>
+</ul>
+
+<p class="par note">Note: Books with 500 ratings or less were excluded from this section.</p>
+
+<p class="par"><span class="int-ins">Hover over any book to see more info about it.</span></p>
+
+<div id="top-books-over-time-chart" class="chart-con"></div>
+</div>
+
+
+
+
+<h1 class="top-heading">Book Topics and Genres</h1>
+
+<div class="module">
+<h2 class="section-heading featured">Most Common Words in Book Titles, Over Time</h2>
+<p class="par">The following word cloud shows the most common words in book titles over time. This can give us an idea of the most popular topics in books over the years.</p>
+    
+<p class="par">Select a decade below to see the most common words in book titles for that decade. 1950s is selected by default.</p>
+
+<p class="par">In the word cloud, word size reflects its frequency in book titles: the bigger the word, the more it was used in book titles. Also, when you go from one decade to another, new words—that weren't common in the previous decade—will appear in a different color. This helps you see how the most common words in book titles have changed over time.</p>
+    
+<p class="par"><span class="int-ins">Hover over any word to see the exact number of times it was used in book titles and some of the book titles where it was used.</span></p>
+
+<div id="common-words-options-con">
+    <div class="common-words-options-title">Select a decade:</div>
+    <div id="common-words-options"></div>
+</div>
+<div id="word-cloud-chart" class="chart-con"></div>
+</div>
+
+
+
+<div class="module">
+<h2 class="section-heading">Genres Popularity Over Time</h2>
+
+<p class="par">The following chart shows the popularity of different genres over the years between 1901 and 2013. It allows us to see how the popularity of different genres has changed over time. We focus on 10 of the most popular genres on Goodreads. Popularity is measured by the number of books published each year under each of the genres.</p>
+
+<p class="par">Use the checkboxes below to remove/add genres to the chart. <span class="int-ins">Hover over a line to see more info about the genre popularity over the years.</span></p>
+
+<div id="shelf-filters-con">
+<div class="shelf-filters-title">Select genres to show:</div>
+<div id="shelf-filters"></div>
+</div>
+
+<div id="pl" class="chart-con"></div>
+</div>
+
+
+
+
+<h1 class="top-heading">Authors</h1>
+<p class="par">Let’s now explore book authors. We will look at the most prolific authors, the most popular authors, and the top-rated authors.</p>
+
+<div class="module">
+<h2 class="section-heading">Most Prolific Authors</h2>
+<p class="par">The following graph shows the authors who produced the largest number of books. <span class="int-ins">Hover over any bar to see more info about the author and their most popular books.</span></p>
+
+<div class="par note">Only books with more than 50 ratings were considered to determine the most prolific authors.</div>
+
+<div id="top-authors-chart" class="chart-con"></div>
+</div>
+
+<div class="module">
+<h2 class="section-heading">Most Popular Authors</h2>
+<p class="par">The following graph shows the authors whose books received the largest number of ratings. This is done by combining the number of ratings for all books by the author. <span class="int-ins">Hover over any bar to see more info about the author and their most popular books.</span></p>
+
+<div id="most-rated-authors-chart" class="chart-con"></div>
+</div>
+
+
+<div class="module">
+<h2 class="section-heading">Top Rated Authors</h2>
+<p class="par">The following graph shows the authors whose books received the highest average ratings. This is done by calculating the average rating for all books by the author. <span class="int-ins">Hover over any author name to see more info about the author and their most popular books.</span></p>
+
+<p class="par">Author rating is calculated by averaging the ratings of all books by the author weighted by the number of ratings each book received. The following formula was used to calculate each author rating:</p>
+
+<div class="math-eq">
+\[ \begin{flalign}
+& \text{Author Rating} = \frac{\sum_{i=1}^{n} w_i r_i}{\sum_{i=1}^{n} w_i} &
+\end{flalign} \]
+</div>
+
+<p class="par">where \( r_i \) represents the rating of the \( i \)-th book, \( w_i \) represents the number of ratings (or the weight) that the \( i \)-th book received. The symbol \( \sum \) represents the sum over all books from 1 to \( n \), where \( n \) is the total number of books.</p>
+
+<p class="par note">Only authors who authored more books than the average number of books per author and who received more than 50 ratings per book on average were considered.</p>
+
+<div id="top-rated-authors-chart" class="chart-con"></div>
+</div>
+
+
+<div class='dash-sub-em-con'>
+    <!-- <div class="sub-img"><img src="/assets/images/2021/lb4.png" ></div> -->
+    <p><span class="dsem-sp1">If you're enjoying this...</span><br> 
+        Do you want to look at the data<sup>*</sup> and interact with it? Add your email to get access to
+        a dashboard with <strong>hundreds of thousands</strong> of books.
+    </p>
+    <p><a href="https://mailchi.mp/fc0b1ad90e2f/goodreads-analysis-1" target="_blank">
+        <button class="dsem-btn">Get Access</button>
+    </a></p>
+    <p><span class="dsem-note">*The dashboard show books used in this analysis that have more than 500 ratings.</span></p>
+</div>
+
+
+<h1 class="top-heading">Publishers</h1>
+<p class="par">Now let’s head to the publishers. Similar to authors, we will look at the most prolific publishers, the most popular publishers, and the top-rated publishers.</p>
+
+<div class="module">
+<h2 class="section-heading">Most Prolific Publishers</h2>
+<p class="par">The following graph shows the publishers who published the largest number of books. <span class="int-ins">Hover over any bar to see more info about the publisher and the most popular books they published.</span></p>
+
+<div class="par note">Only books with more than 50 ratings were considered to determine the most prolific publishers.</div>
+
+<div id="top-publishers-chart" class="chart-con"></div>
+</div>
+
+
+<div class="module">
+<h2 class="section-heading">Most Popular Publishers</h2>
+
+<p class="par">The following graph shows the publishers whose books received the largest number of ratings. This is done by combining the number of ratings for all books published by the publisher. <span class="int-ins">Hover over any bar to see more info about the publisher and their most popular books.</span></p>
+
+<div id="most-rated-publishers-chart" class="chart-con"></div>
+</div>
+
+
+<div class="module">
+<h2 class="section-heading">Top Rated Publishers</h2>
+
+<p class="par">The following graph shows the publishers whose books received the highest average ratings. This is done by calculating the average rating for all books published by the publisher. <span class="int-ins">Hover over any publisher name to see more info about the publisher and their most popular books.</span></p>
+
+<p class="par">Publisher rating is calculated by averaging the ratings of all books published by the publisher weighted by the number of ratings each book received. The following formula was used to calculate each publisher rating:</p>
+
+<div class="math-eq">
+\[ \begin{flalign}
+& \text{Publisher Rating} = \frac{\sum_{i=1}^{n} w_i r_i}{\sum_{i=1}^{n} w_i} &
+\end{flalign} \]
+</div>
+
+<p class="par">where \( r_i \) represents the rating of the \( i \)-th book, \( w_i \) represents the number of ratings (or the weight) that the \( i \)-th book received. The symbol \( \sum \) represents the sum over all books from 1 to \( n \), where \( n \) is the total number of books.</p>
+
+<p class="par note">Only publishers who published more books than the average number of books per publisher and who received more than 50 ratings per book on average were considered.</p>
+
+<div id="top-rated-publishers-chart" class="chart-con"></div>
+</div>
+
+
+
+<h1 class="top-heading">Book Series</h1>
+<p class="par">A series is a collection of books that are connected by a shared theme or story. This section of the analysis focuses on book series. <span id="perc_books_in_series"></span> of the <span id="books_count_2"></span> books we are looking at are part of a series. In this section, we will look at the longest series and the most popular series.</p>
+
+<div class="module">
+<h2 class="section-heading">Longest Book Series</h2>
+<p class="par">The following chart shows the top 20 series with the largest number of books. Each small rectancle represents a book in the series. <span class="int-ins">Hover over a series title to see more info about it including its most popular books.</span></p>
+
+<p class="par note">Only books with more than 50 ratings were considered to determine the longest series.</p>
+
+<div id="longest-series-chart" class="chart-con"></div>
+</div>
+
+
+<div class="module">
+<h2 class="section-heading">Most Popular Series</h2>
+
+<p class="par">The following chart shows the series that received the largest number of ratings across all their books. <span class="int-ins">Hover over any bar to see the most popular book in the series along with other info.</span></p>
+
+<div id="most-rated-series-chart" class="chart-con"></div>
+</div>
+
+
+<h1 class="top-heading">Number of Pages</h1>
+<p class="par">Let’s now talk about the number of pages. We will look at the distribution of the number of pages for the books then see how the typical number of pages change over time. </p>
+
+<div class="module">
+<h2 class="section-heading">Number of Pages Distribution</h2>
+<p class="par">The following chart shows the distribution of the number of pages for the books; it allows us to see the variety in book lengths. The x-axis represents the number of pages and the y-axis represents the number of books with that number of pages. <span class="int-ins">Hover over any bar to see the number of books with that number of pages.</span></p>
+
+<p class="par note">Note that the y axis is log scaled.</p>
+
+<p class="par note">Books that don't have an actual number of pages (like books in audio formats) and books with more than 10,000 pages are excluded from this analysis.</p>
+
+<div id="num-pages-hist-chart" class="chart-con"></div>
+</div>
+
+<div class="module">
+<h2 class="section-heading">Number of Pages Over Time</h2>
+<p class="par">The following chart shows the median number of pages for books published each decade between 1700s and 2020s. This is a good indicator of the typical length of books over time. We use the median, not the average, because there are a few books with an extremely high number of pages that would skew the average, so the median is more robust in this case.</p>
+
+<p class="par note">Books that don't have an actual number of pages (like books in audio formats) are excluded from this analysis.</p>
+
+<div id="num-pages-over-time-chart" class="chart-con"></div>
+</div>
+
+
+<!-- Some of the longest books:... -->
+
+<!-- <div class="module">
+<h2 class="section-heading">Very Long But Highly Rated Books</h2>
+<p class="par">The following chart shows the books with the highest number of pages and the highest average ratings. This is a good indicator of the quality of long books.</p>
+<p class="par">The following chart shows the longest books with the highest average ratings. Hover over a book to see more info about it.</p>
+<div id="long-high-rating-chart" class="chart-con"></div>
+</div> -->
+
+
+
+<h1 class="top-heading">Book Covers</h1>
+
+<div class="module">
+<h2 class="section-heading">Popular Colors in Book Covers</h2>
+<p class="par">The following chart shows the most popular colors in book covers. You can see that we show colors for three groups of books:</p>
+
+<ul class="par-ul">
+    <li>Most rated 1,000 books</li>
+    <li>Top rated 1,000 books</li>
+    <li>Random sample of 1,000 books that are not in the above two groups</li>
+</ul>
+
+<p class="par">The size of each color reflects its popularity, meaning colors with wider areas were used more frequently in book covers.</p>
+
+<p class="par">To get the most popular colors in each of the three groups mentioned above, I downloaded the images of the 1,000 book covers in the group, extracted the colors of all pixels in the images, converted the colors to the CIELAB color space which is designed to approximate human vision, then ran a clustering algorithm on all the colors to group them in 15 clusters. After that, I fetched the colors at the centers of the clusters and the number of pixels that belong to each cluster and the results are what you're looking at below.</p>
+
+<p class="par note">Books with no cover image or with 50 ratings or less were excluded from this analysis.</p>
+
+<div id="colors-chart" class="chart-con"></div>
+</div>
+
+
+
 
 
 

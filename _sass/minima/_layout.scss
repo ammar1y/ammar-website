@@ -14,8 +14,14 @@
   background: transparent;
 }
 
+.site-title-con {
+  display: flex;
+  width: 341px;
+}
+
 .site-title {
   @include relative-font-size(1.625);
+  font-size: 1.6rem;
   font-weight: 300;
   line-height: $base-line-height * $base-font-size * 2.25;
   letter-spacing: -1px;
@@ -125,7 +131,11 @@
 
 .contact-list,
 .social-media-list {
-  list-style: none;
+  // list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
   margin-left: 0;
 }
 
@@ -553,6 +563,7 @@ $brc: #777;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-right: 0.5rem;
   }
 
   // > * {
@@ -564,6 +575,18 @@ $brc: #777;
   // > *:last-child {
   //   width: 42%;
   // }
+
+  div:has(> .site-title) {
+    width: 42%;
+  }
+  div.nav-logo {
+    // width: 16%;
+    width: fit-content;
+  }
+  nav.site-nav {
+    // width: 42%;
+    width: fit-content;
+  }
 }
 
 .site-header .site-title, .site-header .site-nav {

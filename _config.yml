@@ -18,7 +18,7 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: "Ammar's Website"
+title: "Ammar Alyousfi's Blog"
 tagline: "A blog about data science."
 title_ar: "موقع عمار اليوسفي"
 author: "Ammar Alyousfi"

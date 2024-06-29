@@ -3,6 +3,7 @@
 
   <div class="wrapper">
 
+    {% comment %}
     <h2 class="footer-heading">{{ site.title | escape }}</h2>
 
     <div class="footer-col-wrapper">
@@ -28,6 +29,12 @@
       <div class="footer-col footer-col-3">
         <p>{{- site.description | escape -}}</p>
       </div>
+    </div>
+
+    {% endcomment %}
+
+    <div class="footer-col-wrapper">
+      {%- include social.html -%}
     </div>
 
   </div>
