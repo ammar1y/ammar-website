@@ -365,14 +365,15 @@ div.publisher-top-works-tooltip-2, div.series-top-works-tooltip, div.num-pages-h
 $colorPalette: #4269d0, #efb118, #ff725c, #6cc5b0, #3ca951, #ff8ab7, #a463f2, #97bbf5, #9c6b4e, #9498a0;
 $colorPalette: #8B0907, #B50303, #FA651A, #D46B00, #EB9802, #4A0404, #ff8ab7, #a463f2, #97bbf5, #9c6b4e, #9498a0;
 $colorPalette: #48639C, #DAA520, #B7410E, #800020, #191970, #4A0404, #ff8ab7, #a463f2, #97bbf5, #9c6b4e, #9498a0;
-$colorPalette: #B7410E, #cf8702, #48639C, #007B8A, #5B3758, #ff8ab7, #a463f2, #97bbf5, #9c6b4e, #9498a0;
+$colorPaletteS: #B7410E, #cf8702, #48639C, #007B8A, #5B3758, #ff8ab7, #a463f2, #97bbf5, #9c6b4e, #9498a0;
+$colorPalette: linear-gradient(to bottom, #B7410E, #A63B0C, #B7410E), #cf8702, #48639C, #007B8A, #5B3758, #ff8ab7, #a463f2, #97bbf5, #9c6b4e, #9498a0;
 
 #most-rated-books-chart {
     .rect-con {
         background: nth($colorPalette, 1);
 
         &:hover {
-            fill: #efb118;
+            background: #efb118;
         }
     }
 }
@@ -382,12 +383,13 @@ $colorPalette: #B7410E, #cf8702, #48639C, #007B8A, #5B3758, #ff8ab7, #a463f2, #9
         background: nth($colorPalette, 1);
 
         &:hover {
-            fill: #efb118;
+            background: #efb118;
         }
     }
 }
 #ratings-hist-chart {
     .histogram rect {
+        fill: nth($colorPaletteS, 1);
         fill: nth($colorPalette, 1);
 
         &:hover {
@@ -397,6 +399,7 @@ $colorPalette: #B7410E, #cf8702, #48639C, #007B8A, #5B3758, #ff8ab7, #a463f2, #9
 }
 #avg-rating-over-time-chart {
     g[aria-label="line"] path {
+        stroke: nth($colorPaletteS, 1);
         stroke: nth($colorPalette, 1);
         // stroke-width: 3;
         transition: stroke 0.3s ease;
@@ -408,6 +411,7 @@ $colorPalette: #B7410E, #cf8702, #48639C, #007B8A, #5B3758, #ff8ab7, #a463f2, #9
 }
 #top-authors-chart {
     .bar {
+        fill: nth($colorPaletteS, 2);
         fill: nth($colorPalette, 2);
         transition: fill 0.3s ease;
 
@@ -418,6 +422,7 @@ $colorPalette: #B7410E, #cf8702, #48639C, #007B8A, #5B3758, #ff8ab7, #a463f2, #9
 }
 #most-rated-authors-chart {
     .bar {
+        fill: nth($colorPaletteS, 2);
         fill: nth($colorPalette, 2);
         transition: fill 0.3s ease;
 
@@ -428,6 +433,7 @@ $colorPalette: #B7410E, #cf8702, #48639C, #007B8A, #5B3758, #ff8ab7, #a463f2, #9
 }
 #top-publishers-chart {
     .bar {
+        fill: nth($colorPaletteS, 3);
         fill: nth($colorPalette, 3);
         transition: fill 0.3s ease;
 
@@ -438,6 +444,7 @@ $colorPalette: #B7410E, #cf8702, #48639C, #007B8A, #5B3758, #ff8ab7, #a463f2, #9
 }
 #most-rated-publishers-chart {
     .bar {
+        fill: nth($colorPaletteS, 3);
         fill: nth($colorPalette, 3);
         transition: fill 0.3s ease;
 
@@ -455,11 +462,12 @@ $colorPalette: #B7410E, #cf8702, #48639C, #007B8A, #5B3758, #ff8ab7, #a463f2, #9
     border: 1px solid darken(nth($colorPalette, 4), 30%);
 
     &:hover {
-        fill: #efb118;
+        background: #efb118;
     }
 }
 #most-rated-series-chart {
     .bar {
+        fill: nth($colorPaletteS, 4);
         fill: nth($colorPalette, 4);
         transition: fill 0.3s ease;
 
@@ -470,6 +478,7 @@ $colorPalette: #B7410E, #cf8702, #48639C, #007B8A, #5B3758, #ff8ab7, #a463f2, #9
 }
 #num-pages-hist-chart {
     .bar {
+        fill: nth($colorPaletteS, 5);
         fill: nth($colorPalette, 5);
         transition: fill 0.3s ease;
 
@@ -481,6 +490,7 @@ $colorPalette: #B7410E, #cf8702, #48639C, #007B8A, #5B3758, #ff8ab7, #a463f2, #9
 
 #num-pages-over-time-chart {
     g[aria-label="line"] path {
+        stroke: nth($colorPaletteS, 5);
         stroke: nth($colorPalette, 5);
         // stroke-width: 3;
         transition: stroke 0.3s ease;
@@ -491,6 +501,7 @@ $colorPalette: #B7410E, #cf8702, #48639C, #007B8A, #5B3758, #ff8ab7, #a463f2, #9
     }
 
     g[aria-label="dot"] circle {
+        fill: nth($colorPaletteS, 5);
         fill: nth($colorPalette, 5);
         transition: fill 0.3s ease;
     }

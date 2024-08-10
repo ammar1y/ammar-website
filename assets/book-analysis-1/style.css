@@ -252,21 +252,22 @@ div.publisher-top-works-tooltip-2, div.series-top-works-tooltip, div.num-pages-h
 }
 
 #most-rated-books-chart .rect-con {
-  background: #B7410E;
+  background: linear-gradient(to bottom, #B7410E, #A63B0C, #B7410E);
 }
 #most-rated-books-chart .rect-con:hover {
-  fill: #efb118;
+  background: #efb118;
 }
 
 #most-reviewed-books-chart .rect-con {
-  background: #B7410E;
+  background: linear-gradient(to bottom, #B7410E, #A63B0C, #B7410E);
 }
 #most-reviewed-books-chart .rect-con:hover {
-  fill: #efb118;
+  background: #efb118;
 }
 
 #ratings-hist-chart .histogram rect {
   fill: #B7410E;
+  fill: linear-gradient(to bottom, #B7410E, #A63B0C, #B7410E);
 }
 #ratings-hist-chart .histogram rect:hover {
   fill: #efb118;
@@ -274,6 +275,7 @@ div.publisher-top-works-tooltip-2, div.series-top-works-tooltip, div.num-pages-h
 
 #avg-rating-over-time-chart g[aria-label=line] path {
   stroke: #B7410E;
+  stroke: linear-gradient(to bottom, #B7410E, #A63B0C, #B7410E);
   transition: stroke 0.3s ease;
 }
 #avg-rating-over-time-chart g[aria-label=line] path:hover {
@@ -281,6 +283,7 @@ div.publisher-top-works-tooltip-2, div.series-top-works-tooltip, div.num-pages-h
 }
 
 #top-authors-chart .bar {
+  fill: #cf8702;
   fill: #cf8702;
   transition: fill 0.3s ease;
 }
@@ -290,6 +293,7 @@ div.publisher-top-works-tooltip-2, div.series-top-works-tooltip, div.num-pages-h
 
 #most-rated-authors-chart .bar {
   fill: #cf8702;
+  fill: #cf8702;
   transition: fill 0.3s ease;
 }
 #most-rated-authors-chart .bar:hover {
@@ -298,6 +302,7 @@ div.publisher-top-works-tooltip-2, div.series-top-works-tooltip, div.num-pages-h
 
 #top-publishers-chart .bar {
   fill: #48639C;
+  fill: #48639C;
   transition: fill 0.3s ease;
 }
 #top-publishers-chart .bar:hover {
@@ -305,6 +310,7 @@ div.publisher-top-works-tooltip-2, div.series-top-works-tooltip, div.num-pages-h
 }
 
 #most-rated-publishers-chart .bar {
+  fill: #48639C;
   fill: #48639C;
   transition: fill 0.3s ease;
 }
@@ -321,10 +327,11 @@ div.publisher-top-works-tooltip-2, div.series-top-works-tooltip, div.num-pages-h
   border: 1px solid black;
 }
 .series-book:hover {
-  fill: #efb118;
+  background: #efb118;
 }
 
 #most-rated-series-chart .bar {
+  fill: #007B8A;
   fill: #007B8A;
   transition: fill 0.3s ease;
 }
@@ -334,6 +341,7 @@ div.publisher-top-works-tooltip-2, div.series-top-works-tooltip, div.num-pages-h
 
 #num-pages-hist-chart .bar {
   fill: #5B3758;
+  fill: #5B3758;
   transition: fill 0.3s ease;
 }
 #num-pages-hist-chart .bar:hover {
@@ -342,12 +350,14 @@ div.publisher-top-works-tooltip-2, div.series-top-works-tooltip, div.num-pages-h
 
 #num-pages-over-time-chart g[aria-label=line] path {
   stroke: #5B3758;
+  stroke: #5B3758;
   transition: stroke 0.3s ease;
 }
 #num-pages-over-time-chart g[aria-label=line] path:hover {
   stroke: #efb118;
 }
 #num-pages-over-time-chart g[aria-label=dot] circle {
+  fill: #5B3758;
   fill: #5B3758;
   transition: fill 0.3s ease;
 }
@@ -356,7 +366,7 @@ div.publisher-top-works-tooltip-2, div.series-top-works-tooltip, div.num-pages-h
 }
 
 #word-cloud-chart .wc-old {
-  fill: #B7410E;
+  fill: linear-gradient(to bottom, #B7410E, #A63B0C, #B7410E);
   fill: #000;
 }
 #word-cloud-chart .wc-new {
