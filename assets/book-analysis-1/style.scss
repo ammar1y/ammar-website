@@ -20,8 +20,10 @@ $moduleBackground: #EFEEEA;
 
 
 $bodyBackground: #F5ECE5;
+$bodyBackground: #e5decf;
 $moduleBackground: $bodyBackground;
 $tocBackground: #ede4dd;
+$tocBackground: #dbd4c3;
 $tooltipBackground: #333333;
 $tooltipColor: #eee;
 $tocColor: #333;
@@ -53,6 +55,10 @@ body {
             margin-left: auto;
             margin-right: auto;
         }
+    }
+
+    & > .title {
+        width: 720px;
     }
 }
 
@@ -357,6 +363,9 @@ div.publisher-top-works-tooltip-2, div.series-top-works-tooltip, div.num-pages-h
 
 
 $colorPalette: #4269d0, #efb118, #ff725c, #6cc5b0, #3ca951, #ff8ab7, #a463f2, #97bbf5, #9c6b4e, #9498a0;
+$colorPalette: #8B0907, #B50303, #FA651A, #D46B00, #EB9802, #4A0404, #ff8ab7, #a463f2, #97bbf5, #9c6b4e, #9498a0;
+$colorPalette: #48639C, #DAA520, #B7410E, #800020, #191970, #4A0404, #ff8ab7, #a463f2, #97bbf5, #9c6b4e, #9498a0;
+$colorPalette: #B7410E, #cf8702, #48639C, #007B8A, #5B3758, #ff8ab7, #a463f2, #97bbf5, #9c6b4e, #9498a0;
 
 #most-rated-books-chart {
     .rect-con {
@@ -1371,10 +1380,14 @@ g.x-axis .tick text, g.y-axis .tick text {
     }
 }
 
-#feat-img {
-    width: 100%;
-    height: auto;
-    background: url(/assets/book-analysis-1/bc1.jpeg);
+// #feat-img {
+//     width: 100%;
+//     height: auto;
+//     background: url(/assets/book-analysis-1/bc1.jpeg);
+// }
+
+.feat-img {
+    box-shadow: 0 0 10px -2px #888;
 }
 
 
@@ -1399,7 +1412,6 @@ g.x-axis .tick text, g.y-axis .tick text {
             position: absolute;
             width: 100%;
             height: 11px;
-            background: linear-gradient(to right, #000, #ED2E38, #009639, #fff, transparent);
             background: linear-gradient(90deg,
                     hsl(231, 33%, 40%) 0%,
                     hsl(253, 28%, 44%) 8%,
@@ -1414,6 +1426,7 @@ g.x-axis .tick text, g.y-axis .tick text {
                     hsl(19, 100%, 63%) 83%,
                     hsl(39, 100%, 50%) 92%,
                     transparent 100%);
+            background: linear-gradient(to right, #8B0907, #B50303, #FB440F, #FA651A, #D46B00, #EB9802, transparent);
             border-radius: 3px;
             left: 0;
             bottom: -1.7rem;
@@ -1522,4 +1535,12 @@ g.x-axis .tick text, g.y-axis .tick text {
             background-color: #c94733;
         }
     }
+
+    sup {
+        font-size: .8rem;
+    }
+}
+
+p.lastNote {
+    text-align: center;
 }
