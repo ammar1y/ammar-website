@@ -2951,7 +2951,12 @@ function htmlTableOfContents(documentRef) {
 
         var link = documentRef.createElement("a");
         link.setAttribute("href", "#" + ref);
-        link.textContent = heading.textContent;
+        if (heading.textContent == "How to Use this Analysis") {
+            link.style.fontWeight = "bold";
+            link.textContent = heading.textContent + " 👈";
+        } else {
+            link.textContent = heading.textContent;
+        }
 
         var div = documentRef.createElement("div");
         div.setAttribute("class", heading.tagName.toLowerCase());
