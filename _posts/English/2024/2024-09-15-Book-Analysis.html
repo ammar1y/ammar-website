@@ -200,10 +200,18 @@ custom-javascript-list:
 <p class="par">The weighted rating formula combines these two metrics as follows:</p>
 
 <div class="math-eq">
-\[ \begin{flalign}
-& \text{Weighted Rating} = \frac{\text{Number of ratings} \: \times \: \text{Average rating}}{\text{Number of ratings}} &
-\end{flalign} \]
+\[ \begin{align}
+\text{Weighted Rating}_i = \frac{n_i \times r_i}{\sum_{j=1}^{m} n_j}
+\end{align} \]
 </div>
+
+<p class="par">Where:
+- \(i\) is the index of the current book
+- \(n_i\) is the number of ratings for book \(i\)
+- \(r_i\) is the average rating for book \(i\)
+- \(m\) is the total number of books
+- \(\sum_{j=1}^{m} n_j\) is the sum of the number of ratings for all books</p>
+
 
 <p class="par">This formula ensures that books with a higher number of ratings and a high average rating will rank higher than those with fewer ratings, even if they have a perfect 5/5 average rating.</p>
 
