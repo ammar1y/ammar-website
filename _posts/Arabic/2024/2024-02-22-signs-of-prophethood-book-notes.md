@@ -13,7 +13,7 @@ sharing-img: "/assets/images/2020/baraheen-book-cover.jpg"
 
 المؤلف أتاح تحميل الكتاب كاملاً مجاناً من هنا: https://almobadarah.com/books/baraheen.ar.pdf.
 
-<img src="/assets/images/2020/baraheen-book-cover.jpg" style="max-width:200px">
+<img src="/assets/images/2024/baraheen-book-cover.jpeg" style="max-width:200px">
 
 صفحة الكتاب على موقع Goodreads الخاص بالكتب: [براهين النبوة والرد على اعتراضات المستشرقين والمنصرين](https://www.goodreads.com/ar/book/show/38224557).
 

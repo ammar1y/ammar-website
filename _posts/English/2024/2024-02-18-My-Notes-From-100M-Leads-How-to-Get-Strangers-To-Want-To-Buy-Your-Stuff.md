@@ -4,7 +4,7 @@ title: "My Notes From: $100M Leads: How to Get Strangers To Want To Buy Your Stu
 date: 2024-02-18
 categories: [book-notes] 
 tags: [business, startups, marketing]
-permalink: "/:year/My-Notes-From-100M-Leads-How-to-Get-Strangers-To-Want-To-Buy-Your-Stuff"
+permalink: "/:year/my-notes-from-100m-leads-how-to-get-strangers-to-want-to-buy-your-stuff"
 sharing-img: "/assets/images/2024/100m-leads-cover-img.jpeg"
 ---
 
