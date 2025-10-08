@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+{% set course_category = page.metadata.get('course_category') %}
+{% set course_posts = articles|selectattr('category.name', 'equalto', course_category)|list %}
+{% set course_posts = course_posts|sort(attribute='date', reverse=True) %}
+<div class="masthead">
+  <div class="container h-100">
+    <div class="row h-100 align-items-center">
+      <div class="col-12 text-center">
+        <h1 class="text-center c-page-title">{{ page.title }}</h1><br>
+        <h2 class="text-center c-page-subtitle">دورة مجانية باللغة العربية</h2>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="c-page-content-wrapper">
+  <div class="c-page-decoration-1">
+    <span>❊</span><span>❊</span><span>❊</span><span>❊</span><span>❊</span><span>❊</span><span>❊</span><span>❊</span>
+  </div>
+  <h2 class="text-center c-page-con-title">قائمة الدروس:</h2>
+  <div class="row row-cols-1 row-cols-md-4">
+    {% for post in course_posts %}
+    <div class="col mb-4">
+      <div class="card h-100">
+        {% set image = post.metadata.get('og_image') %}
+        {% if image %}<img src="{{ absolute_url(image) }}" class="card-img-top" alt="cover">{% endif %}
+        <div class="card-body">
+          <a href="{{ (SITEURL.rstrip('/') ~ '/' ~ post.url.lstrip('/')) if SITEURL else '/' ~ post.url }}"><h5 class="card-title">{{ post.title }}</h5></a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

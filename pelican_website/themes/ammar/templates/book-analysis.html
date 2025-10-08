@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<article class="book-analysis-article e-content">
+  {{ article.content }}
+  <a class="u-url" href="{{ (SITEURL.rstrip('/') ~ '/' ~ article.url.lstrip('/')) if SITEURL else '/' ~ article.url }}" hidden></a>
+</article>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'page.html' %}
+{% block content %}
+<div class="home">
+  {% if page.title %}
+  <h1 class="page-heading">{{ page.title }}</h1>
+  {% endif %}
+  <ul class="post-list">
+    {% for post in articles %}
+      {% set lang = post.lang or DEFAULT_LANG %}
+      {% set technical_flag = (post.technical or '').lower() == 'true' %}
+      {% if not lang.startswith('ar') and technical_flag %}
+      <li>
+        <span class="post-meta">{{ post.date|strftime('%b %-d, %Y') }}</span>
+        <h3><a class="post-link" href="{{ (SITEURL.rstrip('/') ~ '/' ~ post.url.lstrip('/')) if SITEURL else '/' ~ post.url }}">{{ post.title }}</a></h3>
+      </li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+  <p class="rss-subscribe">subscribe <a href="{{ absolute_url('feed.xml') }}">via RSS</a></p>
+</div>
+{% endblock %}

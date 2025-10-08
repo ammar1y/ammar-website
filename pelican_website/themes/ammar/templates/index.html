@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block content %}
+{% set featured_ns = namespace(items=[]) %}
+{% for post in articles %}
+  {% set lang = post.lang or DEFAULT_LANG %}
+  {% set technical_flag = (post.technical or '').lower() == 'true' %}
+  {% if not lang.startswith('ar') and not technical_flag %}
+    {% if (post.featured or '').lower() == 'true' %}
+      {% set featured_ns.items = featured_ns.items + [post] %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+{% if featured_ns.items %}
+<h2 class="page-heading">Featured Posts</h2>
+<ul class="featured-post-list">
+  {% for post in featured_ns.items %}
+    <li>
+      <h3 class="list-post-title"><a class="post-link" href="{{ (SITEURL.rstrip('/') ~ '/' ~ post.url.lstrip('/')) if SITEURL else '/' ~ post.url }}">{{ post.title }}</a></h3>
+      <span class="post-meta">{{ post.date|strftime('%b %-d, %Y') }}</span>
+      {% if post.category %}
+      <span class="list-post-categories">
+        <a href="{{ (SITEURL.rstrip('/') ~ '/categories/#' ~ post.category.slug) if SITEURL else '/categories/#' ~ post.category.slug }}">{{ post.category.name|replace('-', ' ')|title }}</a>
+      </span>
+      {% endif %}
+      {% if SITEURL and article.summary and False %}{% endif %}
+    </li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+<h2 class="page-heading">All Posts</h2>
+<ul class="post-list">
+{% for post in articles_page.object_list %}
+  {% set lang = post.lang or DEFAULT_LANG %}
+  {% set technical_flag = (post.technical or '').lower() == 'true' %}
+  {% if not lang.startswith('ar') and not technical_flag %}
+  <li>
+    <h3 class="list-post-title"><a class="post-link" href="{{ (SITEURL.rstrip('/') ~ '/' ~ post.url.lstrip('/')) if SITEURL else '/' ~ post.url }}">{{ post.title }}</a></h3>
+    <span class="post-meta">{{ post.date|strftime('%b %-d, %Y') }}</span>
+    {% if post.category %}
+    <span class="list-post-categories">
+      <a href="{{ (SITEURL.rstrip('/') ~ '/categories/#' ~ post.category.slug) if SITEURL else '/categories/#' ~ post.category.slug }}">{{ post.category.name|replace('-', ' ')|title }}</a>
+    </span>
+    {% endif %}
+  </li>
+  {% endif %}
+{% endfor %}
+</ul>
+
+<div class="pagination">
+  {% if articles_previous_page %}
+    <a href="{{ (SITEURL.rstrip('/') ~ '/' ~ articles_previous_page.url) if SITEURL else '/' ~ articles_previous_page.url }}" class="previous">Previous</a>
+  {% else %}
+    <span class="previous"></span>
+  {% endif %}
+  <span class="page_number">Page: {{ articles_page.number }} of {{ articles_paginator.num_pages }}</span>
+  {% if articles_next_page %}
+    <a href="{{ (SITEURL.rstrip('/') ~ '/' ~ articles_next_page.url) if SITEURL else '/' ~ articles_next_page.url }}" class="next">Next</a>
+  {% else %}
+    <span class="next"></span>
+  {% endif %}
+</div>
+
+<p class="rss-subscribe">subscribe <a href="{{ absolute_url('feed.xml') }}">via RSS</a></p>
+{% endblock %}

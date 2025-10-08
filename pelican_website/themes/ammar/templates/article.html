@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">{{ article.title }}</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="{{ article.date.isoformat() }}" itemprop="datePublished">{{ article.date|strftime('%b %-d, %Y') }}</time>
+      {% if article.author %} • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">{{ article.author }}</span></span>{% endif %}
+      {% if article.category %}
+        <span class="post-categories"> • <strong>Category: </strong>
+          <a href="{{ (SITEURL.rstrip('/') ~ '/categories/#' ~ article.category.slug) if SITEURL else '/categories/#' ~ article.category.slug }}">{{ article.category.name|replace('-', ' ')|title }}</a>
+        </span>
+      {% endif %}
+    </p>
+    {% if article.tags %}
+    <p class="post-tags">
+      <strong>Tags: </strong>
+      {% for tag in article.tags %}
+        <a href="{{ (SITEURL.rstrip('/') ~ '/tags/#' ~ tag.slug) if SITEURL else '/tags/#' ~ tag.slug }}">{{ tag.name|replace('-', ' ') }}</a>{% if not loop.last %},{% else %}.{% endif %}
+      {% endfor %}
+    </p>
+    {% endif %}
+  </header>
+  <div class="post-content e-content" itemprop="articleBody">
+    {{ article.content }}
+  </div>
+  <a class="u-url" href="{{ (SITEURL.rstrip('/') ~ '/' ~ article.url.lstrip('/')) if SITEURL else '/' ~ article.url }}" hidden></a>
+</article>
+{% set allow_comments = article.metadata.get('comments', 'true').lower() != 'false' %}
+{% if DISQUS_SITENAME and allow_comments %}
+<div id="disqus_thread"></div>
+<script>
+var disqus_config = function () {
+  this.page.url = '{{ (SITEURL.rstrip('/') ~ '/' ~ article.url.lstrip('/')) if SITEURL else '/' ~ article.url }}';
+  this.page.identifier = '{{ article.slug }}';
+};
+(function() {
+  var d = document, s = d.createElement('script');
+  s.src = 'https://{{ DISQUS_SITENAME }}.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/" rel="nofollow">comments powered by Disqus.</a></noscript>
+{% endif %}
+{% endblock %}

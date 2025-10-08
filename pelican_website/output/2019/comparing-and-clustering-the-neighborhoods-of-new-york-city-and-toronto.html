@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Comparing and Clustering the Neighborhoods of New York City and Toronto | Ammar Alyousfi's Blog</title>
+    <meta name="description" content="Introduction In this post, I will talk about a project I’ve done in order to get IBM Data Science Professional Certificate. In this project, the...">
+    <link rel="alternate" type="application/atom+xml" title="Ammar Alyousfi's Blog" href="/feed.xml">
+    <meta name="propeller" content="b696b73b7a9aef3af58fb8c09ff2ac92">
+    <meta name="p:domain_verify" content="21dc05e499b703d5454dcacfdc85a03e">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <link rel="stylesheet" href="/assets/main.css">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-117443607-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);} 
+      gtag('js', new Date());
+      gtag('config', 'UA-117443607-1');
+    </script>
+    <script data-ad-client="ca-pub-7266686207066838" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="">
+    <header class="site-header" role="banner">
+      <div class="wrapper">
+        <div class="site-branding">
+          <a class="site-title-con" rel="author" href="/">
+            <div class="nav-logo">
+              <img style="vertical-align: baseline;" width="19" src="/assets/logo.png" alt="logo">
+            </div>
+            <div class="site-title">Ammar Alyousfi's Blog</div>
+          </a>
+        </div>
+        <nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger">
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewBox="0 0 18 15" width="18px" height="15px">
+                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+              </svg>
+            </span>
+          </label>
+          <div class="trigger">
+              <a class="page-link" href="/categories">Categories</a>
+              <a class="page-link" href="/tags">Tags</a>
+              <a class="page-link" href="/more">More</a>
+              <a class="page-link" href="/ar/">Arabic Blog</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Comparing and Clustering the Neighborhoods of New York City and Toronto</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2019-11-20T00:00:00+04:00" itemprop="datePublished">Nov 20, 2019</time>
+ • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">Ammar Alyousfi</span></span>        <span class="post-categories"> • <strong>Category: </strong>
+          <a href="/categories/#data-science">Data Science</a>
+        </span>
+    </p>
+    <p class="post-tags">
+      <strong>Tags: </strong>
+        <a href="/tags/#data-science">data science</a>,        <a href="/tags/#machine-learning">machine learning</a>,        <a href="/tags/#data-analysis">data analysis</a>,        <a href="/tags/#data-visualization">data visualization</a>,        <a href="/tags/#data-science-project">data science project</a>,        <a href="/tags/#clustering">clustering</a>.    </p>
+  </header>
+  <div class="post-content e-content" itemprop="articleBody">
+    <p><img src="/assets/images/2019/clustnt20.png" style="border:1px solid #333333"></p>
+<h2 id="introduction">Introduction</h2>
+<p>In this post, I will talk about a project I&rsquo;ve done in order to get IBM Data Science Professional Certificate. In this project, the neighborhoods of two important cities in the world—New York City (NYC) and Toronto—were clustered into groups of similar items. One can use the results of this analysis to understand the similarities and differences between the two cities neighborhoods.</p>
+<p>The clustering will be based on the types (categories) of venues in the neighborhoods. Each of the resulting clusters should have neighborhoods that contain similar distribution of venues. For example, one cluster may contain neighborhoods that have many Italian restaurants, many coffee shops, and few medical centers; another cluster may contain neighborhoods with many residential buildings, many barbershops, and few Italian restaurants.</p>
+<p>This post will explain the stages and results of this project broadly. For a more in-depth description, check the <a href="https://github.com/ammar1y/Clustering-and-Comparing-the-Neighborhoods-of-New-York-City-and-Toronto">project report</a>. The code used to perform this project is available as a <a href="https://github.com/ammar1y/Clustering-and-Comparing-the-Neighborhoods-of-New-York-City-and-Toronto">Jupyter notebook</a>.</p>
+<h2 id="data-acquisition-and-preparation">Data Acquisition and Preparation</h2>
+<p>Since clustering will be based on the categories of venues in the neighborhoods, we need data that specifies the venues in the neighborhoods and their categories. Of course we, in the first place, need a list of the neighborhoods of NYC and Toronto. </p>
+<p>The figure below shows a map of NYC with its neighborhoods represented as orange circles on the left side and a map of Toronto with its neighborhoods represented as green circles on the right side.</p>
+<p><img alt="" src="/assets/images/2019/clustnt13.png"></p>
+<p>To acquire data on venues and their categories, Foursquare API is used. Foursquare is one of the world largest sources of location and venue data. To retrieve the venues and their categories in a given neighborhood, the coordinates—the latitude and the longitude—of the neighborhood are sent in the API request. The API-request URL looks like the following:</p>
+<div class="highlight"><pre><span></span><code>https://api.foursquare.com/v2/venues/search? &amp;client_id=1234&amp;client_secret=1234&amp;v=20180605&amp; ll=40.89470517661,-73.84720052054902&amp;radius=500&amp;limit=100
+</code></pre></div>
+
+<p>where search indicates the API endpoint used, client_id and client_secret are credentials used to access the API service and are obtained when registering a Foursquare developer account, v indicates the API version to use, ll indicates the latitude and longitude of the desired location, radius is the maximum distance in meters between the specified location and the retrieved venues, and limit is used to limit the number of returned results if necessary.</p>
+<p>The result of this data-acquisition-and-preparation stage is two tables (dataframes) that specify the neighborhoods and the venues of each of NYC and Toronto. Below is a part of the NYC table. In these tables, one neighborhood might take many rows depending on the number of retrieved venues for that neighborhood. </p>
+<p><img alt="" src="/assets/images/2019/clustnt16.png"></p>
+<p>Several data-preparation techniques were used to arrive at this table. The details are all specified in the <a href="https://github.com/ammar1y/Clustering-and-Comparing-the-Neighborhoods-of-New-York-City-and-Toronto">project report</a>.</p>
+<h2 id="exploratory-data-analysis">Exploratory Data Analysis</h2>
+<p>To get a better understanding of the venues data, we performed some exploratory analysis. In this analysis, we found the most common and the most widespread venue categories in NYC and Toronto. </p>
+<p>To explain the difference between &ldquo;most common&rdquo; and &ldquo;most widespread&rdquo;, we use an example: Suppose that there are 15 venues with the category “VR Games” and that these venues exist in 7 neighborhoods only out of 80 neighborhoods; also suppose that there are 10 venues with the category “Syrian Restaurant” and that these venues exist in 10 neighborhoods—each one of them in a different neighborhood. Then it can be said that the “VR Games” category is more com- mon than “Syrian Restaurant” category because there are more venues under this category, and it can be said that the “Syrian Restaurant” category is more widespread than the “VR Games” category because venues under this category exist in more neighborhoods than the other category. </p>
+<p><em>Note:</em> Before proceeding with exploratory data analysis and the subsequent steps, a data-preparation operation was performed: venues whose category is “Building”, “Office”, “Bus Line”, “Bus Station”, “Bus Stop”, or “Road” were excluded because they are not expected to add analytical value in this project. </p>
+<p>The figures below shows the most common venue categories in NYC.</p>
+<p><img alt="" src="/assets/images/2019/clustnt2.png"></p>
+<p>The figures below shows the most common venue categories in Toronto.</p>
+<p><img alt="" src="/assets/images/2019/clustnt3.png"></p>
+<p>The figures below shows the most widespread venue categories in NYC.</p>
+<p><img alt="" src="/assets/images/2019/clustnt4.png"></p>
+<p>The figures below shows the most widespread venue categories in Toronto.</p>
+<p><img alt="" src="/assets/images/2019/clustnt5.png"></p>
+<h2 id="clustering-of-neighborhoods">Clustering of Neighborhoods</h2>
+<p>To perform clustering, we need to feed the clustering algorithm with features in appropriate format. The data format that we saw above—show also below—is not suitable for the clustering algorithm. </p>
+<p><img alt="" src="/assets/images/2019/clustnt16.png"></p>
+<p>Since that we care most about the categories of the venues in the neighborhoods, <a href="https://www.google.com/search?q=one-hot+encoding">one-hot encoding</a> will be performed on the &ldquo;Venue Category&rdquo; field in the dataframe (table) shown above. A sample of the resulting dataframe of NYC is shown below.</p>
+<p><img alt="" src="/assets/images/2019/clustnt6.png"></p>
+<p>The next step is aggregating the values for each neighborhood so that each neighborhood becomes represented by only one row. The aggregation will be done by grouping rows by neighborhood and by taking the mean of the frequency of occurrence of each category. So for example, if the Fieldston neighborhood has 15 venues (i.e. 15 rows in the dataframe shown above) and 4 of these venues are of the “Sandwich Place” category, then Fieldston row in the aggregated dataframe will have the value 4/15 = 0.27 for the “Sandwich Place” column. The figure below shows the aggregated dataframe of NYC.</p>
+<p><img alt="" src="/assets/images/2019/clustnt7.png"></p>
+<p>Now, we have two aggregated dataframes, one for NYC and another for Toronto. The next step is combining these two dataframes together while adding a suffix to the names of the neighborhoods to still be able to distinguish between NYC neighborhoods and Toronto neighborhoods. The figure below shows a sample of the combined dataframe.</p>
+<p><img alt="" src="/assets/images/2019/clustnt8.png"></p>
+<p>After that, clustering is applied. The clustering algorithm used is the K-means algorithm of Scikit-learn package and number of clusters is chosen to be 5 clusters.  The output of clustering is a label for each neighborhood indicating to which cluster this neighborhood belongs. The figure below shows a sample of a dataframe created with the cluster labels.</p>
+<p><img alt="" src="/assets/images/2019/clustnt9.png"></p>
+<p>We added columns that show the most common venue categories in each neighborhood along with its cluster label. </p>
+<h3 id="cluster-analysis">Cluster Analysis</h3>
+<p>The table below shows the number of neighborhoods in each cluster.</p>
+<p><img alt="" src="/assets/images/2019/clustnt10.png"></p>
+<p>And the plot below shows the number of NYC neighborhoods and the number of Toronto neighborhoods in each cluster.</p>
+<p><img alt="" src="/assets/images/2019/clustnt11.png"></p>
+<p>The tables below show the most common venue categories in the neighborhoods of each cluster with the percentage of venues for each category.</p>
+<p><img alt="" src="/assets/images/2019/clustnt12.png"></p>
+<p>The differences between the clusters can be seen from the figure; each cluster distinguishably has different distribution of common venue categories than other clusters. Some of the observations that can be made are: </p>
+<ul>
+<li>While residential buildings constitute ~9% of venues in the neighborhoods of the first cluster, they constitute ~2% of the venues in the second and third clusters, ~4% of the venues in the fourth cluster, and 21% of the venues in the fifth cluster. </li>
+<li>Pizza places appear in the most common categories of the second, third, and fourth clusters only. </li>
+<li>Chinese restaurants appear in the most common categories of the third cluster only. </li>
+<li>Automative shops appear in the most common categories of the second cluster only; moreover, “Automative Shop” is the most popular category in that cluster. </li>
+<li>Doctor and dentist offices constitute ~18% of fourth-cluster venues while they constitute only 2% of each of the second-cluster and fifth-cluster venues.</li>
+</ul>
+<p>Other differences can also be observed.</p>
+<p>To see the full detailed report of the analysis, <a href="https://github.com/ammar1y/Clustering-and-Comparing-the-Neighborhoods-of-New-York-City-and-Toronto">click here</a>, and to access the Jupyter notebook that contains all the code used in this project, <a href="https://github.com/ammar1y/Clustering-and-Comparing-the-Neighborhoods-of-New-York-City-and-Toronto">click here</a>.</p>
+  </div>
+  <a class="u-url" href="/2019/comparing-and-clustering-the-neighborhoods-of-new-york-city-and-toronto.html" hidden></a>
+</article>
+      </div>
+    </main>
+    <footer class="site-footer h-card">
+      <data class="u-url" href="/"></data>
+      <div class="wrapper">
+        <div class="footer-col-wrapper">
+          <div class="social-media-list">
+                <div><a href="https://github.com/ammar1y" target="_blank" rel="noopener"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></div>
+                <div><a href="https://www.linkedin.com/in/ammar-alyousfi/" target="_blank" rel="noopener"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg></a></div>
+                <div><a href="https://www.kaggle.com/ammar111" target="_blank" rel="noopener"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#kaggle"></use></svg></a></div>
+                <div><a href="https://stackoverflow.com/users/2282785/ammar-alyousfi" target="_blank" rel="noopener"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#stackoverflow"></use></svg></a></div>
+                <div><a href="https://www.quora.com/profile/Ammar-Alyousfi" target="_blank" rel="noopener"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#quora"></use></svg></a></div>
+                <div><a href="https://www.instagram.com/ammar.you/" target="_blank" rel="noopener"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#instagram"></use></svg></a></div>
+            <div><a href="/feed.xml"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#rss"></use></svg></a></div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+    <noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif" alt="" referrerpolicy="no-referrer-when-downgrade"></noscript>
+  </body>
+</html>

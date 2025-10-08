@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Guided Generation with LLMs: How to Fully Control LLM Outputs | Ammar Alyousfi's Blog</title>
+    <meta name="description" content="Large Language Models (LLMs) have revolutionized the AI world in the past few months. There are commercial ones like OpenAI’s GPT-4 and Anthropic’s Claude...">
+    <link rel="alternate" type="application/atom+xml" title="Ammar Alyousfi's Blog" href="/feed.xml">
+    <meta property="og:image" content="/assets/images/2024/llm-guided-gen-img.jpeg">
+    <meta name="propeller" content="b696b73b7a9aef3af58fb8c09ff2ac92">
+    <meta name="p:domain_verify" content="21dc05e499b703d5454dcacfdc85a03e">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <link rel="stylesheet" href="/assets/main.css">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-117443607-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);} 
+      gtag('js', new Date());
+      gtag('config', 'UA-117443607-1');
+    </script>
+    <script data-ad-client="ca-pub-7266686207066838" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="">
+    <header class="site-header" role="banner">
+      <div class="wrapper">
+        <div class="site-branding">
+          <a class="site-title-con" rel="author" href="/">
+            <div class="nav-logo">
+              <img style="vertical-align: baseline;" width="19" src="/assets/logo.png" alt="logo">
+            </div>
+            <div class="site-title">Ammar Alyousfi's Blog</div>
+          </a>
+        </div>
+        <nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger">
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewBox="0 0 18 15" width="18px" height="15px">
+                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+              </svg>
+            </span>
+          </label>
+          <div class="trigger">
+              <a class="page-link" href="/categories">Categories</a>
+              <a class="page-link" href="/tags">Tags</a>
+              <a class="page-link" href="/more">More</a>
+              <a class="page-link" href="/ar/">Arabic Blog</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Guided Generation with LLMs: How to Fully Control LLM Outputs</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2024-02-16T00:00:00+04:00" itemprop="datePublished">Feb 16, 2024</time>
+ • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">Ammar Alyousfi</span></span>        <span class="post-categories"> • <strong>Category: </strong>
+          <a href="/categories/#data-science">Data Science</a>
+        </span>
+    </p>
+    <p class="post-tags">
+      <strong>Tags: </strong>
+        <a href="/tags/#llm">LLM</a>,        <a href="/tags/#guided-generation">guided generation</a>,        <a href="/tags/#llama">llama</a>,        <a href="/tags/#mistral">mistral</a>,        <a href="/tags/#nlp">NLP</a>.    </p>
+  </header>
+  <div class="post-content e-content" itemprop="articleBody">
+    <p><img src="/assets/images/2024/llm-guided-gen-img.jpeg" style="max-width:800px; width:100%;"></p>
+<p>Large Language Models (LLMs) have revolutionized the AI world in the past few months. There are commercial ones like OpenAI&rsquo;s GPT-4 and Anthropic&rsquo;s Claude 2.1, and open-source ones like Llama 2 and Mistral and their many fine-tunes. </p>
+<p>With OpenAI&rsquo;s models, you can control the output to a good extent using <a href="https://platform.openai.com/docs/guides/function-calling">function calling</a> and get structured data back from the models.</p>
+<p>With many open-source LLMs, you can have even greater control over the outputs. In this post, I will talk about great libraries that can be used to fully control the outputs of LLMs using what&rsquo;s being called &ldquo;guided generation.&rdquo; They all have similar capabilities, so I&rsquo;ll mention some of the interesting or unique features of each one with some examples to give you an idea of how they work. For more details, you can check their documentation via the links provided below.</p>
+<p>If you want to see my conclusion and the tool I ended up using, you can skip to the end of the post.</p>
+<h2 id="what-is-guided-generation">What is Guided Generation?</h2>
+<p>Guided generation in large language models (LLMs) is an advanced approach that allows you to steer the model to generate text in the format and patterns you need. This method involves guiding the language model&rsquo;s text generation using specific techniques like regular expressions, JSON schemas, context-free grammars (CFGs), etc. </p>
+<p>With guided generation, you can be sure that the LLM will adhere to your predefined patterns or structures, enhancing both its relevance and accuracy.</p>
+<h2 id="tools-for-guided-generation">Tools for Guided Generation</h2>
+<p>Luckily we have many open-source tools that support guided generation, and most of them are actively maintained. Below are the most prominent ones at the time of writing this post.</p>
+<h3 id="guidance-by-guidance-ai">Guidance by guidance-ai</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"># of stars</th>
+<th style="text-align: center;"># of commits</th>
+<th style="text-align: center;"># of contributors</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">16.1K</td>
+<td style="text-align: center;">1,177</td>
+<td style="text-align: center;">54</td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://github.com/guidance-ai/guidance">Guidance on Github</a></p>
+<ul>
+<li>It allows users to constrain generation (e.g. with regex and CFGs) as well as to <strong>interleave control (conditional, loops) and generation seamlessly</strong>.</li>
+<li>Compatible with Transformers, llama.cpp, VertexAI, and OpenAI.</li>
+</ul>
+<h4 id="examples">Examples</h4>
+<p>The following example shows how you can make the model choose from a list of predefined options and then generate text based on the choice.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">guidance</span> <span class="kn">import</span> <span class="n">models</span><span class="p">,</span> <span class="n">gen</span>
+
+<span class="n">lm</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">LlamaCpp</span><span class="p">(</span><span class="s2">&quot;path/to/llama2.gguf&quot;</span><span class="p">,</span> <span class="n">n_gpu_layers</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_ctx</span><span class="o">=</span><span class="mi">4096</span><span class="p">)</span>
+
+<span class="c1"># capture the selection under the name &#39;answer&#39;</span>
+<span class="n">lm</span> <span class="o">=</span> <span class="n">lm</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;Do you want a joke or a poem? A </span><span class="si">{</span><span class="n">select</span><span class="p">([</span><span class="s1">&#39;joke&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;poem&#39;</span><span class="p">],</span><span class="w"> </span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;answer&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">.</span><span class="se">\n</span><span class="s2">&quot;</span>
+
+<span class="c1"># make a choice based on the model&#39;s previous selection</span>
+<span class="k">if</span> <span class="n">lm</span><span class="p">[</span><span class="s2">&quot;answer&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;joke&quot;</span><span class="p">:</span>
+    <span class="n">lm</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;Here is a one-line joke about cats: &quot;</span> <span class="o">+</span> <span class="n">gen</span><span class="p">(</span><span class="s1">&#39;output&#39;</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">lm</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;Here is a one-line poem about dogs: &quot;</span> <span class="o">+</span> <span class="n">gen</span><span class="p">(</span><span class="s1">&#39;output&#39;</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>The output will be something like:</p>
+<div class="highlight"><pre><span></span><code><span class="k">Do</span><span class="w"> </span><span class="nv">you</span><span class="w"> </span><span class="nv">want</span><span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="nv">joke</span><span class="w"> </span><span class="nv">or</span><span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="nv">poem</span>?<span class="w"> </span><span class="nv">A</span><span class="w"> </span><span class="nv">poem</span>.
+<span class="nv">Here</span><span class="w"> </span><span class="nv">is</span><span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="nv">one</span><span class="o">-</span><span class="nv">line</span><span class="w"> </span><span class="nv">poem</span><span class="w"> </span><span class="nv">about</span><span class="w"> </span><span class="nv">dogs</span>:<span class="w"> </span><span class="s2">&quot;Dogs are the best.&quot;</span>
+</code></pre></div>
+
+<p>Another example showing how to use functions with Guidance:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">guidance</span> <span class="kn">import</span> <span class="n">models</span><span class="p">,</span> <span class="n">gen</span>
+
+<span class="n">lm</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">LlamaCpp</span><span class="p">(</span><span class="s2">&quot;path/to/llama2.gguf&quot;</span><span class="p">,</span> <span class="n">n_gpu_layers</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_ctx</span><span class="o">=</span><span class="mi">4096</span><span class="p">)</span>
+
+<span class="nd">@guidance</span>
+<span class="k">def</span> <span class="nf">qa_bot</span><span class="p">(</span><span class="n">lm</span><span class="p">,</span> <span class="n">query</span><span class="p">):</span>
+    <span class="n">lm</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;&#39;&#39;</span><span class="se">\</span>
+<span class="s1">    Q: </span><span class="si">{</span><span class="n">query</span><span class="si">}</span>
+<span class="s1">    Now I will choose to either SEARCH the web or RESPOND.</span>
+<span class="s1">    Choice: </span><span class="si">{</span><span class="n">select</span><span class="p">([</span><span class="s2">&quot;SEARCH&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;RESPOND&quot;</span><span class="p">],</span><span class="w"> </span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;choice&quot;</span><span class="p">)</span><span class="si">}</span>
+<span class="s1">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="n">lm</span><span class="p">[</span><span class="s2">&quot;choice&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;SEARCH&quot;</span><span class="p">:</span>
+        <span class="n">lm</span> <span class="o">+=</span> <span class="s2">&quot;A: I don&#39;t know, Google it!&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">lm</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;A: </span><span class="si">{</span><span class="n">gen</span><span class="p">(</span><span class="n">stop</span><span class="o">=</span><span class="s2">&quot;Q:&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;answer&quot;</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="k">return</span> <span class="n">lm</span>
+
+<span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;Who won the last Kentucky derby and by how much?&quot;</span>
+<span class="n">lm</span> <span class="o">+</span> <span class="n">qa_bot</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+</code></pre></div>
+
+<p>which will output something like:</p>
+<div class="highlight"><pre><span></span><code><span class="n">Q</span><span class="o">:</span><span class="w"> </span><span class="n">Who</span><span class="w"> </span><span class="n">won</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">last</span><span class="w"> </span><span class="n">Kentucky</span><span class="w"> </span><span class="n">derby</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="n">how</span><span class="w"> </span><span class="n">much</span><span class="o">?</span>
+<span class="n">Now</span><span class="w"> </span><span class="n">I</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">choose</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">either</span><span class="w"> </span><span class="n">SEARCH</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">web</span><span class="w"> </span><span class="n">or</span><span class="w"> </span><span class="n">RESPOND</span><span class="o">.</span>
+<span class="n">Choice</span><span class="o">:</span><span class="w"> </span><span class="n">SEARCH</span>
+<span class="n">A</span><span class="o">:</span><span class="w"> </span><span class="n">I</span><span class="w"> </span><span class="n">don</span><span class="err">&#39;</span><span class="n">t</span><span class="w"> </span><span class="n">know</span><span class="o">,</span><span class="w"> </span><span class="n">Google</span><span class="w"> </span><span class="n">it</span><span class="o">!</span>
+</code></pre></div>
+
+<p>Notice how you can mix model generations with Python logic. For example, model selection between &ldquo;SEARCH&rdquo; and &ldquo;RESPOND&rdquo; is saved in <code>choice</code> variable, then it&rsquo;s used to decide what to do next. This can be a powerful feature that allows seamless integration of LLMs within your code.</p>
+<h3 id="outlines-by-outlines-dev">Outlines by outlines-dev</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"># of stars</th>
+<th style="text-align: center;"># of commits</th>
+<th style="text-align: center;"># of contributors</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">4.4K</td>
+<td style="text-align: center;">483</td>
+<td style="text-align: center;">51</td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://github.com/outlines-dev/outlines">Outlines on Github</a></p>
+<ul>
+<li>Allows you to control model outputs using a Pydantic model or a JSON schema.</li>
+<li>Compatible with OpenAI, transformers, llama.cpp, exllama2, and mamba.</li>
+</ul>
+<h4 id="examples_1">Examples</h4>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">outlines</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">outlines</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">transformers</span><span class="p">(</span><span class="s2">&quot;mistralai/Mistral-7B-v0.1&quot;</span><span class="p">)</span>
+
+<span class="n">generator</span> <span class="o">=</span> <span class="n">outlines</span><span class="o">.</span><span class="n">generate</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;Blue&quot;</span><span class="p">,</span> <span class="s2">&quot;Red&quot;</span><span class="p">,</span> <span class="s2">&quot;Yellow&quot;</span><span class="p">])</span>
+
+<span class="n">color</span> <span class="o">=</span> <span class="n">generator</span><span class="p">(</span><span class="s2">&quot;What is the closest color to Indigo? &quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
+</code></pre></div>
+
+<p>which will output something like:</p>
+<div class="highlight"><pre><span></span><code>Blue
+</code></pre></div>
+
+<p>Another example showing how to use Pydantic models with Outlines:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">constr</span><span class="p">,</span> <span class="n">conint</span>
+
+<span class="kn">import</span> <span class="nn">outlines</span>
+
+<span class="k">class</span> <span class="nc">Armor</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
+    <span class="n">leather</span> <span class="o">=</span> <span class="s2">&quot;leather&quot;</span>
+    <span class="n">chainmail</span> <span class="o">=</span> <span class="s2">&quot;chainmail&quot;</span>
+    <span class="n">plate</span> <span class="o">=</span> <span class="s2">&quot;plate&quot;</span>
+
+
+<span class="k">class</span> <span class="nc">Character</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="n">constr</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">age</span><span class="p">:</span> <span class="n">conint</span><span class="p">(</span><span class="n">gt</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">lt</span><span class="o">=</span><span class="mi">99</span><span class="p">)</span>
+    <span class="n">armor</span><span class="p">:</span> <span class="n">Armor</span>
+    <span class="n">strength</span><span class="p">:</span> <span class="n">conint</span><span class="p">(</span><span class="n">gt</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">lt</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">outlines</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">transformers</span><span class="p">(</span><span class="s2">&quot;mistralai/Mistral-7B-v0.1&quot;</span><span class="p">)</span>
+<span class="n">generator</span> <span class="o">=</span> <span class="n">outlines</span><span class="o">.</span><span class="n">generate</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">Character</span><span class="p">)</span>
+
+<span class="n">character</span> <span class="o">=</span> <span class="n">generator</span><span class="p">(</span>
+    <span class="s2">&quot;Generate a new character for my awesome game: &quot;</span>
+    <span class="o">+</span> <span class="s2">&quot;name, age (between 1 and 99), armor and strength. &quot;</span>
+    <span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">character</span><span class="p">)</span>
+</code></pre></div>
+
+<p>which will output something like:</p>
+<div class="highlight"><pre><span></span><code>name=&#39;Orla&#39; age=21 armor=&lt;Armor.plate: &#39;plate&#39;&gt; strength=8
+</code></pre></div>
+
+<h3 id="llamacpp-with-grammars">llama.cpp with Grammars</h3>
+<p>Llama.cpp is one of the most popular LLM libraries out there. Its development is very active with hundreds of contributors. Its main goal is to &ldquo;enable LLM inference with minimal setup and state-of-the-art performance on a wide variety of hardware - locally and in the cloud&rdquo;.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"># of stars</th>
+<th style="text-align: center;"># of commits</th>
+<th style="text-align: center;"># of contributors</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>50.4K</strong></td>
+<td style="text-align: center;">2,092</td>
+<td style="text-align: center;">555</td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://github.com/ggerganov/llama.cpp">llama.cpp on Github</a></p>
+<ul>
+<li>Compatible with many models and their finetunes like: LLaMA 2, Mistral 7B, Yi models, Qwen models, etc. Basically, it works with models in GGUF format which is a format available for almost all models <a href="https://huggingface.co/models?sort=downloads&amp;search=gguf">on HuggingFace</a>.</li>
+<li>It has bindings for Python, Go, Node.js, and many other languages.</li>
+<li>Robust with many other libraries and tools built on top of it.</li>
+</ul>
+<p>llama.cpp supports guided generation to constrain the model&rsquo;s output using <a href="https://github.com/ggerganov/llama.cpp/blob/master/grammars/README.md">GBNF grammars</a>. GBNF is a grammar format that allows you to define the structure of the output you want to generate. GBNF might seem intimidating at first, but after you understand its syntax and go through some examples, you will find that it&rsquo;s not that complex really. </p>
+<h4 id="example">Example</h4>
+<p>The following quick example shows how to guide the model to generate output in the format of a list.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">llama_cpp</span> <span class="kn">import</span> <span class="n">Llama</span><span class="p">,</span> <span class="n">LlamaGrammar</span>
+
+<span class="n">llm</span> <span class="o">=</span> <span class="n">Llama</span><span class="p">(</span>
+      <span class="n">model_path</span><span class="o">=</span><span class="s2">&quot;mistral-7b-instruct-v0.2.Q4_K_M.gguf&quot;</span><span class="p">,</span>
+      <span class="n">n_gpu_layers</span><span class="o">=-</span><span class="mi">1</span>
+<span class="p">)</span>
+
+<span class="n">grammar</span> <span class="o">=</span> <span class="n">LlamaGrammar</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd"># a grammar for lists</span>
+<span class="sd">root ::= (&quot;- &quot; item)+</span>
+<span class="sd">item ::= [^\n]+ &quot;\n&quot;</span>
+<span class="sd">&quot;&quot;&quot;</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="n">output</span> <span class="o">=</span> <span class="n">llm</span><span class="p">(</span>
+      <span class="s2">&quot;List the names of some deep learning architectures.&quot;</span><span class="p">,</span>
+      <span class="n">max_tokens</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span>
+      <span class="n">temperature</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+      <span class="n">grammar</span><span class="o">=</span><span class="n">grammar</span>
+<span class="p">)</span> 
+</code></pre></div>
+
+<p>It will output something like:</p>
+<div class="highlight"><pre><span></span><code>- Convolutional Neural Networks (CNN)
+- Recurrent Neural Networks (RNN)
+- Long Short-Term Memory (LSTM)
+- Autoencoder
+- Generative Adversarial Networks (GAN)
+</code></pre></div>
+
+<h3 id="other-tools-and-approaches">Other Tools and Approaches</h3>
+<p>The above tools are the ones that I used extensively and they are the most popular. But there are other tools that might be useful too:</p>
+<ul>
+<li><a href="https://github.com/eth-sri/lmql">LMQL</a> from SRI Lab at ETH Zurich. It &ldquo;offers a novel way of interweaving traditional programming with the ability to call LLMs in your code.&rdquo;</li>
+<li><a href="https://github.com/sgl-project/sglang">SGLang</a> from sgl-project.</li>
+</ul>
+<p>Other than using these tools to force the model to generate text in a specific format, there is an alternative approach I&rsquo;ve seen in some projects. It&rsquo;s about using a powerful model that you instruct in the prompt to respond in a given format. You might provide some examples in the prompt as well. Then you parse the output to make sure it&rsquo;s in the format you need. If not, you prompt the model to generate again, and so on.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Based on my experience with the three tools above (Guidance, Outlines, and llama.cpp), <strong>I ended up using llama.cpp</strong> for two main reasons:</p>
+<ol>
+<li>
+<p>I found llama.cpp to be more robust and reliable. I encountered some bugs with Guidance and Outlines. For example, I encountered an issue with Outlines that made generation fail randomly. I&rsquo;m sure the maintainers will fix the issues, but with llama.cpp, I didn&rsquo;t encounter any bugs.</p>
+</li>
+<li>
+<p>llama.cpp is very active and has a large community. It&rsquo;s the most starred LLM library on Github as far as I know. It has a lot of contributors and it&rsquo;s being used by many projects. This means that it&rsquo;s more likely to be maintained and improved in the future.</p>
+</li>
+</ol>
+<p>Plus llama.cpp is pretty fast (especially in the latest releases) and the GBNF grammar offers a lot of flexibility to guide the model&rsquo;s output.</p>
+  </div>
+  <a class="u-url" href="/2024/Guided-Generation-with-LLMs-How-to-Fully-Control-LLM-Outputs.html" hidden></a>
+</article>
+      </div>
+    </main>
+    <footer class="site-footer h-card">
+      <data class="u-url" href="/"></data>
+      <div class="wrapper">
+        <div class="footer-col-wrapper">
+          <div class="social-media-list">
+                <div><a href="https://github.com/ammar1y" target="_blank" rel="noopener"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></div>
+                <div><a href="https://www.linkedin.com/in/ammar-alyousfi/" target="_blank" rel="noopener"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg></a></div>
+                <div><a href="https://www.kaggle.com/ammar111" target="_blank" rel="noopener"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#kaggle"></use></svg></a></div>
+                <div><a href="https://stackoverflow.com/users/2282785/ammar-alyousfi" target="_blank" rel="noopener"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#stackoverflow"></use></svg></a></div>
+                <div><a href="https://www.quora.com/profile/Ammar-Alyousfi" target="_blank" rel="noopener"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#quora"></use></svg></a></div>
+                <div><a href="https://www.instagram.com/ammar.you/" target="_blank" rel="noopener"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#instagram"></use></svg></a></div>
+            <div><a href="/feed.xml"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#rss"></use></svg></a></div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+    <noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif" alt="" referrerpolicy="no-referrer-when-downgrade"></noscript>
+  </body>
+</html>

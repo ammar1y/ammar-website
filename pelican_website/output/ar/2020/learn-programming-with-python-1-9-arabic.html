@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ar">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>تعلم البرمجة بلغة بايثون - الدرس التاسع: تحويل أنواع البيانات في بايثون | Ammar Alyousfi's Blog</title>
+    <meta name="description" content="في هذا الدرس سنتعرف على كيفية تحويل أنواع البيانات في بايثون وسنرى متى سنحتاج إلى ذلك في برامجنا. تحويل أنواع البيانات (Data-Type Conversion) توفر بايثون...">
+    <link rel="alternate" type="application/atom+xml" title="Ammar Alyousfi's Blog" href="/feed.xml">
+    <meta property="og:image" content="/assets/images/2020/pyc-9-1.png">
+    <meta name="propeller" content="b696b73b7a9aef3af58fb8c09ff2ac92">
+    <meta name="p:domain_verify" content="21dc05e499b703d5454dcacfdc85a03e">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <link rel="stylesheet" href="/assets/main_ar.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lateef&display=swap">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-117443607-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);} 
+      gtag('js', new Date());
+      gtag('config', 'UA-117443607-1');
+    </script>
+    <script data-ad-client="ca-pub-7266686207066838" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="rtl">
+    <header class="site-header" role="banner">
+      <div class="wrapper">
+        <div class="site-branding">
+          <a class="site-title-con" rel="author" href="/ar/">
+            <div class="nav-logo">
+              <img style="vertical-align: baseline;" width="19" src="/assets/logo.png" alt="logo">
+            </div>
+            <div class="site-title">مدونة عمار اليوسفي</div>
+          </a>
+        </div>
+        <div class="site-extra-link">
+          <a class="page-link" href="/ar/categories/">التصنيفات</a>
+        </div>
+      </div>
+    </header>
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">تعلم البرمجة بلغة بايثون - الدرس التاسع: تحويل أنواع البيانات في بايثون</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2020-04-26T00:00:00+04:00" itemprop="datePublished">Apr 26, 2020</time>
+ • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">Ammar Alyousfi</span></span>        <span class="post-categories"> • <strong>Category: </strong>
+          <a href="/categories/#dwr-tlm-lbrmj-blg-bythwn">دورة تعلم البرمجة بلغة بايثون</a>
+        </span>
+    </p>
+    <p class="post-tags">
+      <strong>Tags: </strong>
+        <a href="/tags/#bythwn">بايثون</a>,        <a href="/tags/#brmj">برمجة</a>,        <a href="/tags/#lgt-brmj">لغات برمجة</a>,        <a href="/tags/#tlm-lbrmj">تعلم البرمجة</a>,        <a href="/tags/#lbrmj-llmbtdyyn">البرمجة للمبتدئين</a>,        <a href="/tags/#tlm-lbrmj-blrby">تعلم البرمجة بالعربي</a>.    </p>
+  </header>
+  <div class="post-content e-content" itemprop="articleBody">
+    <p><img alt="تعلم البرمجة بلغة بايثون - الدرس التاسع: تحويل أنواع البيانات في بايثون" src="/assets/images/2020/pyc-9-1.png"></p>
+<p>في هذا الدرس سنتعرف على كيفية تحويل أنواع البيانات في بايثون وسنرى متى سنحتاج إلى ذلك في برامجنا.</p>
+<h3 id="data-type-conversion">تحويل أنواع البيانات (Data-Type Conversion)</h3>
+<p>توفر بايثون لنا دوالاً تمكننا من تحويل نوع البيانات، فمثلاً يمكننا تحويل عدد صحيح إلى عشري أو العكس:</p>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="mf">3.0</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">y</span> <span class="o">=</span> <span class="mf">4.5</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">int</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="mi">4</span>
+</code></pre></div>
+
+<p>في السطر الأول قمنا بتعريف متغير اسمه <code>x</code> ووضعنا فيه العدد الصحيح <code>3</code>؛ في هذه الحالة فإن نوع <code>x</code> سيكون <code>int</code>. ثم في السطر الثاني قمنا بتحويل نوع المتغير إلى <code>float</code> باستخدام الدالة المسماة <code>float()</code> ونرى أن الناتج هو <code>3.0</code>. صحيح أن <code>3</code> يساوي في الحقيقة <code>3.0</code> لكن نوعهما مختلفان بالنسبة لبايثون: عندما تضيف الفاصلة العشرية لرقم يصبح نوعه <code>float</code>. </p>
+<p>في السطر الثالث قمنا بتعريف متغير اسمه <code>y</code> ووضعنا فيه عدداً عشرياً قيمته <code>4.5</code> وهذا سيجعل <code>y</code> من نوع <code>float</code>. في السطر الرابع قمنا بتحويل نوع هذا المتغير إلى عدد صحيح <code>int</code> باستخدام الدالة المسماة <code>int()</code> وكان ناتج التحويل <code>4</code> حيث أن دالة <code>int()</code> تقوم بأخذ الرقم الذي على يسار الفاصلة العشرية وتترك ما على يمينها.</p>
+<p>أيضاً يمكننا استخدام الدوال <code>int()</code> و <code>float()</code> لتحويل السلاسل النصية إلى أرقام. لماذا قد نحتاج لذلك؟ لأنه في الكثير من الأحيان عندما تستقبل برامجنا بيانات من مصادر خارجية مثل الانترنت - كما سنرى لاحقاً - فإن هذه البيانات تأتي على شكل سلاسل نصية حتى لو كانت في حقيقتها تعبر عن أرقام. مثلاً:</p>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">str_val</span> <span class="o">=</span> <span class="s2">&quot;123&quot;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">type</span><span class="p">(</span><span class="n">str_val</span><span class="p">)</span>
+<span class="nb">str</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">str_val</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span>
+</code></pre></div>
+
+<p>في السطر الأول نعرف متغيراً اسمه <code>str_val</code> ونضع فيه سلسلة نصية هي <code>"123"</code>. لاحظ أن السلسلة تحوي أرقاماً ولكن بايثون تعاملها كنص كما تعامل <code>"abc"</code> بالضبط. لدلك عندما نحاول جمع هذه السلسلة النصية والرقم <code>3</code> في السطر الأخير فإن بايثون ستخبرنا بأن خطأ وقع يشبه الخطأ الذي رأيناه في الأعلى.فبايثون لا تكترث إذا كانت السلسلة النصية تحتوي أرقاماً أو أحرفاً؛ المهم أنها سلسلة نصية، فعندما تحاول جمع رقم مع سلسلة نصية فإن بايثون ستواجه خطأ في التنفيذ.</p>
+<p>لذلك إذا أردنا التعامل مع الرقم الموجود في هذه السلسلة النصية كرقم وليس كنص فعلينا استخدام الدالة <code>int()</code> لتحويل هذه السلسلة إلى رقم صحيح كالتالي:</p>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">int_val</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">str_val</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">type</span><span class="p">(</span><span class="n">int_val</span><span class="p">)</span>
+<span class="nb">int</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">int_val</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span>
+<span class="mi">126</span>
+</code></pre></div>
+
+<p>في السطر الأول حولنا السلسلة النصية إلى عدد صحيح ثم في السطر الأخير أضفنا <code>3</code> إليه وكان الناتج <code>126</code>.</p>
+<p>لكن هناك أمر يجب التنبه له وهو أنه يجب أن تحتوي السلسلة النصية فقط على رقم حتى تستطيع تحويل نوعها باستخدام <code>int()</code> أو <code>float()</code>. في المثال التالي نقوم بمحاولة تحويل سلسلة نصية إلى رقم:</p>
+<div class="highlight"><pre><span></span><code><span class="n">es</span> <span class="o">=</span> <span class="s1">&#39;hello&#39;</span>
+<span class="n">es</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">es</span><span class="p">)</span>
+</code></pre></div>
+
+<p>عندما تقوم بايثون بتنفيذ السطر الثاني فستواجه خطأ لأن السلسلة <code>es</code> لا تحتوي على أرقام.</p>
+<p>أخيراً: فإنه يمكن تحويل الأرقام الصحيحة والعشرية إلى سلاسل نصية باستخدام دالة <code>str()</code>. نحتاج إلى ذلك عندما نريد إدراج رقم في داخل نص موجود لدينا كما سنرى في العديد من الأمثلة مستقبلاً إن شاء الله. مثال:</p>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">num</span> <span class="o">=</span> <span class="mi">13</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">type</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="s1">&#39;str&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="s1">&#39;Your age is: &#39;</span> <span class="o">+</span> <span class="n">s</span>
+<span class="s1">&#39;Your age is: 13&#39;</span>
+</code></pre></div>
+
+<h3 id="_1">ملاحظات</h3>
+<p>عندما تجمع عدد صحيح وعدد عشري في بايثون فإن الناتج سيكون عدداً عشرياً وعندما تقسم عدداً على أي عدد آخر فإن الناتج سيكون أيضاً عدداً عشرياً (float):</p>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="mi">123</span> <span class="o">+</span> <span class="mf">45.2</span>
+<span class="mf">168.2</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">4</span> <span class="o">/</span> <span class="mi">2</span>
+<span class="mf">2.0</span>
+</code></pre></div>
+
+<h2 id="_2">فيديو الدرس</h2>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/qbMZMkEb_As" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+  <a class="u-url" href="/ar/2020/learn-programming-with-python-1-9-arabic.html" hidden></a>
+</article>
+      </div>
+    </main>
+    <footer class="site-footer h-card">
+      <data class="u-url" href="/"></data>
+      <div class="wrapper">
+        <div class="footer-col-wrapper">
+          <div class="social-media-list">
+                <div><a href="https://github.com/ammar1y" target="_blank" rel="noopener"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></div>
+                <div><a href="https://www.linkedin.com/in/ammar-alyousfi/" target="_blank" rel="noopener"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg></a></div>
+                <div><a href="https://www.kaggle.com/ammar111" target="_blank" rel="noopener"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#kaggle"></use></svg></a></div>
+                <div><a href="https://stackoverflow.com/users/2282785/ammar-alyousfi" target="_blank" rel="noopener"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#stackoverflow"></use></svg></a></div>
+                <div><a href="https://www.quora.com/profile/Ammar-Alyousfi" target="_blank" rel="noopener"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#quora"></use></svg></a></div>
+                <div><a href="https://www.instagram.com/ammar.you/" target="_blank" rel="noopener"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#instagram"></use></svg></a></div>
+            <div><a href="/feed.xml"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#rss"></use></svg></a></div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+    <noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif" alt="" referrerpolicy="no-referrer-when-downgrade"></noscript>
+  </body>
+</html>

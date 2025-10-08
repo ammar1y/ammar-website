@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>My Approach to Solve Kaggle's VSB Power Line Fault Detection Competition | Ammar Alyousfi's Blog</title>
+    <meta name="description" content="In this document, I will briefly explain my way of solving the VSB Power Line Fault Detection competition. The metric used in that competition was Matthews...">
+    <link rel="alternate" type="application/atom+xml" title="Ammar Alyousfi's Blog" href="/feed.xml">
+    <meta name="propeller" content="b696b73b7a9aef3af58fb8c09ff2ac92">
+    <meta name="p:domain_verify" content="21dc05e499b703d5454dcacfdc85a03e">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <link rel="stylesheet" href="/assets/main.css">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-117443607-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);} 
+      gtag('js', new Date());
+      gtag('config', 'UA-117443607-1');
+    </script>
+    <script data-ad-client="ca-pub-7266686207066838" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="">
+    <header class="site-header" role="banner">
+      <div class="wrapper">
+        <div class="site-branding">
+          <a class="site-title-con" rel="author" href="/">
+            <div class="nav-logo">
+              <img style="vertical-align: baseline;" width="19" src="/assets/logo.png" alt="logo">
+            </div>
+            <div class="site-title">Ammar Alyousfi's Blog</div>
+          </a>
+        </div>
+        <nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger">
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewBox="0 0 18 15" width="18px" height="15px">
+                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+              </svg>
+            </span>
+          </label>
+          <div class="trigger">
+              <a class="page-link" href="/categories">Categories</a>
+              <a class="page-link" href="/tags">Tags</a>
+              <a class="page-link" href="/more">More</a>
+              <a class="page-link" href="/ar/">Arabic Blog</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">My Approach to Solve Kaggle's VSB Power Line Fault Detection Competition</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2019-03-27T00:00:00+04:00" itemprop="datePublished">Mar 27, 2019</time>
+ • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">Ammar Alyousfi</span></span>        <span class="post-categories"> • <strong>Category: </strong>
+          <a href="/categories/#data-science">Data Science</a>
+        </span>
+    </p>
+    <p class="post-tags">
+      <strong>Tags: </strong>
+        <a href="/tags/#data-science">data science</a>,        <a href="/tags/#kaggle">kaggle</a>,        <a href="/tags/#machine-learning">machine learning</a>,        <a href="/tags/#python">python</a>,        <a href="/tags/#data-science-project">data science project</a>.    </p>
+  </header>
+  <div class="post-content e-content" itemprop="articleBody">
+    <p class="featured-image"><img
+    src="/assets/images/2019/vsbsol3.jpg">
+</p>
+<p>In this document, I will briefly explain my way of solving the VSB Power Line Fault
+  Detection competition. The metric used in that competition was Matthews correlation
+  coefficient (MCC) between the predicted and the observed response. My final score was
+  0.58655; the best score was 0.71899 (a difference of 0.13244); the worst score was
+  -0.28109.</p>
+<p>The goal of the competition was to detect partial discharge patterns in signals
+  acquired from power lines. The competition data consists of 800,000 readings for around
+  29,000 signals (8712 for training and the rest for testing). For each signal, we need to
+  determine if it has a partial discharge or not. The signal data contains a lot of
+  background noise according to the competition organizers.</p>
+<h1 data-breakpage>1. Exploratory Data Analysis (EDA)</h1>
+<p>EDA is the process that I started with and continued using throughout the competition
+  to understand the data, to spot some useful patterns, and to choose proper parameters
+  for some functions.</p>
+<p>The image below shows the 3 phases of some signal:</p>
+<p><img
+    src='/assets/images/2019/vsbsol1.png'
+    alt='' referrerPolicy='no-referrer' /></p>
+<h1 data-breakpage>2. The Submission Code</h1>
+<p>The submission code is the code used to produce the submission file that competitors
+  submit to Kaggle. </p>
+<h2>Reading the Data</h2>
+<p>The signal readings were provided in <a
+    href='https://en.wikipedia.org/wiki/Apache_Parquet'>Parquet format</a> which is a
+  column-oriented storage format of the Apache Hadoop ecosystem. To read this data in
+  Python and store it Pandas dataframe, we used a function from <code>pyarrow</code>
+  package, then transposed the output of the function to get a row-oriented storage
+  format. </p>
+<h2>Feature Engineering</h2>
+<p>This is the most important part and the one that took most of the time. Because each of
+  the signals has 800,000 readings, it&#39;s essential that we extract features from those
+  readings in order to build a proper training and test datasets. Training a model with
+  800,000 features is not feasible with the machines that we have access to. In this part,
+  for each of the training and test signals, I did the following:</p>
+<h3>Signal Filtering</h3>
+<p>All the operations described below are done after filtering the signals that contain a
+  lot of noise as described above. To do so, we applied <a
+    href='http://scikit-image.org/docs/dev/auto_examples/filters/plot_denoise_wavelet.html'>Scikit-image&#39;s
+    wavelet denoising</a> followed by <a
+    href='https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.butter.html'>Scipy&#39;s
+    Butterworth filter</a>. The image below shows the same signal before filtering (in
+  orange) and after filtering (in blue). The overlapping is shown in dark red:</p>
+<p><img
+    src='/assets/images/2019/vsbsol2.png'
+    alt='' referrerPolicy='no-referrer' /></p>
+<h3>Peak Calculation</h3>
+<p>I used Scipy&#39;s <code>scipy.signal.find_peaks</code> function to extract useful
+  features from the signals. Here is a part of <a
+    href='https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.find_peaks.html'>Scipy
+    documentation about <code>find_peaks</code></a> function:</p>
+<blockquote>
+  <p>Find peaks inside a signal based on peak properties.</p>
+  <p>This function takes a one-dimensional array and finds all local maxima by simple
+    comparison of neighbouring values. Optionally, a subset of these peaks can be selected
+    by specifying conditions for a peak’s properties.</p>
+</blockquote>
+<p>I used this function with different parameter combinations. For example, one time I
+  used it to find peaks in the signal whose height is more than 5; another time for when
+  the height is bigger than 15; another for when peak height is bigger than 15 and the
+  horizontal distance between neighboring peaks is more than 25 samples; another for when
+  peak height is bigger than 25 and peak width is more than 10 samples; etc. I also used
+  Scipy&#39;s <code>scipy.signal.peak_prominences</code> and
+  <code>scipy.signal.peak_widths</code> to get the maximum and minimum peak prominence and
+  width. This gave us around 140 features.</p>
+<p>I performed the peak calculation process described above to calculate negative peaks.
+  For example, to get the peaks whose height is bigger than 5 (positive peaks), you would
+  write:</p>
+<pre><code class='language-python' lang='python'>scipy.signal.find_peaks(signal, height=(5, None))
+</code></pre>
+<p>But if you want the corresponding negative peaks (peaks whose height is smaller than
+  -5), you would write:</p>
+<pre><code class='language-python' lang='python'>scipy.signal.find_peaks(signal, height=(None, -5))
+</code></pre>
+<h3>Signal Statistical Info</h3>
+<p>I used Numpy to calculate some statistics of the signals like the mean, standard
+  deviation, minimum, maximum, skewness, 30th percentile, 70th percentile, etc.</p>
+<h3>Feature Selection</h3>
+<p>I used LightGBM&#39;s <code>feature_importance</code> function to get the most
+  important features so instead of around 300 features, we selected the most important 68
+  features and then added features that represent the subtraction of some features from
+  others; that&#39;s because we calculated peak information for positive and negative
+  peaks, so I figured that it might be useful to subtract the features of negative peaks
+  from the features of positive peaks.</p>
+<h2>Modeling</h2>
+<p>For modeling, I used multiple classification models where each model predicts the
+  probability of the existence of partial discharge in some signal, then the probabilities
+  produced by all models are added and averaged (weighted average), and finally, a
+  threshold value is used to convert the final probability to 0 or 1 (for example, if the
+  probability is less than 0.51, then 1, else 0).</p>
+<p>The models used are: LightGBM, XGBoost, CatBoost, Scikit-learn&#39;s K Nearest
+  Neighbors, Scikit-learn&#39;s Neural Network, Scikit-learn&#39;s Logistic Regression,
+  Scikit-learn&#39;s Gaussian Naive Bayes.</p>
+<p>The code used is available in <a
+    href='https://github.com/ammar1y/My-Solution-to-VSB-Power-Line-Fault-Detection-Competition'>this
+    Github repository</a>. First <code>final_v1</code> is run and the resulting dataframe
+  is stored, then the same for <code>final_v2</code>, and finally <code>final_sub</code>
+  is run which use the dataframes produced by the former two.</p>
+  </div>
+  <a class="u-url" href="/2019/my-approach-to-solve-kaggle-vsb-power-line-fault-detection-competition.html" hidden></a>
+</article>
+      </div>
+    </main>
+    <footer class="site-footer h-card">
+      <data class="u-url" href="/"></data>
+      <div class="wrapper">
+        <div class="footer-col-wrapper">
+          <div class="social-media-list">
+                <div><a href="https://github.com/ammar1y" target="_blank" rel="noopener"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></div>
+                <div><a href="https://www.linkedin.com/in/ammar-alyousfi/" target="_blank" rel="noopener"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg></a></div>
+                <div><a href="https://www.kaggle.com/ammar111" target="_blank" rel="noopener"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#kaggle"></use></svg></a></div>
+                <div><a href="https://stackoverflow.com/users/2282785/ammar-alyousfi" target="_blank" rel="noopener"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#stackoverflow"></use></svg></a></div>
+                <div><a href="https://www.quora.com/profile/Ammar-Alyousfi" target="_blank" rel="noopener"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#quora"></use></svg></a></div>
+                <div><a href="https://www.instagram.com/ammar.you/" target="_blank" rel="noopener"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#instagram"></use></svg></a></div>
+            <div><a href="/feed.xml"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#rss"></use></svg></a></div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+    <noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif" alt="" referrerpolicy="no-referrer-when-downgrade"></noscript>
+  </body>
+</html>

@@ -1,0 +1,19 @@
+{% extends 'page.html' %}
+{% block content %}
+<div class="tag-list">
+  {% for tag, posts in tags|sort(attribute=0) %}
+    {% set name = tag.name %}
+    {% if name and name[0] > 'z' %}
+      <div id="{{ tag.slug }}"></div>
+      <h3>{{ name }}</h3>
+      <ul>
+        {% for post in posts|sort(attribute='date', reverse=True) %}
+          {% if (post.lang or DEFAULT_LANG).startswith('ar') %}
+          <li><a href="{{ (SITEURL.rstrip('/') ~ '/' ~ post.url.lstrip('/')) if SITEURL else '/' ~ post.url }}">{{ post.title }}</a></li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endfor %}
+</div>
+{% endblock %}

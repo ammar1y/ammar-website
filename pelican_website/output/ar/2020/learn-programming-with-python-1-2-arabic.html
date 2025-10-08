@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ar">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>تعلم البرمجة بلغة بايثون - الدرس الثاني: تثبيت بايثون ومحرر نصوص وكتابة أول برنامج | Ammar Alyousfi's Blog</title>
+    <meta name="description" content="لكي نستطيع كتابة وتشغيل برامج بايثون (Python) على أجهزتنا علينا تثبيت بايثون ومحرر نصوص برمجية. نحتاج إلى تثبيت بايثون كي نتمكن من تشغيل البرامج المكتوبة...">
+    <link rel="alternate" type="application/atom+xml" title="Ammar Alyousfi's Blog" href="/feed.xml">
+    <meta property="og:image" content="/assets/images/2020/pyc-2-2.png">
+    <meta name="propeller" content="b696b73b7a9aef3af58fb8c09ff2ac92">
+    <meta name="p:domain_verify" content="21dc05e499b703d5454dcacfdc85a03e">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <link rel="stylesheet" href="/assets/main_ar.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lateef&display=swap">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-117443607-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);} 
+      gtag('js', new Date());
+      gtag('config', 'UA-117443607-1');
+    </script>
+    <script data-ad-client="ca-pub-7266686207066838" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="rtl">
+    <header class="site-header" role="banner">
+      <div class="wrapper">
+        <div class="site-branding">
+          <a class="site-title-con" rel="author" href="/ar/">
+            <div class="nav-logo">
+              <img style="vertical-align: baseline;" width="19" src="/assets/logo.png" alt="logo">
+            </div>
+            <div class="site-title">مدونة عمار اليوسفي</div>
+          </a>
+        </div>
+        <div class="site-extra-link">
+          <a class="page-link" href="/ar/categories/">التصنيفات</a>
+        </div>
+      </div>
+    </header>
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">تعلم البرمجة بلغة بايثون - الدرس الثاني: تثبيت بايثون ومحرر نصوص وكتابة أول برنامج</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2020-03-08T00:00:00+04:00" itemprop="datePublished">Mar 8, 2020</time>
+ • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">Ammar Alyousfi</span></span>        <span class="post-categories"> • <strong>Category: </strong>
+          <a href="/categories/#dwr-tlm-lbrmj-blg-bythwn">دورة تعلم البرمجة بلغة بايثون</a>
+        </span>
+    </p>
+    <p class="post-tags">
+      <strong>Tags: </strong>
+        <a href="/tags/#bythwn">بايثون</a>,        <a href="/tags/#brmj">برمجة</a>,        <a href="/tags/#lgt-brmj">لغات برمجة</a>,        <a href="/tags/#tlm-lbrmj">تعلم البرمجة</a>,        <a href="/tags/#lbrmj-llmbtdyyn">البرمجة للمبتدئين</a>,        <a href="/tags/#tlm-lbrmj-blrby">تعلم البرمجة بالعربي</a>.    </p>
+  </header>
+  <div class="post-content e-content" itemprop="articleBody">
+    <p><img alt="تعلم البرمجة بلغة بايثون - الدرس الثاني: تثبيت بايثون ومحرر نصوص برمجية وكتابة أول برنامج" src="/assets/images/2020/pyc-2-2.png"></p>
+<p>لكي نستطيع كتابة وتشغيل برامج بايثون (Python) على أجهزتنا علينا تثبيت بايثون ومحرر نصوص برمجية. نحتاج إلى تثبيت بايثون كي نتمكن من تشغيل البرامج المكتوبة بلغة بايثون، ونحتاج محرر نصوص لنكتب البرامج فيه. </p>
+<p>بشكل عام هناك نسختان من بايثون: بايثون 2 وبايثون 3. بايثون 2 هي نسخة قديمة وتوقف دعمها في بداية عام 2020. لذلك نسخة بايثون التي سنقوم بتثبيتها هي <strong>بايثون 3</strong>. هناك نسخ فرعية من بايثون 3؛ النسخة الحالية هي 3.8.2، ولكن أي نسخة من بايثون 3 ستعمل بدون مشاكل.</p>
+<p>مُحَرِّر النصوص هو برنامج شبيه بالمفكرة أو برنامج وورد (Word) ولكنه مخصص لكتابة نصوص البرامج أو ما سنطلق عليه من الآن وصاعداً &ldquo;<strong>الكود</strong>&rdquo;. مثلاً الصورة المتحركة أدناه تعرض محرر نصوص اسمه Visual Studio Code وهو المحرر الذي سنستخدمه في هذه الدورة.</p>
+<blockquote>
+<p>تعريف &ldquo;كود&rdquo;: نص برمجي</p>
+</blockquote>
+<p><img alt="مثال على كود برنامج بايثون" src="/assets/images/2020/pyc-2-1.gif"></p>
+<p>هناك العديد من من محررات النصوص المتوفرة لتثبيتها ولكن سنختار <a href="https://code.visualstudio.com/">Visual Studio Code</a> أو اختصاراً VS Code لأنه محرر متميز متوفر على جميع أنظمة التشغيل ومجاني تماماً وفيه العديد من الميزات المهمة التي تساعدنا عند كتابة البرامج. طبعاً يمكن استخدام VS Code لكتابة برامج بأي لغة برمجة وليس فقط برامج بلغة بايثون.</p>
+<p>سنتطرق في هذه التدوينة إلى:</p>
+<ul>
+<li>كيفية تثبيت بايثون و VS Code وكتابة برنامج بايثون على نظام ويندوز</li>
+<li>كيفية تثبيت بايثون و VS Code وكتابة برنامج بايثون على نظام ماك</li>
+</ul>
+<h2 id="vs-code">كيفية تثبيت بايثون و VS Code على نظام ويندوز</h2>
+<blockquote>
+<p>سوف أذكر الخطوات هنا باختصار. <strong>لمشاهدة كيفية التثبيت خطوة بخطوة</strong> <a href="">شاهد فيديو الدرس</a>.</p>
+</blockquote>
+<ol>
+<li>قم بتحميل بايثون من <a href="https://www.python.org/downloads/">موقع بايثون الرسمي</a>.</li>
+<li>قم بتثبيت الملف الذي قمت بتحميله وخلال التثبيت تأكد من اختيار أن يتم إضافة بايثون إلى ال PATH كما هو موضح في الصورة أدناه. وإذا عرض عليك بعد ذلك أن يتم تغيير الطول الأقصى لل PATH فقم بذلك. الآن أصبحت بايثون مثبتة على جهازك.</li>
+<li>قم بتحميل VS Code من <a href="https://code.visualstudio.com/">موقعه الرسمي</a> ثم قم بتثبيته كأي برنامج آخر.</li>
+</ol>
+<p>الآن بعد أن قمت بتثبيت بايثون ومحرر النصوص شغل برنامج PowerShell وهو برنامج يأتي مع نظام ويندوز. قم بتشغيله عن طريق كتابة اسمه في قائمة ابدأ. واجهة البرنامج تشبه الصورة في الأسفل.</p>
+<p><img alt="برنامج PowerShell أو باورشل" src="/assets/images/2020/pyc-2-3.png"></p>
+<p>برنامج PowerShell هو برنامج مهم يمكننا من كتابة أوامر لينفذها نظام التشغيل ويسمى واجهة سطر الأوامر أو Command-Line Interface.</p>
+<p>ضمن PowerShell اكتب <code>python</code> واضغط Enter للدخول إلى برنامج بايثون التفاعلي وهو يمكنك من كتابة أوامر بلغة بايثون ورؤية النتائج مباشرة. يمكن استخدام هذا البرنامج التفاعلي لتجربة أوامر بسرعة فهو غير مناسب لكتابة برامج طويلة. في برنامج بايثون التفاعلي اكتب:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>ثم اضغط Enter. هذا الأمر هو أمر طباعة وسيطبع كلمة &ldquo;Hello&rdquo;. للخروج من نمط بايثون التفاعلي اكتب <code>exit()</code> واضغط Enter أو اضغط <code>Ctrl + Z</code>.</p>
+<p>عندما نريد أن نكتب برامج حقيقية فإننا سنكتبها في محرر النصوص الذي قمنا بتثبيه. افتح برنامج محرر النصوص Visual Studio Code ثم اكتب بداخله نفس أمر الطباعة الموجود في الأعلى واحفظ الملف على جهازك (يجب أن تكون صيغة الملف <code>.py</code> وهي صيغة ملفات بايثون). بعد ذلك اذهب إلى PowerShell وتأكد أنك خرجت من نمط بايثون التفاعلي كما ذكرنا في الأعلى ثم اكتب:</p>
+<div class="highlight"><pre><span></span><code><span class="n">python</span> <span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">file</span><span class="o">.</span><span class="n">py</span>
+</code></pre></div>
+
+<p>لكن استبدل <code>path/to/file</code> بمكان وجود الملف الذي حفظته من محرر النصوص ثم اضغط Enter وسيتم تشغيل البرنامج الذي كتبته في محرر النصوص وسيتم طباعة &ldquo;Hello&rdquo;. </p>
+<p>هكذا تكون قد كتبت وشغلت أول برنامج بايثون لك. كما ذكرت سابقاً: <strong>لرؤية التفاصيل خطوة بخطوة قم بمشاهدة فيديو الدرس</strong>.</p>
+<h2 id="vs-code_1">كيفية تثبيت بايثون و VS Code على نظام ماك</h2>
+<p>أنظمة ماك تأتي وبايثون مثبتة مسبقاً عليها لكن النسخة المثبتة تكون بايثون 2 وهذه النسخة من بايثون قديمة وتوقف دعمها كما هو مذكور أعلاه لكن ما زالت تأتي مع أجهزة الماك. لذلك سنحتاج لأن نثبت بايثون 3 إلى جانب بايثون 2. ولا نريد أن نحذف نسخة بايثون 2 الموجودة على الجهاز لأن هناك برامج في النظام قد تعتمد عليها.</p>
+<blockquote>
+<p>سوف أذكر الخطوات هنا باختصار. <strong>لمشاهدة كيفية التثبيت خطوة بخطوة</strong> <a href="">شاهد فيديو الدرس</a>.</p>
+</blockquote>
+<ol>
+<li>قم بتحميل بايثون من <a href="https://www.python.org/downloads/">موقع بايثون الرسمي</a> وقم بتثبيت بايثون كأي برنامج آخر.</li>
+<li>قم بتحميل VS Code من <a href="https://code.visualstudio.com/">موقعه الرسمي</a> ثم قم بتثبيته كأي برنامج آخر.</li>
+</ol>
+<p><strong>ملاحظة هامة:</strong> لأننا الآن لدينا بايثون 2 وبايثون 3 سوية: عندما نريد تشغيل بايثون 3 سنكتب <code>python3</code> وليس فقط <code>python</code>. سنوضح هذا الأمر لاحقاً لكن فقط أحببت التنبيه الآن احتياطاً.</p>
+<p>الآن بعد أن قمت بتثبيت بايثون ومحرر النصوص شغل برنامج Terminal وهو برنامج يأتي مع نظام ماك. ستجده في مجلد Utilities الموجود في مجلد Applications. واجهة البرنامج تشبه الصورة في الأسفل.</p>
+<p><img alt="برنامج Terminal" src="/assets/images/2020/pyc-2-4.png"></p>
+<p>برنامج Terminal هو برنامج مهم يمكننا من كتابة أوامر لينفذها نظام التشغيل ويسمى واجهة سطر الأوامر أو Command-Line Interface.</p>
+<p>ضمن Terminal اكتب <code>python3</code> (انتبه أنها <code>python3</code> وليس <code>python</code>) واضغط Enter للدخول إلى برنامج بايثون التفاعلي وهو يمكنك من كتابة أوامر بلغة بايثون ورؤية النتائج مباشرة. يمكن استخدام هذا البرنامج التفاعلي لتجربة أوامر بسرعة فهو غير مناسب لكتابة برامج طويلة. في برنامج بايثون التفاعلي اكتب:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>ثم اضغط Enter. هذا الأمر هو أمر طباعة وسيطبع كلمة &ldquo;Hello&rdquo;. للخروج من نمط بايثون التفاعلي اكتب <code>exit()</code> واضغط Enter أو اضغط <code>Ctrl + Z</code>.</p>
+<p>عندما نريد أن نكتب برامج حقيقية فإننا سنكتبها في محرر النصوص الذي قمنا بتثبيه. افتح برنامج محرر النصوص Visual Studio Code ثم اكتب بداخله نفس أمر الطباعة الموجود في الأعلى واحفظ الملف على جهازك (يجب أن تكون صيغة الملف <code>.py</code> وهي صيغة ملفات بايثون). بعد ذلك اذهب إلى Terminal وتأكد أنك خرجت من نمط بايثون التفاعلي كما ذكرنا في الأعلى ثم اكتب:</p>
+<div class="highlight"><pre><span></span><code><span class="n">python3</span> <span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">file</span><span class="o">.</span><span class="n">py</span>
+</code></pre></div>
+
+<p>لكن استبدل <code>path/to/file</code> بمكان وجود الملف الذي حفظته من محرر النصوص ثم اضغط Enter وسيتم تشغيل البرنامج الذي كتبته في محرر النصوص وسيتم طباعة &ldquo;Hello&rdquo;. </p>
+<p>هكذا تكون قد كتبت وشغلت أول برنامج بايثون لك. كما ذكرت سابقاً: <strong>لرؤية التفاصيل خطوة بخطوة قم بمشاهدة فيديو الدرس</strong>.</p>
+<h2 id="_1">الفروق بين ويندوز وماك</h2>
+<p>هناك - كما رأينا - بعض الفروق البسيطة بين ويندوز وماك أهمها:</p>
+<ul>
+<li>في ويندوز نستخدم PowerShell كواجهة سطر الأوامر بينما في ماك نستخدم Terminal.</li>
+<li>في ويندوز عندما نريد الدخول إلى بايثون في واجهة سطر الأوامر (PowerShell)  أو عندما نريد تشغيل برنامج بايثون موجود في جهازنا فإننا نكتب <code>python</code> بينما في نظام ماك نكتب <code>python3</code>. وذكرنا أسباب ذلك في الأعلى.
+  <span style="font-weight:bold; background-color:lightyellow;">لذلك عندما أشرح الدروس القادمة اكتب بناء على نظامك:</span> إذا كنت تستخدم ويندوز اكتب <code>python</code> في PowerShell وإن كنت تستخدم ماك اكتب <code>python3</code> في Terminal كما هو موضح أعلاه.</li>
+</ul>
+<h2 id="_2">كيفية كتابة وتشغيل برامج بايثون بدون تثبيت شيء على جهازك</h2>
+<p>على الرغم من أنه يفضل تثبيت بايثون ومحرر نصوص على جهازك لكن يمكنك كتابة وتشغيل برامج بايثون بدون فعل ذلك حيث تتوفر عدة خدمات تمكنك من كتابة وتشغيل برامج بايثون عن طريق متصفح الإنترنت. <strong>هذه الخدمات لا تغني عن تثبيت بايثون ومحرر نصوص على جهازك</strong> لكن يمكنك استخدامها في الدروس القليلة القادمة لأنها دروس بسيطة أو عند الحاجة لكن بعدها عليك تثبيت بايثون ومحرر نصوص على جهازك. بعض هذه الخدمات:</p>
+<ul>
+<li><a href="https://colab.research.google.com/">Google Colab</a>: هذه خدمة رائعة مقدمة من Google تمكنك من كتابة وتشغيل كود بايثون في متصفح الإنترنت وتمكنك من استخدام ملفاتك المخزنة على حسابك في Google Drive ومن حفظ الملفات التي تنشئها هناك أيضاً. هناك العديد من الأشياء التي يمكن تعلمها عن هذه الخدمة لذلك سأتكلم عنها في درس منفصل.</li>
+<li><a href="https://repl.it/">Repl.it</a>: هذا الموقع يمكنك من كتابة وتشغيل كود بايثون في المتصفح ويمكنك أيضاً رفع ملفات من جهازك لاستخدامها في برامجك. النسخة المجانية منه محدودة لكن كافية لبرامج صغيرة.</li>
+</ul>
+<p>ـ</p>
+<h2 id="_3">فيديو الدرس</h2>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/b9du7snWQj4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+  <a class="u-url" href="/ar/2020/learn-programming-with-python-1-2-arabic.html" hidden></a>
+</article>
+      </div>
+    </main>
+    <footer class="site-footer h-card">
+      <data class="u-url" href="/"></data>
+      <div class="wrapper">
+        <div class="footer-col-wrapper">
+          <div class="social-media-list">
+                <div><a href="https://github.com/ammar1y" target="_blank" rel="noopener"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></div>
+                <div><a href="https://www.linkedin.com/in/ammar-alyousfi/" target="_blank" rel="noopener"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg></a></div>
+                <div><a href="https://www.kaggle.com/ammar111" target="_blank" rel="noopener"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#kaggle"></use></svg></a></div>
+                <div><a href="https://stackoverflow.com/users/2282785/ammar-alyousfi" target="_blank" rel="noopener"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#stackoverflow"></use></svg></a></div>
+                <div><a href="https://www.quora.com/profile/Ammar-Alyousfi" target="_blank" rel="noopener"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#quora"></use></svg></a></div>
+                <div><a href="https://www.instagram.com/ammar.you/" target="_blank" rel="noopener"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#instagram"></use></svg></a></div>
+            <div><a href="/feed.xml"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#rss"></use></svg></a></div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+    <noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif" alt="" referrerpolicy="no-referrer-when-downgrade"></noscript>
+  </body>
+</html>

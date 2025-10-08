@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Revolution in Pixels: Comparing the Top AI Image Generation Models | Ammar Alyousfi's Blog</title>
+    <meta name="description" content="hr { margin-top: 2rem; margin-bottom: 2rem; border: 0; /* border-top: 10px solid #bbb; */ height: 12px; background: linear-gradient(to right,...">
+    <link rel="alternate" type="application/atom+xml" title="Ammar Alyousfi's Blog" href="/feed.xml">
+    <meta property="og:image" content="/assets/images/2024/img-gen-comp-cover.jpeg">
+    <meta name="propeller" content="b696b73b7a9aef3af58fb8c09ff2ac92">
+    <meta name="p:domain_verify" content="21dc05e499b703d5454dcacfdc85a03e">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <link rel="stylesheet" href="/assets/main.css">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-117443607-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);} 
+      gtag('js', new Date());
+      gtag('config', 'UA-117443607-1');
+    </script>
+    <script data-ad-client="ca-pub-7266686207066838" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="">
+    <header class="site-header" role="banner">
+      <div class="wrapper">
+        <div class="site-branding">
+          <a class="site-title-con" rel="author" href="/">
+            <div class="nav-logo">
+              <img style="vertical-align: baseline;" width="19" src="/assets/logo.png" alt="logo">
+            </div>
+            <div class="site-title">Ammar Alyousfi's Blog</div>
+          </a>
+        </div>
+        <nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger">
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewBox="0 0 18 15" width="18px" height="15px">
+                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+              </svg>
+            </span>
+          </label>
+          <div class="trigger">
+              <a class="page-link" href="/categories">Categories</a>
+              <a class="page-link" href="/tags">Tags</a>
+              <a class="page-link" href="/more">More</a>
+              <a class="page-link" href="/ar/">Arabic Blog</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Revolution in Pixels: Comparing the Top AI Image Generation Models</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2024-02-07T00:00:00+04:00" itemprop="datePublished">Feb 7, 2024</time>
+ • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">Ammar Alyousfi</span></span>        <span class="post-categories"> • <strong>Category: </strong>
+          <a href="/categories/#data-science">Data Science</a>
+        </span>
+    </p>
+    <p class="post-tags">
+      <strong>Tags: </strong>
+        <a href="/tags/#midjourney">midjourney</a>,        <a href="/tags/#stable-diffusion">stable diffusion</a>,        <a href="/tags/#dalle">dalle</a>.    </p>
+  </header>
+  <div class="post-content e-content" itemprop="articleBody">
+    <style>
+hr {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    border: 0;
+    /* border-top: 10px solid #bbb; */
+    height: 12px;
+    background: linear-gradient(to right, #6e40aa,#7140ab,#743fac,#773fad,#7a3fae,#7d3faf,#803eb0,#833eb0,#873eb1,#8a3eb2,#8d3eb2,#903db2,#943db3,#973db3,#9a3db3,#9d3db3,#a13db3,#a43db3,#a73cb3,#aa3cb2,#ae3cb2,#b13cb2,#b43cb1,#b73cb0,#ba3cb0,#be3caf,#c13dae,#c43dad,#c73dac,#ca3dab,#cd3daa,#d03ea9,#d33ea7,#d53ea6,#d83fa4,#db3fa3,#de3fa1,#e040a0,#e3409e,#e5419c,#e8429a,#ea4298,#ed4396,#ef4494,#f14592,#f34590,#f5468e,#f7478c,#f9488a,#fb4987,#fd4a85,#fe4b83,#ff4d80,#ff4e7e,#ff4f7b,#ff5079,#ff5276,#ff5374,#ff5572,#ff566f,#ff586d,#ff596a,#ff5b68,#ff5d65,#ff5e63,#ff6060,#ff625e,#ff645b,#ff6659,#ff6857,#ff6a54,#ff6c52,#ff6e50,#ff704e,#ff724c,#ff744a,#ff7648,#ff7946,#ff7b44,#ff7d42,#ff8040,#ff823e,#ff843d,#ff873b,#ff893a,#ff8c38,#ff8e37,#fe9136,#fd9334,#fb9633,#f99832,#f89b32,#f69d31,#f4a030,#f2a32f,#f0a52f,#eea82f,#ecaa2e,#eaad2e,#e8b02e,#e6b22e,#e4b52e,#e2b72f,#e0ba2f,#debc30,#dbbf30,#d9c131,#d7c432,#d5c633,#d3c934,#d1cb35,#cece36,#ccd038,#cad239,#c8d53b,#c6d73c,#c4d93e,#c2db40,#c0dd42,#bee044,#bce247,#bae449,#b8e64b,#b6e84e,#b5ea51,#b3eb53,#b1ed56,#b0ef59,#adf05a,#aaf159,#a6f159,#a2f258,#9ef258,#9af357,#96f357,#93f457,#8ff457,#8bf457,#87f557,#83f557,#80f558,#7cf658,#78f659,#74f65a,#71f65b,#6df65c,#6af75d,#66f75e,#63f75f,#5ff761,#5cf662,#59f664,#55f665,#52f667,#4ff669,#4cf56a,#49f56c,#46f46e,#43f470,#41f373,#3ef375,#3bf277,#39f279,#37f17c,#34f07e,#32ef80,#30ee83,#2eed85,#2cec88,#2aeb8a,#28ea8d,#27e98f,#25e892,#24e795,#22e597,#21e49a,#20e29d,#1fe19f,#1edfa2,#1ddea4,#1cdca7,#1bdbaa,#1bd9ac,#1ad7af,#1ad5b1,#1ad4b4,#19d2b6,#19d0b8,#19cebb,#19ccbd,#19cabf,#1ac8c1,#1ac6c4,#1ac4c6,#1bc2c8,#1bbfca,#1cbdcc,#1dbbcd,#1db9cf,#1eb6d1,#1fb4d2,#20b2d4,#21afd5,#22add7,#23abd8,#25a8d9,#26a6db,#27a4dc,#29a1dd,#2a9fdd,#2b9cde,#2d9adf,#2e98e0,#3095e0,#3293e1,#3390e1,#358ee1,#378ce1,#3889e1,#3a87e1,#3c84e1,#3d82e1,#3f80e1,#417de0,#437be0,#4479df,#4676df,#4874de,#4a72dd,#4b70dc,#4d6ddb,#4f6bda,#5169d9,#5267d7,#5465d6,#5663d5,#5761d3,#595fd1,#5a5dd0,#5c5bce,#5d59cc,#5f57ca,#6055c8,#6153c6,#6351c4,#6450c2,#654ec0,#664cbe,#674abb,#6849b9,#6a47b7,#6a46b4,#6b44b2,#6c43af,#6d41ad,#6e40aa); 
+}
+
+div.note {
+    padding: 1.2rem 1.3rem;
+    background-color: #f1ecc3;
+    border: 1px solid #867221;
+}
+</style>
+
+<p><img src="/assets/images/2024/img-gen-comp-cover.jpeg" style="max-width:800px; width:100%"></p>
+<p>Did you know that AI can now create images that are indistinguishable from those taken by top photographers or created by great designers? Not all AI models are created equal in this regard, this post aims to shed light on those that truly stand out in the world of image generation.</p>
+<p>AI image generation started to take off in January 2022 when OpenAI launched their DALLE-2 model, then Midjourney launched their V4 model and Stability AI introduced and open-sourced Stable Diffusion 1.5. Those were all good models that shocked the world with their capabilities. </p>
+<p>But things got really exciting in 2023 with OpenAI&rsquo;s DALLE-3, Midjourney&rsquo;s V5 then V6, and Stable Diffusion&rsquo;s SDXL. </p>
+<p>In this post, I&rsquo;ll compare <strong>Midjourney V6, Midjourney V5.2, DALLE-3, and SDXL</strong>. I&rsquo;ll use different prompts (taken from public galleries) that cover many aspects, like photorealism, illustrations, imagining a new concept, logo creation, ability to show text, ability to follow details in the prompt. The comparison is comprised of <strong>52 prompts</strong>.</p>
+<p>For each prompt, I&rsquo;ll score each model&rsquo;s generation out of 10, a score based on objective factors (like generation quality, following details, etc.) and subjective factors based on how I perceive the image and its aesthetics. I understand that the objective factors can have subjective elements as well, but at the end, these are just my scores :).</p>
+<p>Note that for all the models I show 4 images per prompt except for SDXL where I show 1 image because it was faster for me to do it this way. After testing, I believe this approach doesn&rsquo;t compromise the quality or fairness of the comparison; when you use these models to generate multiple images, the images tend to be similar and of the same quality.</p>
+<p>For the generation, for Midjourney models, I used their Discord interface. For DALLE-3, I used <a href="https://www.bing.com/images/create">Microsoft Image Creator</a>. For SDXL, I used <a href="https://replicate.com/stability-ai/sdxl">the official Stability AI&rsquo;s offering on Replicate</a> with default settings except for steps (I used 60) and size (I used 1024 x 1024).</p>
+<p>Feel free to skip to the <a href="#conclusion">end of the post</a> to see the results, but I encourage you to take a look at the images and enjoy watching the magic of AI image generation.</p>
+<p>Now <strong>let&rsquo;s get started</strong> with the comparison&hellip;</p>
+<h3 id="prompt-1">Prompt #1</h3>
+<p>zen modern bauhaus abstract design with boho influence. Minimalistic and symmetrical, abundance of consistently-equal lines and only 1 shape, yellow-garnet and cream colour balance, spacious and breathability</p>
+<h3 id="midjourney-v6-810">Midjourney V6 (8/10)</h3>
+<p><img alt="gc-mj-1" src="/assets/images/2024/gc-mj-1.jpeg"></p>
+<h3 id="midjourney-v52-610">Midjourney V5.2 (6/10)</h3>
+<p><img alt="gc-mj5-1" src="/assets/images/2024/gc-mj5-1.jpeg"></p>
+<h3 id="sdxl-310">SDXL (3/10)</h3>
+<p><img alt="gc-sdxl-1" src="/assets/images/2024/gc-sdxl-1.jpeg"></p>
+<h3 id="dalle-3-510">DALLE-3 (5/10)</h3>
+<p><img alt="gc-dl-1" src="/assets/images/2024/gc-dl-1.jpeg"></p>
+<hr>
+<h3 id="prompt-2">Prompt #2</h3>
+<p>Sad alien smoking, sitting on a ground, An alien ship crashed into the ground, desert </p>
+<h3 id="midjourney-v6-710">Midjourney V6 (7/10)</h3>
+<p><img alt="gc-mj-2" src="/assets/images/2024/gc-mj-2.jpeg"></p>
+<h3 id="midjourney-v52-610_1">Midjourney V5.2 (6/10)</h3>
+<p><img alt="gc-mj5-2" src="/assets/images/2024/gc-mj5-2.jpeg"></p>
+<h3 id="sdxl-410">SDXL (4/10)</h3>
+<p><img alt="gc-sdxl-2" src="/assets/images/2024/gc-sdxl-2.jpeg"></p>
+<h3 id="dalle-3-810">DALLE-3 (8/10)</h3>
+<p><img alt="gc-dl-2" src="/assets/images/2024/gc-dl-2.jpeg"></p>
+<hr>
+<h3 id="prompt-3">Prompt #3</h3>
+<p>minimalism ,a delicate golden sailboat, sailing on translucent jade water with fluorescent purple, 3D,fluorescent green, light blue, light green, gold accents,spathoid, color gradients, fusion, flowing water pattern shapes, overhead, ultra wide Angle, Bright colors, color art, detail UHD,16K</p>
+<h3 id="midjourney-v6-9510">Midjourney V6 (9.5/10)</h3>
+<p><img alt="53-gc-mj6" src="/assets/images/2024/53-gc-mj6.jpeg"></p>
+<h3 id="dalle-3-6510">DALLE-3 (6.5/10)</h3>
+<p><img alt="53-gc-dl" src="/assets/images/2024/53-gc-dl.jpeg"></p>
+<hr>
+<h3 id="prompt-4">Prompt #4</h3>
+<p>fried egg flowers in the bacon garden shallow depth of field, highly detailed, high budget, bokeh, film grain, grainy</p>
+<h3 id="midjourney-v6-610">Midjourney V6 (6/10)</h3>
+<p><img alt="4-gc-mj6" src="/assets/images/2024/4-gc-mj6.jpeg"></p>
+<h3 id="midjourney-v52-510">Midjourney V5.2 (5/10)</h3>
+<p><img alt="4-gc-mj5" src="/assets/images/2024/4-gc-mj5.jpeg"></p>
+<h3 id="sdxl-510">SDXL (5/10)</h3>
+<p><img alt="4-gc-sdxl" src="/assets/images/2024/4-gc-sdxl.jpeg"></p>
+<h3 id="dalle-3-610">DALLE-3 (6/10)</h3>
+<p><img alt="4-gc-dl" src="/assets/images/2024/4-gc-dl.jpeg"></p>
+<hr>
+<h3 id="prompt-5">Prompt #5</h3>
+<p>Illuminated (&ldquo;The moon, a silver boat, sails through the sea of stars, painting dreams on the night sky.&rdquo;:1.2) , Suffering, hillside, Cubism, side lit, Selective focus, Kodachrome, gilded technique, Batik</p>
+<h3 id="midjourney-v6-710_1">Midjourney V6 (7/10)</h3>
+<p><img alt="5-gc-mj6" src="/assets/images/2024/5-gc-mj6.jpeg"></p>
+<h3 id="midjourney-v52-810">Midjourney V5.2 (8/10)</h3>
+<p><img alt="5-gc-mj5" src="/assets/images/2024/5-gc-mj5.jpeg"></p>
+<h3 id="sdxl-410_1">SDXL (4/10)</h3>
+<p><img alt="5-gc-sdxl" src="/assets/images/2024/5-gc-sdxl.jpeg"></p>
+<h3 id="dalle-3-410">DALLE-3 (4/10)</h3>
+<p><img alt="5-gc-dl" src="/assets/images/2024/5-gc-dl.jpeg"></p>
+<hr>
+<h3 id="prompt-6">Prompt #6</h3>
+<p>circuitboard egyptian pyramid, ((focus))</p>
+<h3 id="midjourney-v6-910">Midjourney V6 (9/10)</h3>
+<p><img alt="6-gc-mj6" src="/assets/images/2024/6-gc-mj6.jpeg"></p>
+<h3 id="midjourney-v52-710">Midjourney V5.2 (7/10)</h3>
+<p><img alt="6-gc-mj5" src="/assets/images/2024/6-gc-mj5.jpeg"></p>
+<h3 id="sdxl-510_1">SDXL (5/10)</h3>
+<p><img alt="6-gc-sdxl" src="/assets/images/2024/6-gc-sdxl.jpeg"></p>
+<h3 id="dalle-3-810_1">DALLE-3 (8/10)</h3>
+<p><img alt="6-gc-dl" src="/assets/images/2024/6-gc-dl.jpeg"></p>
+<hr>
+<h3 id="prompt-7">Prompt #7</h3>
+<p>A man stands in the wilderness, blue dot light spinning, Vincent van Gogh&rsquo;s painting style, pointillism style, magnificent landscapes, illustrations, negative space, intagliography, art, minimalism</p>
+<h3 id="midjourney-v6-910_1">Midjourney V6 (9/10)</h3>
+<p><img alt="7-gc-mj6" src="/assets/images/2024/7-gc-mj6.jpeg"></p>
+<h3 id="midjourney-v52-810_1">Midjourney V5.2 (8/10)</h3>
+<p><img alt="7-gc-mj5" src="/assets/images/2024/7-gc-mj5.jpeg"></p>
+<h3 id="sdxl-310_1">SDXL (3/10)</h3>
+<p><img alt="7-gc-sdxl" src="/assets/images/2024/7-gc-sdxl.jpeg"></p>
+<h3 id="dalle-3-610_1">DALLE-3 (6/10)</h3>
+<p><img alt="7-gc-dl" src="/assets/images/2024/7-gc-dl.jpeg"></p>
+<hr>
+<h3 id="prompt-8">Prompt #8</h3>
+<p>An illustration of an avocado sitting in a therapist&rsquo;s chair, saying &lsquo;I just feel so empty inside&rsquo; with a pit-sized hole in its center. The therapist, a spoon, scribbles notes.</p>
+<h3 id="midjourney-v6-610_1">Midjourney V6 (6/10)</h3>
+<p><img alt="8-gc-mj6" src="/assets/images/2024/8-gc-mj6.jpeg"></p>
+<h3 id="midjourney-v52-310">Midjourney V5.2 (3/10)</h3>
+<p><img alt="8-gc-mj5" src="/assets/images/2024/8-gc-mj5.jpeg"></p>
+<h3 id="sdxl-310_2">SDXL (3/10)</h3>
+<p><img alt="8-gc-sdxl" src="/assets/images/2024/8-gc-sdxl.jpeg"></p>
+<h3 id="dalle-3-810_2">DALLE-3 (8/10)</h3>
+<p><img alt="8-gc-dl" src="/assets/images/2024/8-gc-dl.jpeg"></p>
+<hr>
+<h3 id="prompt-9">Prompt #9</h3>
+<p>A 2D animation of a folk music band composed of anthropomorphic autumn leaves, each playing traditional bluegrass instruments, amidst a rustic forest setting dappled with the soft light of a harvest moon. </p>
+<h3 id="midjourney-v6-6510">Midjourney V6 (6.5/10)</h3>
+<p><img alt="9-gc-mj6" src="/assets/images/2024/9-gc-mj6.jpeg"></p>
+<h3 id="midjourney-v52-510_1">Midjourney V5.2 (5/10)</h3>
+<p><img alt="9-gc-mj5" src="/assets/images/2024/9-gc-mj5.jpeg"></p>
+<h3 id="sdxl-2510">SDXL (2.5/10)</h3>
+<p><img alt="9-gc-sdxl" src="/assets/images/2024/9-gc-sdxl.jpeg"></p>
+<h3 id="dalle-3-1010">DALLE-3 (10/10)</h3>
+<p><img alt="9-gc-dl" src="/assets/images/2024/9-gc-dl.jpeg"></p>
+<hr>
+<h3 id="prompt-10">Prompt #10</h3>
+<p>Photo of a lychee-inspired spherical chair, with a bumpy white exterior and plush interior, set against a tropical wallpaper.</p>
+<h3 id="midjourney-v6-810_1">Midjourney V6 (8/10)</h3>
+<p><img alt="10-gc-mj6" src="/assets/images/2024/10-gc-mj6.jpeg"></p>
+<h3 id="midjourney-v52-6510">Midjourney V5.2 (6.5/10)</h3>
+<p><img alt="10-gc-mj5" src="/assets/images/2024/10-gc-mj5.jpeg"></p>
+<h3 id="sdxl-410_2">SDXL (4/10)</h3>
+<p><img alt="10-gc-sdxl" src="/assets/images/2024/10-gc-sdxl.jpeg"></p>
+<h3 id="dalle-3-910">DALLE-3 (9/10)</h3>
+<p><img alt="10-gc-dl" src="/assets/images/2024/10-gc-dl.jpeg"></p>
+<hr>
+<div class="note">
+Looking at the results of the 10 prompts above, I thought that I can proceed with Midjourney V6 and DALLE-3 only. SDXL generations seem ugly or very low quality compared to others. Midjourney V5.2 is almost always inferior to its successor (V6). So it makes sense to exclude these two for the rest of this comparison and focus on the top models.
+</div>
+
+<h3 id="prompt-11">Prompt #11</h3>
+<p>An expressive oil painting of a basketball player dunking, depicted as an explosion of a nebula</p>
+<h3 id="midjourney-v6-810_2">Midjourney V6 (8/10)</h3>
+<p><img alt="11-gc-mj6" src="/assets/images/2024/11-gc-mj6.jpeg"></p>
+<h3 id="dalle-3-810_3">DALLE-3 (8/10)</h3>
+<p><img alt="11-gc-dl" src="/assets/images/2024/11-gc-dl.jpeg"></p>
+<hr>
+<h3 id="prompt-12">Prompt #12</h3>
+<p>An ink sketch style illustration of a small hedgehog holding a piece of watermelon with its tiny paws, taking little bites with its eyes closed in delight.</p>
+<h3 id="midjourney-v6-710_2">Midjourney V6 (7/10)</h3>
+<p><img alt="12-gc-mj6" src="/assets/images/2024/12-gc-mj6.jpeg"></p>
+<h3 id="dalle-3-8510">DALLE-3 (8.5/10)</h3>
+<p><img alt="12-gc-dl" src="/assets/images/2024/12-gc-dl.jpeg"></p>
+<hr>
+<h3 id="prompt-13">Prompt #13</h3>
+<p>A vintage travel poster for Venus in portrait orientation. The scene portrays the thick, yellowish clouds of Venus with a silhouette of a vintage rocket ship approaching. Mysterious shapes hint at mountains and valleys below the clouds. The bottom text reads, &lsquo;Explore Venus: Beauty Behind the Mist&rsquo;. The color scheme consists of golds, yellows, and soft oranges, evoking a sense of wonder.</p>
+<h3 id="midjourney-v6-510">Midjourney V6 (5/10)</h3>
+<p><img alt="13-gc-mj6" src="/assets/images/2024/13-gc-mj6.jpeg"></p>
+<h3 id="dalle-3-7510">DALLE-3 (7.5/10)</h3>
+<p><img alt="13-gc-dl" src="/assets/images/2024/13-gc-dl.jpeg"></p>
+<hr>
+<h3 id="prompt-14">Prompt #14</h3>
+<p>Tiny potato kings wearing majestic crowns, sitting on thrones, overseeing their vast potato kingdom filled with potato subjects and potato castles.</p>
+<h3 id="midjourney-v6-810_3">Midjourney V6 (8/10)</h3>
+<p><img alt="14-gc-mj6" src="/assets/images/2024/14-gc-mj6.jpeg"></p>
+<h3 id="dalle-3-6510_1">DALLE-3 (6.5/10)</h3>
+<p><img alt="14-gc-dl" src="/assets/images/2024/14-gc-dl.jpeg"></p>
+<hr>
+<h3 id="prompt-15">Prompt #15</h3>
+<p>A stylized portrait-oriented depiction where a tiger serves as the dividing line between two contrasting worlds. To the left, fiery reds and oranges dominate as flames consume trees. To the right, a rejuvenated forest flourishes with fresh green foliage. The tiger, depicted with exaggerated and artistic features, stands tall and undeterred, symbolizing nature’s enduring spirit amidst chaos and rebirth.</p>
+<h3 id="midjourney-v6-8510">Midjourney V6 (8.5/10)</h3>
+<p><img alt="15-gc-mj6" src="/assets/images/2024/15-gc-mj6.jpeg"></p>
+<h3 id="dalle-3-5510">DALLE-3 (5.5/10)</h3>
+<p><img alt="15-gc-dl" src="/assets/images/2024/15-gc-dl.jpeg"></p>
+<hr>
+<h3 id="prompt-16">Prompt #16</h3>
+<p>A 3D render of a coffee mug placed on a window sill during a stormy day. The storm outside the window is reflected in the coffee, with miniature lightning bolts and turbulent waves seen inside the mug. The room is dimly lit, adding to the dramatic atmosphere.</p>
+<h3 id="midjourney-v6-810_4">Midjourney V6 (8/10)</h3>
+<p><img alt="16-gc-mj6" src="/assets/images/2024/16-gc-mj6.jpeg"></p>
+<h3 id="dalle-3-710">DALLE-3 (7/10)</h3>
+<p><img alt="16-gc-dl" src="/assets/images/2024/16-gc-dl.jpeg"></p>
+<hr>
+<h3 id="prompt-17">Prompt #17</h3>
+<p>An illustration of a human heart made of translucent glass, standing on a pedestal amidst a stormy sea. Rays of sunlight pierce the clouds, illuminating the heart, revealing a tiny universe within. The quote &lsquo;Find the universe within you&rsquo; is etched in bold letters across the horizon. </p>
+<h3 id="midjourney-v6-7510">Midjourney V6 (7.5/10)</h3>
+<p><img alt="17-gc-mj6" src="/assets/images/2024/17-gc-mj6.jpeg"></p>
+<h3 id="dalle-3-7510_1">DALLE-3 (7.5/10)</h3>
+<p><img alt="17-gc-dl" src="/assets/images/2024/17-gc-dl.jpeg"></p>
+<hr>
+<h3 id="prompt-18">Prompt #18</h3>
+<p>An antique botanical illustration drawn with fine lines and a touch of watercolour whimsy, depicting a strange lily crossed with a Venus flytrap, its petals poised as if ready to snap shut on any unsuspecting insects.</p>
+<h3 id="midjourney-v6-910_2">Midjourney V6 (9/10)</h3>
+<p><img alt="18-gc-mj6" src="/assets/images/2024/18-gc-mj6.jpeg"></p>
+<h3 id="dalle-3-710_1">DALLE-3 (7/10)</h3>
+<p><img alt="18-gc-dl" src="/assets/images/2024/18-gc-dl.jpeg"></p>
+<hr>
+<h3 id="prompt-19">Prompt #19</h3>
+<p>A vibrant yellow banana-shaped couch sits in a cozy living room, its curve cradling a pile of colorful cushions. on the wooden floor, a patterned rug adds a touch of eclectic charm, and a potted plant sits in the corner, reaching towards the sunlight filtering through the window. </p>
+<h3 id="midjourney-v6-8510_1">Midjourney V6 (8.5/10)</h3>
+<p><img alt="19-gc-mj6" src="/assets/images/2024/19-gc-mj6.jpeg"></p>
+<h3 id="dalle-3-7510_2">DALLE-3 (7.5/10)</h3>
+<p><img alt="19-gc-dl" src="/assets/images/2024/19-gc-dl.jpeg"></p>
+<hr>
+<h3 id="prompt-20">Prompt #20</h3>
+<p>A minimalist, logo featuring a sleek and stylized black falcon head against a white background awesome, professional, vector logo, simple</p>
+<h3 id="midjourney-v6-1010">Midjourney V6 (10/10)</h3>
+<p><img alt="20-gc-mj6" src="/assets/images/2024/20-gc-mj6.jpeg"></p>
+<h3 id="dalle-3-8510_1">DALLE-3 (8.5/10)</h3>
+<p><img alt="20-gc-dl" src="/assets/images/2024/20-gc-dl.jpeg"></p>
+<hr>
+<h3 id="prompt-21">Prompt #21</h3>
+<p>Create cool Asian Design red white black with tress and The Moon</p>
+<h3 id="midjourney-v6-1010_1">Midjourney V6 (10/10)</h3>
+<p><img alt="21-gc-mj6" src="/assets/images/2024/21-gc-mj6.jpeg"></p>
+<h3 id="dalle-3-610_2">DALLE-3 (6/10)</h3>
+<p><img alt="21-gc-dl" src="/assets/images/2024/21-gc-dl.jpeg"></p>
+<hr>
+<h3 id="prompt-22">Prompt #22</h3>
+<p>ornaments on a manuscript, cohesive colors of crimson and golden, geometry art, sacred ratios</p>
+<h3 id="midjourney-v6-1010_2">Midjourney V6 (10/10)</h3>
+<p><img alt="22-gc-mj6" src="/assets/images/2024/22-gc-mj6.jpeg"></p>
+<h3 id="dalle-3-7510_3">DALLE-3 (7.5/10)</h3>
+<p><img alt="22-gc-dl" src="/assets/images/2024/22-gc-dl.jpeg"></p>
+<hr>
+<h3 id="prompt-23">Prompt #23</h3>
+<p>a chicken in a suit</p>
+<h3 id="midjourney-v6-1010_3">Midjourney V6 (10/10)</h3>
+<p><img alt="23-gc-mj6" src="/assets/images/2024/23-gc-mj6.jpeg"></p>
+<h3 id="dalle-3-810_4">DALLE-3 (8/10)</h3>
+<p><img alt="23-gc-dl" src="/assets/images/2024/23-gc-dl.jpeg"></p>
+<hr>
+<h3 id="prompt-24">Prompt #24</h3>
+<p>a real photo of a Luminescent radiant sun, black background </p>
+<h3 id="midjourney-v6-910_3">Midjourney V6 (9/10)</h3>
+<p><img alt="24-gc-mj6" src="/assets/images/2024/24-gc-mj6.jpeg"></p>
+<h3 id="dalle-3-810_5">DALLE-3 (8/10)</h3>
+<p><img alt="24-gc-dl" src="/assets/images/2024/24-gc-dl.jpeg"></p>
+<hr>
+<h3 id="prompt-25">Prompt #25</h3>
+<p>A man standing in the street, golden hour, 1990s</p>
+<h3 id="midjourney-v6-1010_4">Midjourney V6 (10/10)</h3>
+<p><img alt="25-gc-mj6" src="/assets/images/2024/25-gc-mj6.jpeg"></p>
+<h3 id="dalle-3-710_2">DALLE-3 (7/10)</h3>
+<p><img alt="25-gc-dl" src="/assets/images/2024/25-gc-dl.jpeg"></p>
+<hr>
+<h3 id="prompt-26">Prompt #26</h3>
+<p>STICKER, popping art, company building collage art, white background,.jpeg transparent, colorful, color shading</p>
+<h3 id="midjourney-v6-910_4">Midjourney V6 (9/10)</h3>
+<p><img alt="26-gc-mj6" src="/assets/images/2024/26-gc-mj6.jpeg"></p>
+<h3 id="dalle-3-7510_4">DALLE-3 (7.5/10)</h3>
+<p><img alt="26-gc-dl" src="/assets/images/2024/26-gc-dl.jpeg"></p>
+<hr>
+<h3 id="prompt-27">Prompt #27</h3>
+<p>mindface electrical diagram. Cellular marble cutaway by junji ito, Akira toriyama, Jean Leon Gerome</p>
+<h3 id="midjourney-v6-9510_1">Midjourney V6 (9.5/10)</h3>
+<p><img alt="27-gc-mj6" src="/assets/images/2024/27-gc-mj6.jpeg"></p>
+<h3 id="dalle-3-710_3">DALLE-3 (7/10)</h3>
+<p><img alt="27-gc-dl" src="/assets/images/2024/27-gc-dl.jpeg"></p>
+<hr>
+<h3 id="prompt-28">Prompt #28</h3>
+<p>Anthropomorphic lion wearing a ski jumpsuit and gloves standing in the snow</p>
+<h3 id="midjourney-v6-1010_5">Midjourney V6 (10/10)</h3>
+<p><img alt="28-gc-mj6" src="/assets/images/2024/28-gc-mj6.jpeg"></p>
+<h3 id="dalle-3-610_3">DALLE-3 (6/10)</h3>
+<p><img alt="28-gc-dl" src="/assets/images/2024/28-gc-dl.jpeg"></p>
+<hr>
+<h3 id="prompt-29">Prompt #29</h3>
+<p>a man in high-fashion campaign for Balmain jewelry, glittercore long exposure beauty shot in gigantic mirror prism, hundreds of reflections. Utilize 50mm lens, full-frame camera with a depth of field set to 16f and shutter speed at 4 seconds, dynamic compositions and storytelling, ensuring the scene captivates with both fashion finesse and narrative intrigue</p>
+<h3 id="midjourney-v6-1010_6">Midjourney V6 (10/10)</h3>
+<p><img alt="29-gc-mj6" src="/assets/images/2024/29-gc-mj6.jpeg"></p>
+<h3 id="dalle-3-610_4">DALLE-3 (6/10)</h3>
+<p><img alt="29-gc-dl" src="/assets/images/2024/29-gc-dl.jpeg"></p>
+<hr>
+<h3 id="prompt-30">Prompt #30</h3>
+<p>ultramodern minimal living room with colorful ammolite stone pattern floor, colorful ammolite stone pattern floor</p>
+<h3 id="midjourney-v6-1010_7">Midjourney V6 (10/10)</h3>
+<p><img alt="30-gc-mj6" src="/assets/images/2024/30-gc-mj6.jpeg"></p>
+<h3 id="dalle-3-7510_5">DALLE-3 (7.5/10)</h3>
+<p><img alt="30-gc-dl" src="/assets/images/2024/30-gc-dl.jpeg"></p>
+<hr>
+<h3 id="prompt-31">Prompt #31</h3>
+<p>colorful dark baroque-inspired graphic fantasy novel illustration on rough paper, vintage poster style oil on canvas with expressive brush strokes and visible canvas weave texture minimalist cartoon illustration surrealism</p>
+<h3 id="midjourney-v6-810_5">Midjourney V6 (8/10)</h3>
+<p><img alt="31-gc-mj6" src="/assets/images/2024/31-gc-mj6.jpeg"></p>
+<h3 id="dalle-3-610_5">DALLE-3 (6/10)</h3>
+<p><img alt="31-gc-dl" src="/assets/images/2024/31-gc-dl.jpeg"></p>
+<hr>
+<h3 id="prompt-32">Prompt #32</h3>
+<p>Floral bouquet ornament frame background with Watercolor, isolated white background ,cartoon style, thick line,low detail,no shading</p>
+<h3 id="midjourney-v6-910_5">Midjourney V6 (9/10)</h3>
+<p><img alt="32-gc-mj6" src="/assets/images/2024/32-gc-mj6.jpeg"></p>
+<h3 id="dalle-3-610_6">DALLE-3 (6/10)</h3>
+<p><img alt="32-gc-dl" src="/assets/images/2024/32-gc-dl.jpeg"></p>
+<hr>
+<h3 id="prompt-33">Prompt #33</h3>
+<p>Based on the movie - Ferris Beuller’s Day Off - Cameron&rsquo;s House - Model: Teen boy, pensive look, dark hair. - Clothing: Preppy sweater, collared shirt, khakis. - Shoes: Classic loafers. - Background: Darker, moody room, 80s memorabilia. - Mood: Reluctant, worried. - Camera: Nikon Z7, full-body shot. - Lighting: Dim, soft light. - Angle: Slightly high, showing the room&rsquo;s depth. Shot should be hyper-realistic and cinematic, capturing the essence of the iconic film while showcasing the 80s inspired fashion in a full-body, distance photograph. HYPER REALISTIC PHOTOGRAPH - FULL BODY IMAGE - MUST SHOW SHOES</p>
+<h3 id="midjourney-v6-8510_2">Midjourney V6 (8.5/10)</h3>
+<p><img alt="33-gc-mj6" src="/assets/images/2024/33-gc-mj6.jpeg"></p>
+<h3 id="dalle-3-510_1">DALLE-3 (5/10)</h3>
+<p><img alt="33-gc-dl" src="/assets/images/2024/33-gc-dl.jpeg"></p>
+<hr>
+<h3 id="prompt-34">Prompt #34</h3>
+<p>sheep pasture, portrait of a young man, small geometrically cut photo collage, distorted, broken, fragmented maximalist, Picasso, very detailed</p>
+<h3 id="midjourney-v6-1010_8">Midjourney V6 (10/10)</h3>
+<p><img alt="34-gc-mj6" src="/assets/images/2024/34-gc-mj6.jpeg"></p>
+<h3 id="dalle-3-610_7">DALLE-3 (6/10)</h3>
+<p><img alt="34-gc-dl" src="/assets/images/2024/34-gc-dl.jpeg"></p>
+<hr>
+<h3 id="prompt-35">Prompt #35</h3>
+<p>ethereal, contemporary portrait photograph, a man&rsquo;s contemplative face partially emerges from deep shadows, surrounded by a soft blur. The muted orange tones envelop the subject, while a prism-like rainbow spectrum highlights his eye, invoking a sense of mystery. The composition leverages the interplay of light and shadow, creating a dynamic yet introspective mood</p>
+<h3 id="midjourney-v6-1010_9">Midjourney V6 (10/10)</h3>
+<p><img alt="35-gc-mj6" src="/assets/images/2024/35-gc-mj6.jpeg"></p>
+<h3 id="dalle-3-710_4">DALLE-3 (7/10)</h3>
+<p><img alt="35-gc-dl" src="/assets/images/2024/35-gc-dl.jpeg"></p>
+<hr>
+<h3 id="prompt-36">Prompt #36</h3>
+<p>abstract art by Mondrian with solid lines and blocks of color, there are illustrated cats placed in the colored boxes in various cute poses</p>
+<h3 id="midjourney-v6-1010_10">Midjourney V6 (10/10)</h3>
+<p><img alt="36-gc-mj6" src="/assets/images/2024/36-gc-mj6.jpeg"></p>
+<h3 id="dalle-3-710_5">DALLE-3 (7/10)</h3>
+<p><img alt="36-gc-dl" src="/assets/images/2024/36-gc-dl.jpeg"></p>
+<hr>
+<h3 id="prompt-37">Prompt #37</h3>
+<p>mushrooms different varieties watercolor</p>
+<h3 id="midjourney-v6-9510_2">Midjourney V6 (9.5/10)</h3>
+<p><img alt="37-gc-mj6" src="/assets/images/2024/37-gc-mj6.jpeg"></p>
+<h3 id="dalle-3-810_6">DALLE-3 (8/10)</h3>
+<p><img alt="37-gc-dl" src="/assets/images/2024/37-gc-dl.jpeg"></p>
+<hr>
+<h3 id="prompt-38">Prompt #38</h3>
+<p>the most beautiful picture on earth</p>
+<h3 id="midjourney-v6-810_6">Midjourney V6 (8/10)</h3>
+<p><img alt="38-gc-mj6" src="/assets/images/2024/38-gc-mj6.jpeg"></p>
+<h3 id="dalle-3-510_2">DALLE-3 (5/10)</h3>
+<p><img alt="38-gc-dl" src="/assets/images/2024/38-gc-dl.jpeg"></p>
+<hr>
+<h3 id="prompt-39">Prompt #39</h3>
+<p>logo of two letters &ldquo;AI&rdquo; in Knitted STYLE</p>
+<h3 id="midjourney-v6-7510_1">Midjourney V6 (7.5/10)</h3>
+<p><img alt="39-gc-mj6" src="/assets/images/2024/39-gc-mj6.jpeg"></p>
+<h3 id="dalle-3-8510_2">DALLE-3 (8.5/10)</h3>
+<p><img alt="39-gc-dl" src="/assets/images/2024/39-gc-dl.jpeg"></p>
+<hr>
+<h3 id="prompt-40">Prompt #40</h3>
+<p>Gold coins were scattered on the wet rock steps, and a golden sunshine shone down on an area, reflecting the glittering gold,Photorealistic, Global Illumination, 32k, Ray Tracing Ambient Occlusion, Hyperrealistic</p>
+<h3 id="midjourney-v6-1010_11">Midjourney V6 (10/10)</h3>
+<p><img alt="40-gc-mj6" src="/assets/images/2024/40-gc-mj6.jpeg"></p>
+<h3 id="dalle-3-810_7">DALLE-3 (8/10)</h3>
+<p><img alt="40-gc-dl" src="/assets/images/2024/40-gc-dl.jpeg"></p>
+<hr>
+<h3 id="prompt-41">Prompt #41</h3>
+<p>this logo won the best logo of all time award</p>
+<h3 id="midjourney-v6-810_7">Midjourney V6 (8/10)</h3>
+<p><img alt="41-gc-mj6" src="/assets/images/2024/41-gc-mj6.jpeg"></p>
+<h3 id="dalle-3-810_8">DALLE-3 (8/10)</h3>
+<p><img alt="41-gc-dl" src="/assets/images/2024/41-gc-dl.jpeg"></p>
+<hr>
+<h3 id="prompt-42">Prompt #42</h3>
+<p>a logo for a software for quality managers using the quality colorus red, green and orange as well as underline the brand values: undestanding, relationship and dependability as well as the characteristics friendly, easy, masculine, serious and industrial</p>
+<h3 id="midjourney-v6-710_3">Midjourney V6 (7/10)</h3>
+<p><img alt="42-gc-mj6" src="/assets/images/2024/42-gc-mj6.jpeg"></p>
+<h3 id="dalle-3-310">DALLE-3 (3/10)</h3>
+<p><img alt="42-gc-dl" src="/assets/images/2024/42-gc-dl.jpeg"></p>
+<hr>
+<h3 id="prompt-43">Prompt #43</h3>
+<p>a simple vector art symbol logo for a flower and fire,, and war. No color. No watermark. White background, black lines only. Simple line art.</p>
+<h3 id="midjourney-v6-910_6">Midjourney V6 (9/10)</h3>
+<p><img alt="43-gc-mj6" src="/assets/images/2024/43-gc-mj6.jpeg"></p>
+<h3 id="dalle-3-610_8">DALLE-3 (6/10)</h3>
+<p><img alt="43-gc-dl" src="/assets/images/2024/43-gc-dl.jpeg"></p>
+<hr>
+<h3 id="prompt-44">Prompt #44</h3>
+<p>a sharply-focused black and white painting based on a squared-shaped face with various surrounding geometric shapes, in the style of hundertwasser, in the style of elke trittel, mechanical whimsy, columns and totems, mixed-media sculptor, folk art painting, yaka art, collage and mixed media</p>
+<h3 id="midjourney-v6-910_7">Midjourney V6 (9/10)</h3>
+<p><img alt="44-gc-mj6" src="/assets/images/2024/44-gc-mj6.jpeg"></p>
+<h3 id="dalle-3-510_3">DALLE-3 (5/10)</h3>
+<p><img alt="44-gc-dl" src="/assets/images/2024/44-gc-dl.jpeg"></p>
+<hr>
+<h3 id="prompt-45">Prompt #45</h3>
+<p>a complex logo for a university named Princess X for Science</p>
+<h3 id="midjourney-v6-710_4">Midjourney V6 (7/10)</h3>
+<p><img alt="45-gc-mj6" src="/assets/images/2024/45-gc-mj6.jpeg"></p>
+<h3 id="dalle-3-710_6">DALLE-3 (7/10)</h3>
+<p><img alt="45-gc-dl" src="/assets/images/2024/45-gc-dl.jpeg"></p>
+<hr>
+<h3 id="prompt-46">Prompt #46</h3>
+<p>Risographic style geometric</p>
+<h3 id="midjourney-v6-1010_12">Midjourney V6 (10/10)</h3>
+<p><img alt="46-gc-mj6" src="/assets/images/2024/46-gc-mj6.jpeg"></p>
+<h3 id="dalle-3-6510_2">DALLE-3 (6.5/10)</h3>
+<p><img alt="46-gc-dl" src="/assets/images/2024/46-gc-dl.jpeg"></p>
+<hr>
+<h3 id="prompt-47">Prompt #47</h3>
+<p>An abstract work of art consisting of various geometric figures, vignetting photography, photo grade, 2K, hyper quality</p>
+<h3 id="midjourney-v6-1010_13">Midjourney V6 (10/10)</h3>
+<p><img alt="47-gc-mj6" src="/assets/images/2024/47-gc-mj6.jpeg"></p>
+<h3 id="dalle-3-610_9">DALLE-3 (6/10)</h3>
+<p><img alt="47-gc-dl" src="/assets/images/2024/47-gc-dl.jpeg"></p>
+<hr>
+<h3 id="prompt-48">Prompt #48</h3>
+<p>Create an illustration of a protractor, a triangle, and a square. Use simple shapes and clear lines.</p>
+<h3 id="midjourney-v6-810_8">Midjourney V6 (8/10)</h3>
+<p><img alt="48-gc-mj6" src="/assets/images/2024/48-gc-mj6.jpeg"></p>
+<h3 id="dalle-3-710_7">DALLE-3 (7/10)</h3>
+<p><img alt="48-gc-dl" src="/assets/images/2024/48-gc-dl.jpeg"></p>
+<hr>
+<h3 id="prompt-49">Prompt #49</h3>
+<p>universe</p>
+<h3 id="midjourney-v6-910_8">Midjourney V6 (9/10)</h3>
+<p><img alt="49-gc-mj6" src="/assets/images/2024/49-gc-mj6.jpeg"></p>
+<h3 id="dalle-3-810_9">DALLE-3 (8/10)</h3>
+<p><img alt="49-gc-dl" src="/assets/images/2024/49-gc-dl.jpeg"></p>
+<hr>
+<h3 id="prompt-50">Prompt #50</h3>
+<p>There is a yellow bird in the middle of the black flock, comic</p>
+<h3 id="midjourney-v6-1010_14">Midjourney V6 (10/10)</h3>
+<p><img alt="50-gc-mj6" src="/assets/images/2024/50-gc-mj6.jpeg"></p>
+<h3 id="dalle-3-7510_6">DALLE-3 (7.5/10)</h3>
+<p><img alt="50-gc-dl" src="/assets/images/2024/50-gc-dl.jpeg"></p>
+<hr>
+<h3 id="prompt-51">Prompt #51</h3>
+<p>Pareidolia, scifi pulp magazine style, by Lisa Frank</p>
+<h3 id="midjourney-v6-710_5">Midjourney V6 (7/10)</h3>
+<p><img alt="51-gc-mj6" src="/assets/images/2024/51-gc-mj6.jpeg"></p>
+<h3 id="dalle-3-510_4">DALLE-3 (5/10)</h3>
+<p><img alt="51-gc-dl" src="/assets/images/2024/51-gc-dl.jpeg"></p>
+<hr>
+<h3 id="prompt-52">Prompt #52</h3>
+<p>Drawing on paper with colored pencils. The kitten is cute cartoon, smiling and sitting on the grass. Against the background of the landscape</p>
+<h3 id="midjourney-v6-1010_15">Midjourney V6 (10/10)</h3>
+<p><img alt="52-gc-mj6" src="/assets/images/2024/52-gc-mj6.jpeg"></p>
+<h3 id="dalle-3-6510_3">DALLE-3 (6.5/10)</h3>
+<p><img alt="52-gc-dl" src="/assets/images/2024/52-gc-dl.jpeg"></p>
+<hr>
+<div id="conclusion"></div>
+<h1 id="conclusion">Conclusion</h1>
+<p>My rating of the tested models:</p>
+<ol>
+<li><strong>🥇Midjourney V6</strong>: What a great model! I still can&rsquo;t believe we are at a time where we can generate such beautiful and high quality images using AI. If you are looking for beauty, quality, and/or photorealism, this model is your first choice.</li>
+<li><strong>DALLE-3</strong>: This model has less aesthetic outputs than Midjourney but its power lies in its ability to 1) follow details in the prompt which it does better than Midjourney in some cases and 2) deal with text almost perfectly. </li>
+<li><strong>Midjourney V5.2</strong>: Good model but in most cases, V6 gives better images.</li>
+<li><strong>SDXL</strong>: I was a fan of Stability AI&rsquo;s models since 1.5 because they&rsquo;re open source, but when I compare SDXL to Midjourney and DALLE-3, especially the former, the quality gap is VERY wide. However, because SDXL is open source, there are some powerful things you can do with it that you can&rsquo;t do with the other models. For example, you can fine-tune it to generate images in a specific style or you can use Controlnet to control the generation process in many ways.</li>
+</ol>
+<hr>
+<h5 id="disclaimers">Disclaimers</h5>
+<ul>
+<li>I don&rsquo;t claim to compare all top models available. For example, I&rsquo;m using SDXL which is at the pinnacle of open-source models. I know that there are so many SDXL fine-tunings out there that might be better in some areas, but my thinking is that SDXL will capture the essence of those fine-tunings because it&rsquo;s their base.</li>
+<li>As mentioned above, I used prompts collected from different communities. I don&rsquo;t understand every single term used in these prompts, but I understand most of them after spending a lot of time generating images with these models since their launch.</li>
+</ul>
+  </div>
+  <a class="u-url" href="/2024/Revolution-in-Pixels-Comparing-the-Top-AI-Image-Generation-Models.html" hidden></a>
+</article>
+      </div>
+    </main>
+    <footer class="site-footer h-card">
+      <data class="u-url" href="/"></data>
+      <div class="wrapper">
+        <div class="footer-col-wrapper">
+          <div class="social-media-list">
+                <div><a href="https://github.com/ammar1y" target="_blank" rel="noopener"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></div>
+                <div><a href="https://www.linkedin.com/in/ammar-alyousfi/" target="_blank" rel="noopener"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg></a></div>
+                <div><a href="https://www.kaggle.com/ammar111" target="_blank" rel="noopener"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#kaggle"></use></svg></a></div>
+                <div><a href="https://stackoverflow.com/users/2282785/ammar-alyousfi" target="_blank" rel="noopener"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#stackoverflow"></use></svg></a></div>
+                <div><a href="https://www.quora.com/profile/Ammar-Alyousfi" target="_blank" rel="noopener"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#quora"></use></svg></a></div>
+                <div><a href="https://www.instagram.com/ammar.you/" target="_blank" rel="noopener"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#instagram"></use></svg></a></div>
+            <div><a href="/feed.xml"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#rss"></use></svg></a></div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+    <noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif" alt="" referrerpolicy="no-referrer-when-downgrade"></noscript>
+  </body>
+</html>

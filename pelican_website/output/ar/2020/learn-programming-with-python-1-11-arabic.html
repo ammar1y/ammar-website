@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ar">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>تعلم البرمجة بلغة بايثون - الدرس الحادي عشر: الشروط في بايثون | Ammar Alyousfi's Blog</title>
+    <meta name="description" content="في هذا الدرس ستتعرف على الشروط في بايثون: سنعرف معناها واستخداماتها وسنرى أمثلة عنها. باستخدام الجمل الشرطية نبدأ بإضافة شيء من “الذكاء” لبرامجنا، نجعل...">
+    <link rel="alternate" type="application/atom+xml" title="Ammar Alyousfi's Blog" href="/feed.xml">
+    <meta property="og:image" content="/assets/images/2020/pyc-11-1.png">
+    <meta name="propeller" content="b696b73b7a9aef3af58fb8c09ff2ac92">
+    <meta name="p:domain_verify" content="21dc05e499b703d5454dcacfdc85a03e">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <link rel="stylesheet" href="/assets/main_ar.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lateef&display=swap">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-117443607-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);} 
+      gtag('js', new Date());
+      gtag('config', 'UA-117443607-1');
+    </script>
+    <script data-ad-client="ca-pub-7266686207066838" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </head>
+  <body class="rtl">
+    <header class="site-header" role="banner">
+      <div class="wrapper">
+        <div class="site-branding">
+          <a class="site-title-con" rel="author" href="/ar/">
+            <div class="nav-logo">
+              <img style="vertical-align: baseline;" width="19" src="/assets/logo.png" alt="logo">
+            </div>
+            <div class="site-title">مدونة عمار اليوسفي</div>
+          </a>
+        </div>
+        <div class="site-extra-link">
+          <a class="page-link" href="/ar/categories/">التصنيفات</a>
+        </div>
+      </div>
+    </header>
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">تعلم البرمجة بلغة بايثون - الدرس الحادي عشر: الشروط في بايثون</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2020-05-10T00:00:00+04:00" itemprop="datePublished">May 10, 2020</time>
+ • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">Ammar Alyousfi</span></span>        <span class="post-categories"> • <strong>Category: </strong>
+          <a href="/categories/#dwr-tlm-lbrmj-blg-bythwn">دورة تعلم البرمجة بلغة بايثون</a>
+        </span>
+    </p>
+    <p class="post-tags">
+      <strong>Tags: </strong>
+        <a href="/tags/#bythwn">بايثون</a>,        <a href="/tags/#brmj">برمجة</a>,        <a href="/tags/#lgt-brmj">لغات برمجة</a>,        <a href="/tags/#tlm-lbrmj">تعلم البرمجة</a>,        <a href="/tags/#lbrmj-llmbtdyyn">البرمجة للمبتدئين</a>,        <a href="/tags/#tlm-lbrmj-blrby">تعلم البرمجة بالعربي</a>.    </p>
+  </header>
+  <div class="post-content e-content" itemprop="articleBody">
+    <p><img alt="تعلم البرمجة بلغة بايثون - الدرس الحادي عشر: الشروط في بايثون" src="/assets/images/2020/pyc-11-1.png"></p>
+<p>في هذا الدرس ستتعرف على الشروط في بايثون: سنعرف معناها واستخداماتها وسنرى أمثلة عنها.</p>
+<p>باستخدام الجمل الشرطية نبدأ بإضافة شيء من &ldquo;الذكاء&rdquo; لبرامجنا، نجعل برنامجنا يختار الذهاب لليمين أو اليسار بناء على حدث معين. الجمل الشرطية هي جزء أساسي في جعل أجهزة الحاسب تبدو ذكية. ومفتاح الجمل الشرطية هي if وهي الكلمة المحجوزة التي تعلن أننا نريد أن نفعل شيئاً شرطياً.</p>
+<p>مثال:</p>
+<div class="highlight"><pre><span></span><code><span class="n">x</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Smaller&#39;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">20</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Bigger&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Finished&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>في المثال أعلاه الشرط الأول هو <code>x &lt; 10</code>. فإذا تحقق الشرط وكانت قيمة <code>x</code> أقل من 10 يقوم البرنامج بتنفيذ الجملة التالية:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Smaller&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>وإذا لم يتحقق الشرط فإن البرنامج يتجاوز الجملة ولا يقوم بتنفيذها. </p>
+<p>لاحظ كيف أن الجملة التابعة للشرط الأول منزاحة قليلاً إلى اليمين. هذا الانزياح يدل على أن الجملة تابعة لجملة <code>if</code> التي فوقها. يمكن أن يكون لدينا أكثر من جملة واحدة لتنفيذها إذا تحقق الشرط، لكن في مثالنا هذا لدينا جملة واحدة.</p>
+<p>إذن وبكلمات أخرى: عند جملة if يتم طرح سؤال: &ldquo;<code>x</code> أقل من 10؟&rdquo; وجواب هذا السؤال إما &ldquo;صحيح&rdquo; (True) أو &ldquo;خطأ&rdquo; (False). إذا كان الجواب True يتم تنفيذ الجمل التابعة للشرط أما إذا كان الجواب False يتم تجاوزها.</p>
+<p>في المثال: قيمة <code>x</code> عند التحقق من الشرط هي 5 وهي أقل من 10 لذلك سينفذ البرنامج الجملة التابعة للشرط ويطبع <code>"Smaller"</code>.</p>
+<p>بالنسبة للشرط الثاني: <code>x &lt; 20</code> فإن هذا الشرط غير متحقق في مثالنا بما أن قيمة <code>x</code> هي 5 ولذلك فالبرنامج لن ينفذ الجملة المرتبطة بهذا الشرط وهي:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Bigger&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>بالنسبة للأمر الأخير:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Finish&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>فسيتم تنفيذه دائماً مهما كانت قيمة <code>x</code> لأنه غير متعلق بأي شرط.</p>
+<p>كما رأينا في المثال فإن الجمل التابعة لشرط معين تكون منزاحة إلى اليمين قليلاً حتى تعرف بايثون أن هذه الجمل تابعة لذلك الشرط. مقدار الانزياح الموصى به هو 4 فراغات.</p>
+<p>ولتوضيح المثال السابق أكثر نعود لهذه الصورة والتي رأيناها في درس سابق عندما شرحنا النمط الشرطي في برامج بايثون:</p>
+<p><img alt="" src="/assets/images/2020/pyc-11-2.png"></p>
+<h2 id="_1">فيديو الدرس</h2>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/HzYDIpMSVBc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+  <a class="u-url" href="/ar/2020/learn-programming-with-python-1-11-arabic.html" hidden></a>
+</article>
+      </div>
+    </main>
+    <footer class="site-footer h-card">
+      <data class="u-url" href="/"></data>
+      <div class="wrapper">
+        <div class="footer-col-wrapper">
+          <div class="social-media-list">
+                <div><a href="https://github.com/ammar1y" target="_blank" rel="noopener"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></div>
+                <div><a href="https://www.linkedin.com/in/ammar-alyousfi/" target="_blank" rel="noopener"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg></a></div>
+                <div><a href="https://www.kaggle.com/ammar111" target="_blank" rel="noopener"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#kaggle"></use></svg></a></div>
+                <div><a href="https://stackoverflow.com/users/2282785/ammar-alyousfi" target="_blank" rel="noopener"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#stackoverflow"></use></svg></a></div>
+                <div><a href="https://www.quora.com/profile/Ammar-Alyousfi" target="_blank" rel="noopener"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#quora"></use></svg></a></div>
+                <div><a href="https://www.instagram.com/ammar.you/" target="_blank" rel="noopener"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#instagram"></use></svg></a></div>
+            <div><a href="/feed.xml"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#rss"></use></svg></a></div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+    <noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif" alt="" referrerpolicy="no-referrer-when-downgrade"></noscript>
+  </body>
+</html>
