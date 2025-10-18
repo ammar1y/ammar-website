@@ -1,6 +1,18 @@
-_site/
+# Build output
+output/
+
+# Caches
 .sass-cache/
+.cache/
 .jekyll-cache/
 .jekyll-metadata
-.DS_store
-other/
+__pycache__/
+*.py[cod]
+
+# Environments
+.venv/
+venv/
+.env
+
+# OS files
+.DS_Store
